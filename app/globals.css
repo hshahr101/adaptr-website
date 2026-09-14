@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+/* 1. Enable Tailwind v4 class-based dark mode */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* 2. ADAPTR Brand Color Palette */
+@theme {
+  --color-gunmetal: #293241;
+  --color-bdazzled: #3D5A80;
+  --color-cerulean: #98C1D9;
+  --color-lightcyan: #E0FBFC;
+  --color-sienna: #EE6C4D;
+}
+
+/* 3. Theme-aware CSS Variables */
+:root {
+  --background: #ffffff;
+  --foreground: #293241;
+}
+
+.dark {
+  --background: #293241;
+  --foreground: #E0FBFC;
+}
+
+/* 4. Font Stack Mapping (Outfit, Inter, Roboto) */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans), system-ui, sans-serif;
+  --font-heading: var(--font-heading), system-ui, sans-serif;
+  --font-roboto: var(--font-roboto), system-ui, sans-serif;
+}
+
+/* 5. Smooth synchronized transitions & Body Defaults */
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
+}
