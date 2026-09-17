@@ -110,8 +110,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="#datasheet" className="hover:text-sienna dark:hover:text-lightcyan transition-colors">
-                  Resources
+                <Link href="/about#team" className="hover:text-sienna dark:hover:text-lightcyan transition-colors">
+                  Team
                 </Link>
               </li>
             </ul>
@@ -132,7 +132,7 @@ export default function Footer() {
               </a>
               <div className="flex items-start gap-2 text-bdazzled dark:text-cerulean/80">
                 <MapPin className="w-4 h-4 text-sienna shrink-0 mt-0.5" />
-                <span>Toronto, Canada</span>
+                <span>411 Richmond St E, Toronto, CA</span>
               </div>
             </div>
 

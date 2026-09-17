@@ -36,7 +36,7 @@ interface ScheduleMeetingModalProps {
 function ScheduleMeetingModal({ isOpen, onClose }: ScheduleMeetingModalProps) {
   if (!isOpen) return null;
 
-  const bookingUrl = "https://calendar.app.google/7yNUBYK9pRdUm8Kk7";
+  const bookingUrl = "https://calendar.app.google/WTLgMGZZQGBJaosm7";
 
   return (
     <div 
@@ -279,7 +279,7 @@ export default function AdaptiveMGCSPage() {
       {/* ==================================================================== */}
       {/* SECTION 2: FIELD-PROVEN CAPABILITIES GRID                           */}
       {/* ==================================================================== */}
-      <section className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30 bg-lightcyan/10 dark:bg-gunmetal/50">
+      <section id = "functionalities" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30 bg-lightcyan/10 dark:bg-gunmetal/50">
         <div className="max-w-7xl mx-auto space-y-12">
           
           <div className="text-center space-y-4 max-w-3xl mx-auto">
@@ -389,7 +389,7 @@ export default function AdaptiveMGCSPage() {
       {/* ==================================================================== */}
       {/* SECTION 4: APPLICATION AREAS                                         */}
       {/* ==================================================================== */}
-      <section className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30 bg-lightcyan/10 dark:bg-gunmetal/50">
+      <section id = "applications" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30 bg-lightcyan/10 dark:bg-gunmetal/50">
         <div className="max-w-7xl mx-auto space-y-12">
           
           <div className="text-center space-y-4 max-w-3xl mx-auto">

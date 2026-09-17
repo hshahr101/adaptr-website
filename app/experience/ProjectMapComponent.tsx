@@ -140,8 +140,8 @@ const mapProjects = [
     location: 'Montana-Alberta Border (AB / MT)',
     lat: 49.000,
     lng: -111.900,
-    type: 'Transmission Planning Studies',
-    details: 'Executed power system modeling and dynamic stability analysis for the Montana-Alberta Tie Line (MATL) merchant interconnection.',
+    type: 'Technical Compliance Review',
+    details: 'Technical review of power system modeling and dynamic stability analysis for the Montana-Alberta Tie Line (MATL) merchant interconnection.',
   },
   {
     id: 13,
@@ -159,7 +159,7 @@ const mapProjects = [
     lat: 57.500,
     lng: 1.500,
     type: 'System Impact & Reliability Studies',
-    details: 'Conducted system impact, transient stability, and fault ride-through studies for off-grid electrification of offshore platform power systems.',
+    details: 'Conducted system impact studies for off-grid electrification of offshore platform power systems.',
   },
   {
     id: 15,
@@ -167,8 +167,26 @@ const mapProjects = [
     location: 'New England, US',
     lat: 44.2,
     lng: -70.3,
-    type: 'Tehcnical Compliance Review',
+    type: 'Technical Compliance Review',
     details: 'Performed New England grid code review to vet requirements and obligations for wind turbine inverter systems for a major OEM.',
+  },
+    {
+    id: 16,
+    name: 'Eastern King Wind Farm',
+    location: 'PEI, CA',
+    lat: 46.43,
+    lng: -62.09,
+    type: 'Power Systems & Smart Grid Studies',
+    details: 'Performed Harmonic Load Flow Study for a wind farm project.',
+  },
+  {
+    id: 17,
+    name: 'Scioto Ridge Solar Project',
+    location: 'Ohio, US',
+    lat: 40.56,
+    lng: -83.73,
+    type: 'Power Systems & Smart Grid Studies',
+    details: 'Performed Harmonic Load Flow Study for a 100MW+ solar project.',
   },
 ];
 

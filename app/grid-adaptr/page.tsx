@@ -32,7 +32,7 @@ interface ScheduleMeetingModalProps {
 function ScheduleMeetingModal({ isOpen, onClose }: ScheduleMeetingModalProps) {
   if (!isOpen) return null;
 
-  const bookingUrl = "https://calendar.app.google/7yNUBYK9pRdUm8Kk7";
+  const bookingUrl = "https://calendar.app.google/WTLgMGZZQGBJaosm7";
 
   return (
     <div 
@@ -186,7 +186,7 @@ export default function GridAdaptrPage() {
       {/* ==================================================================== */}
       {/* SECTION 2: PROBLEM VS. SOLUTION (DECOUPLING & COMPLIANCE)            */}
       {/* ==================================================================== */}
-      <section className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30 bg-lightcyan/10 dark:bg-gunmetal/50">
+      <section id="functionalities" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30 bg-lightcyan/10 dark:bg-gunmetal/50">
         <div className="max-w-7xl mx-auto space-y-12">
           
           <div className="text-center space-y-4 max-w-3xl mx-auto">
@@ -253,7 +253,7 @@ export default function GridAdaptrPage() {
       {/* ==================================================================== */}
       {/* SECTION 3: TECHNICAL CAPABILITIES & ARCHITECTURE                     */}
       {/* ==================================================================== */}
-      <section className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30 bg-lightcyan/10 dark:bg-gunmetal/50">
+      <section id="architecture" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30 bg-lightcyan/10 dark:bg-gunmetal/50">
         <div className="max-w-7xl mx-auto space-y-12">
           
           <div className="text-center space-y-4 max-w-3xl mx-auto">
@@ -468,7 +468,7 @@ export default function GridAdaptrPage() {
       {/* ==================================================================== */}
       {/* SECTION 5: STAKEHOLDER BENEFIT MATRIX                                */}
       {/* ==================================================================== */}
-     <section className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30">
+     <section id="applications" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30">
         <div className="max-w-7xl mx-auto space-y-12">
           
           <div className="text-center space-y-4 max-w-3xl mx-auto">

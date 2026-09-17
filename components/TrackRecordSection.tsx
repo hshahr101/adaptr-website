@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   ShieldCheck,
   Award,
@@ -11,8 +12,84 @@ import {
   Quote,
   CheckCircle2,
   Globe2,
-  Cpu
+  Cpu,
+  ArrowUpRight,
+  ArrowRight,
+  Video,
+  X,
+  ExternalLink
 } from 'lucide-react';
+
+// ─── GOOGLE CALENDAR APPOINTMENT SCHEDULING MODAL ─────────────────────────
+interface ScheduleMeetingModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+function ScheduleMeetingModal({ isOpen, onClose }: ScheduleMeetingModalProps) {
+  if (!isOpen) return null;
+
+  const bookingUrl = "https://calendar.app.google/WTLgMGZZQGBJaosm7";
+
+  return (
+    <div 
+      className="fixed inset-0 w-screen h-screen bg-gunmetal/80 backdrop-blur-md flex items-center justify-center z-[99999] p-4"
+      onClick={onClose}
+    >
+      <div 
+        className="bg-gunmetal border border-cerulean/30 w-full max-w-3xl rounded-3xl p-6 sm:p-8 shadow-2xl text-lightcyan relative max-h-[92vh] flex flex-col justify-between"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="flex justify-between items-start mb-4 border-b border-cerulean/20 pb-4 shrink-0">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-1.5 bg-sienna/15 border border-sienna/30 px-3 py-1 rounded-full text-[11px] font-bold text-sienna uppercase tracking-wider">
+              <Video className="w-3.5 h-3.5" />
+              <span>30-Min Technical Consultation</span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-black text-white">
+              Schedule a Meeting
+            </h2>
+            <p className="text-xs text-cerulean/80">
+              Select an available time directly below to schedule a 30-minute Google Meet consultation with ADAPTR engineers.
+            </p>
+          </div>
+          <button 
+            onClick={onClose}
+            className="text-cerulean/70 hover:text-white p-1 rounded-lg hover:bg-cerulean/10 transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Embedded Google Calendar Appointment Page */}
+        <div className="w-full flex-1 min-h-[480px] rounded-2xl overflow-hidden bg-white border border-cerulean/20 shadow-inner relative">
+          <iframe
+            src={bookingUrl}
+            className="w-full h-full min-h-[480px] border-0"
+            title="Google Calendar Appointment Scheduling"
+          />
+        </div>
+
+        {/* Footer Fallback Link */}
+        <div className="pt-4 border-t border-cerulean/20 mt-4 flex flex-col sm:flex-row justify-between items-center gap-3 shrink-0 text-xs">
+          <span className="text-cerulean/80 text-[11px]">
+            Having trouble viewing the calendar frame above?
+          </span>
+          <a
+            href={bookingUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-sienna font-bold hover:underline"
+          >
+            <span>Open Google Calendar Page in New Tab</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 // Key Stakeholder Logos & Metadata
 const STAKEHOLDERS = [
@@ -196,7 +273,6 @@ function ProjectMap() {
             <div class="font-sans p-1 text-gunmetal">
               <strong class="text-xs text-sienna font-extrabold uppercase tracking-wide block">${p.name}</strong>
               <span class="text-[11px] font-semibold text-gray-700 block">${p.location}</span>
-              
             </div>
           `,
           {
@@ -218,6 +294,8 @@ function ProjectMap() {
 }
 
 export default function TrackRecordSection() {
+  const [isMeetingModalOpen, setIsMeetingModalOpen] = useState(false);
+
   return (
     <section className="relative bg-white dark:bg-gunmetal py-20 px-6 sm:px-12 overflow-hidden border-b border-cerulean/20 dark:border-bdazzled/30 transition-colors">
 
@@ -276,7 +354,7 @@ export default function TrackRecordSection() {
         </div>
 
         {/* ==================================================================== */}
-        {/* SECTION 2: GLOBAL TRACK RECORD CARD (UPDATED WITH MAP & 2x2 GRID)     */}
+        {/* SECTION 2: GLOBAL TRACK RECORD CARD                                  */}
         {/* ==================================================================== */}
         <div className="bg-white/80 dark:bg-gunmetal border border-cerulean/20 dark:border-bdazzled/40 rounded-3xl p-6 sm:p-10 shadow-xl space-y-8 backdrop-blur-sm">
 
@@ -292,15 +370,20 @@ export default function TrackRecordSection() {
               </h3>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3 text-xs font-sans text-bdazzled dark:text-cerulean">
-              <span className="flex items-center gap-1.5 bg-lightcyan/30 dark:bg-bdazzled/30 px-3.5 py-2 rounded-xl border border-cerulean/20 font-bold">
-                <Globe2 className="w-4 h-4 text-sienna" />
-                Worldwide Grid Experience
-              </span>
+            {/* Interactive Experience Page Button */}
+            <div className="flex flex-wrap items-center gap-3 text-xs font-sans">
+              <Link
+                href="/experience"
+                className="inline-flex items-center gap-2 bg-lightcyan/40 dark:bg-bdazzled/30 hover:bg-sienna hover:text-white dark:hover:bg-sienna dark:hover:text-white text-gunmetal dark:text-lightcyan px-4 py-2 rounded-xl border border-cerulean/30 dark:border-cerulean/20 font-bold transition-all shadow-sm hover:scale-[1.02] cursor-pointer group"
+              >
+                <Globe2 className="w-4 h-4 text-sienna group-hover:text-white transition-colors" />
+                <span>Worldwide Grid Experience</span>
+                <ArrowUpRight className="w-4 h-4 text-sienna dark:text-cerulean group-hover:text-white transition-colors" />
+              </Link>
             </div>
           </div>
 
-          {/* 2-Column Layout (Left: Paragraph + 2x2 Metric Grid | Right: Leaflet Map) */}
+          {/* 2-Column Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
 
             {/* Left Column */}
@@ -351,7 +434,7 @@ export default function TrackRecordSection() {
         </div>
 
         {/* ==================================================================== */}
-        {/* SECTION 3: PROJECT SPOTLIGHT CARD (HEIGHT MATCHED COLUMNS)          */}
+        {/* SECTION 3: PROJECT SPOTLIGHT CARD (WITH LINK TO A-MGCS)            */}
         {/* ==================================================================== */}
         <div className="bg-white/80 dark:bg-gunmetal border border-cerulean/20 dark:border-bdazzled/40 rounded-3xl p-6 sm:p-10 shadow-xl space-y-8 backdrop-blur-sm">
 
@@ -376,13 +459,23 @@ export default function TrackRecordSection() {
                 <Zap className="w-3.5 h-3.5 text-sienna" />
                 Proponent: Natural Forces
               </span>
+
+              {/* Link Button to A-MGCS Page */}
+              <Link
+                href="/amgcs"
+                className="inline-flex items-center gap-1.5 bg-sienna hover:bg-sienna/90 text-white font-bold text-xs px-3.5 py-1.5 rounded-lg transition-all shadow-md hover:scale-[1.02] cursor-pointer"
+              >
+                <Cpu className="w-3.5 h-3.5" />
+                <span>Explore Adaptive MGCS</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </Link>
             </div>
           </div>
 
           {/* Equal Height Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
 
-            {/* Left Visual Column: Flex-1 Image + Fixed Topology Block */}
+            {/* Left Visual Column */}
             <div className="lg:col-span-6 flex flex-col justify-between space-y-4 h-full">
 
               {/* Featured Project Image */}
@@ -409,10 +502,13 @@ export default function TrackRecordSection() {
                   </div>
 
                   {/* ADAPTR Controller Center */}
-                  <div className="bg-sienna text-white p-3 rounded-xl shadow-md text-center border border-sienna">
-                    <Cpu className="w-6 h-6 mx-auto mb-1" />
+                  <Link 
+                    href="/amgcs"
+                    className="bg-sienna text-white p-3 rounded-xl shadow-md text-center border border-sienna hover:scale-105 transition-transform group"
+                  >
+                    <Cpu className="w-6 h-6 mx-auto mb-1 group-hover:rotate-12 transition-transform" />
                     <span className="text-[10px] font-extrabold uppercase tracking-wide block">ADAPTR MGCS</span>
-                  </div>
+                  </Link>
 
                   {/* Renewables */}
                   <div className="space-y-1.5">
@@ -433,7 +529,7 @@ export default function TrackRecordSection() {
 
             </div>
 
-            {/* Right Details Column: Defines Row Height */}
+            {/* Right Details Column */}
             <div className="lg:col-span-6 flex flex-col justify-between space-y-6 h-full">
 
               <div className="space-y-6">
@@ -484,7 +580,38 @@ export default function TrackRecordSection() {
 
         </div>
 
+        {/* ==================================================================== */}
+        {/* SECTION 4: CALL TO ACTION (CTA BANNER)                              */}
+        {/* ==================================================================== */}
+        <div className="max-w-5xl mx-auto bg-gradient-to-br from-gunmetal to-bdazzled dark:from-gunmetal/90 dark:to-bdazzled/40 text-lightcyan rounded-3xl p-8 sm:p-12 border border-cerulean/30 shadow-2xl text-center space-y-8 relative overflow-hidden">
+          <div className="space-y-4 max-w-2xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+              All great initiaves start with a conversation.
+            </h2>
+            <p className="text-base text-cerulean/90 font-medium leading-relaxed">
+              Connect with us to learn more about ADAPTR and how we could work together.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
+            <button
+              type="button"
+              onClick={() => setIsMeetingModalOpen(true)}
+              className="inline-flex items-center justify-center gap-2 bg-sienna hover:bg-sienna/90 text-white font-bold text-base px-8 py-3.5 rounded-xl transition-all shadow-lg shadow-sienna/20 hover:scale-[1.02] cursor-pointer"
+            >
+              <span>Schedule Intro Meeting</span>
+              <ArrowRight className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
       </div>
+
+      {/* Google Calendar Meeting Scheduler Modal */}
+      <ScheduleMeetingModal
+        isOpen={isMeetingModalOpen}
+        onClose={() => setIsMeetingModalOpen(false)}
+      />
     </section>
   );
 }

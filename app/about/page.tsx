@@ -31,7 +31,7 @@ interface ScheduleMeetingModalProps {
 function ScheduleMeetingModal({ isOpen, onClose }: ScheduleMeetingModalProps) {
   if (!isOpen) return null;
 
-  const bookingUrl = "https://calendar.app.google/7yNUBYK9pRdUm8Kk7";
+  const bookingUrl = "https://calendar.app.google/WTLgMGZZQGBJaosm7";
 
   return (
     <div 
@@ -793,41 +793,109 @@ export default function AboutPage() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECTION 6: VISION & MISSION CARDS                                    */}
+      {/* SECTION 6: VISION, MISSION & APPROACH (PORTRAIT IMAGE LAYOUT)        */}
       {/* ==================================================================== */}
-      <section className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30">
+      <section id="vision" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30">
         <div className="max-w-7xl mx-auto space-y-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          {/* Section Header */}
+          <div className="text-center space-y-4 max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-2 bg-lightcyan/30 dark:bg-bdazzled/40 border border-cerulean/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-sienna uppercase tracking-wider">
+              <span>Our Foundational Purpose</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-4xl font-extrabold tracking-tight text-gunmetal dark:text-lightcyan">
+              Vision, Mission & Approach
+            </h2>
+            <p className="text-base text-bdazzled dark:text-cerulean/90 font-medium leading-relaxed">
+              Guiding our technology development and strategic direction to power growth and prosperity everywhere.
+            </p>
+          </div>
+
+          {/* Side-by-Side Grid Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
             
-            <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 p-8 sm:p-10 rounded-2xl space-y-4 shadow-xl">
-              <div className="w-10 h-10 rounded-xl bg-sienna/10 flex items-center justify-center text-sienna">
-                <Compass className="w-5 h-5" />
+            {/* Left Column: Tall Portrait Image */}
+            <div className="lg:col-span-5 relative rounded-3xl overflow-hidden border border-cerulean/20 dark:border-bdazzled/40 shadow-xl min-h-[440px] lg:min-h-[540px] flex flex-col justify-end bg-gunmetal">
+              <Image
+                src="/images/wind_indigenous.jpg"
+                alt="Community Clean Energy and Wind Turbine Development"
+                fill
+                sizes="(max-width: 1024px) 100vw, 40vw" 
+                className="object-cover hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-gunmetal/90 via-gunmetal/20 to-transparent p-6 sm:p-8 flex flex-col justify-end text-lightcyan z-10">
+
+                <h3 className="text-xl sm:text-2xl font-black text-white">
+                  Powering Prosperity
+                </h3>
+                <p className="text-xs text-cerulean/90 font-medium mt-1">
+                  With energy solutions of today and tomorrow.
+                </p>
               </div>
-              <div className="text-sienna font-extrabold text-xs tracking-widest uppercase">Vision</div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-gunmetal dark:text-lightcyan">
-                Drive Prosperity
-              </h2>
-              <p className="text-sm sm:text-base text-gunmetal/80 dark:text-lightcyan/80 leading-relaxed font-medium">
-                ADAPTR aspires to bring energy solutions with the right mix of priorities to everyone, everywhere, expanding clean energy use to unlock economic opportunity for generators, utilities, and industrial consumers.
-              </p>
             </div>
 
-            <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 p-8 sm:p-10 rounded-2xl space-y-4 shadow-xl">
-              <div className="w-10 h-10 rounded-xl bg-cerulean/10 flex items-center justify-center text-cerulean">
-                <Target className="w-5 h-5" />
+            {/* Right Column: Stacked Vision, Mission & Approach Cards */}
+            <div className="lg:col-span-7 flex flex-col justify-between space-y-4">
+              
+              {/* Vision Card */}
+              <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 p-6 sm:p-7 rounded-2xl space-y-3 shadow-md transition-all hover:border-sienna/40">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-sienna/10 flex items-center justify-center text-sienna shrink-0">
+                    <Compass className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-sienna font-extrabold text-[10px] tracking-widest uppercase block">Vision</span>
+                    <h3 className="text-xl sm:text-2xl font-extrabold text-gunmetal dark:text-lightcyan">
+                      Drive Prosperity
+                    </h3>
+                  </div>
+                </div>
+                <p className="text-xs sm:text-sm text-gunmetal/80 dark:text-lightcyan/80 leading-relaxed font-medium">
+                  ADAPTR aspires to bring energy solutions with the right mix of priorities to everyone, everywhere, and expand clean energy use to drive prosperity.
+                </p>
               </div>
-              <div className="text-sienna font-extrabold text-xs tracking-widest uppercase">Mission</div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-gunmetal dark:text-lightcyan">
-                Evolve Energy Delivery
-              </h2>
-              <p className="text-sm sm:text-base text-gunmetal/80 dark:text-lightcyan/80 leading-relaxed font-medium">
-                We aim to expand access to resilient and affordable energy by evolving the delivery of energy from generation sources directly to consumption locations using control solutions and advanced power electronics.
-              </p>
+
+              {/* Mission Card */}
+              <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 p-6 sm:p-7 rounded-2xl space-y-3 shadow-md transition-all hover:border-cerulean/40">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-cerulean/10 flex items-center justify-center text-cerulean shrink-0">
+                    <Target className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-cerulean font-extrabold text-[10px] tracking-widest uppercase block">Mission</span>
+                    <h3 className="text-xl sm:text-2xl font-extrabold text-gunmetal dark:text-lightcyan">
+                      Evolve Energy Delivery
+                    </h3>
+                  </div>
+                </div>
+                <p className="text-xs sm:text-sm text-gunmetal/80 dark:text-lightcyan/80 leading-relaxed font-medium">
+                  We aim to expand access to resilient and affordable energy by evolving the delivery of energy from generation sources to consumption locations.
+                </p>
+              </div>
+
+              {/* Approach Card */}
+              <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 p-6 sm:p-7 rounded-2xl space-y-3 shadow-md transition-all hover:border-sienna/40">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-sienna/10 flex items-center justify-center text-sienna shrink-0">
+                    <Workflow className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-sienna font-extrabold text-[10px] tracking-widest uppercase block">Approach</span>
+                    <h3 className="text-xl sm:text-2xl font-extrabold text-gunmetal dark:text-lightcyan">
+                      Build Enabling Technologies
+                    </h3>
+                  </div>
+                </div>
+                <p className="text-xs sm:text-sm text-gunmetal/80 dark:text-lightcyan/80 leading-relaxed font-medium">
+                  We provide control solutions and advanced power electronics to generators and utilities while innovating technologies that help to shape energy delivery transition.
+                </p>
+              </div>
+
             </div>
 
           </div>
 
-          {/* Quote Banner */}
+          {/* Quote Banner 
           <blockquote className="bg-gradient-to-r from-lightcyan/30 via-lightcyan/10 to-transparent dark:from-bdazzled/30 dark:to-gunmetal border-l-4 border-sienna p-8 sm:p-10 rounded-2xl shadow-md space-y-4">
             <Quote className="w-8 h-8 text-sienna/60" />
             <p className="text-lg sm:text-xl italic font-medium text-gunmetal dark:text-lightcyan leading-relaxed">
@@ -836,7 +904,7 @@ export default function AboutPage() {
             <cite className="block text-xs sm:text-sm font-bold text-sienna not-italic uppercase tracking-wider">
               — Siddiqua Begum (Founder&apos;s Mentor & Mother)
             </cite>
-          </blockquote>
+          </blockquote>*/}
 
         </div>
       </section>

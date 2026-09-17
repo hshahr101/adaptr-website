@@ -1,7 +1,6 @@
 'use client';
 
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Dynamic from 'next/dynamic';
 import { 
@@ -11,7 +10,10 @@ import {
   Activity, 
   CheckCircle2,
   Calendar,
-  Quote
+  Quote,
+  Video,
+  X,
+  ExternalLink
 } from 'lucide-react';
 
 // Dynamic import for Leaflet map to prevent SSR "window is not defined" error
@@ -26,6 +28,77 @@ const InteractiveProjectMap = Dynamic(() => import('./ProjectMapComponent'), {
     </div>
   ),
 });
+
+// ─── GOOGLE CALENDAR APPOINTMENT SCHEDULING MODAL ─────────────────────────
+interface ScheduleMeetingModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+function ScheduleMeetingModal({ isOpen, onClose }: ScheduleMeetingModalProps) {
+  if (!isOpen) return null;
+
+  const bookingUrl = "https://calendar.app.google/WTLgMGZZQGBJaosm7";
+
+  return (
+    <div 
+      className="fixed inset-0 w-screen h-screen bg-gunmetal/80 backdrop-blur-md flex items-center justify-center z-[99999] p-4"
+      onClick={onClose}
+    >
+      <div 
+        className="bg-gunmetal border border-cerulean/30 w-full max-w-3xl rounded-3xl p-6 sm:p-8 shadow-2xl text-lightcyan relative max-h-[92vh] flex flex-col justify-between"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="flex justify-between items-start mb-4 border-b border-cerulean/20 pb-4 shrink-0">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-1.5 bg-sienna/15 border border-sienna/30 px-3 py-1 rounded-full text-[11px] font-bold text-sienna uppercase tracking-wider">
+              <Video className="w-3.5 h-3.5" />
+              <span>30-Min Technical Consultation</span>
+            </div>
+            <h2 className="text-xl sm:text-2xl font-black text-white">
+              Schedule a Meeting
+            </h2>
+            <p className="text-xs text-cerulean/80">
+              Select an available time directly below to schedule a 30-minute Google Meet consultation with ADAPTR engineers.
+            </p>
+          </div>
+          <button 
+            onClick={onClose}
+            className="text-cerulean/70 hover:text-white p-1 rounded-lg hover:bg-cerulean/10 transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Embedded Google Calendar Appointment Page */}
+        <div className="w-full flex-1 min-h-[480px] rounded-2xl overflow-hidden bg-white border border-cerulean/20 shadow-inner relative">
+          <iframe
+            src={bookingUrl}
+            className="w-full h-full min-h-[480px] border-0"
+            title="Google Calendar Appointment Scheduling"
+          />
+        </div>
+
+        {/* Footer Fallback Link */}
+        <div className="pt-4 border-t border-cerulean/20 mt-4 flex flex-col sm:flex-row justify-between items-center gap-3 shrink-0 text-xs">
+          <span className="text-cerulean/80 text-[11px]">
+            Having trouble viewing the calendar frame above?
+          </span>
+          <a
+            href={bookingUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-sienna font-bold hover:underline"
+          >
+            <span>Open Google Calendar Page in New Tab</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 interface ClientVerdict {
   id: string;
@@ -90,10 +163,13 @@ const projectDeployments = [
 ];
 
 export default function ExperiencePage() {
-    // Force page to load at the absolute top
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, []);
+  const [isMeetingModalOpen, setIsMeetingModalOpen] = useState(false);
+
+  // Force page to load at the absolute top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen bg-white dark:bg-gunmetal text-gunmetal dark:text-lightcyan transition-colors duration-300">
       
@@ -266,17 +342,24 @@ export default function ExperiencePage() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
-            <Link
-              href="/contact"
+            <button
+              type="button"
+              onClick={() => setIsMeetingModalOpen(true)}
               className="inline-flex items-center justify-center gap-2 bg-sienna hover:bg-sienna/90 text-white font-bold text-base px-8 py-3.5 rounded-xl transition-all shadow-lg shadow-sienna/20 hover:scale-[1.02] cursor-pointer"
             >
               <span>Schedule Technical Consultation</span>
               <ArrowRight className="w-5 h-5" />
-            </Link>
+            </button>
           </div>
 
         </div>
       </section>
+
+      {/* Google Calendar Meeting Scheduler Modal */}
+      <ScheduleMeetingModal
+        isOpen={isMeetingModalOpen}
+        onClose={() => setIsMeetingModalOpen(false)}
+      />
 
     </div>
   );

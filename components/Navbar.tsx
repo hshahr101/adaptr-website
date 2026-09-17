@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Menu, X, ArrowRight, User, Video, ExternalLink } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { Menu, X, ArrowRight, ChevronDown, Video, ExternalLink } from 'lucide-react';
 import ThemeToggle from '@/components/ThemeToggle';
 
 // ─── GOOGLE CALENDAR APPOINTMENT SCHEDULING MODAL ─────────────────────────
@@ -15,7 +16,7 @@ interface ScheduleMeetingModalProps {
 function ScheduleMeetingModal({ isOpen, onClose }: ScheduleMeetingModalProps) {
   if (!isOpen) return null;
 
-  const bookingUrl = "https://calendar.app.google/7yNUBYK9pRdUm8Kk7";
+  const bookingUrl = "https://calendar.app.google/WTLgMGZZQGBJaosm7";
 
   return (
     <div 
@@ -77,17 +78,75 @@ function ScheduleMeetingModal({ isOpen, onClose }: ScheduleMeetingModalProps) {
   );
 }
 
+// ─── NAVIGATION STRUCTURE & SUBHEADINGS ───────────────────────────────────
+interface SubheadingLink {
+  name: string;
+  href: string;
+}
+
+interface NavItem {
+  title: string;
+  href: string;
+  subheadings?: SubheadingLink[];
+}
+
+const navItems: NavItem[] = [
+  {
+    title: 'Grid Adaptr™',
+    href: '/grid-adaptr',
+    subheadings: [
+      { name: 'Core Functionalities', href: '/grid-adaptr#functionalities' },
+      { name: 'Patented Architecture', href: '/grid-adaptr#architecture' },
+      { name: 'Prototype Validation', href: '/grid-adaptr#validation' },
+      { name: 'Application Areas', href: '/grid-adaptr#applications' },
+    ],
+  },
+  {
+    title: 'A-MGCS',
+    href: '/amgcs',
+    subheadings: [
+      { name: 'Proven Functionalities', href: '/amgcs#functionalities' },
+      { name: 'Configuration Options', href: '/amgcs#scopes' },
+      { name: 'Application Areas', href: '/amgcs#applications' },
+    ],
+  },
+  {
+    title: 'Mobile Grid',
+    href: '/mobilegrid',
+  },
+  {
+    title: 'Experience',
+    href: '/experience',
+  },
+  {
+    title: 'About',
+    href: '/about',
+    subheadings: [
+      { name: 'Our Philosophy', href: '/about#hierarchy' },
+      { name: 'Team Members', href: '/about#team' },
+      { name: 'Vision, Mission & Approach', href: '/about#vision' },
+    ],
+  },
+];
+
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMeetingModalOpen, setIsMeetingModalOpen] = useState(false);
+  const [mobileExpandedItem, setMobileExpandedItem] = useState<string | null>(null);
+
+  const pathname = usePathname();
+
+  // Active page's item with subheadings for contextual sub-bar
+  const activeNavItem = navItems.find(
+    (item) => item.href === pathname && item.subheadings && item.subheadings.length > 0
+  );
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 dark:bg-gunmetal/90 backdrop-blur-md border-b border-cerulean/20 dark:border-bdazzled/30 transition-colors duration-300">
+    <header className="sticky top-0 z-50 bg-white/90 dark:bg-gunmetal/95 backdrop-blur-md border-b border-cerulean/20 dark:border-bdazzled/30 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-6 sm:px-12 h-16 flex items-center justify-between">
         
         {/* Adaptive Brand Logo */}
         <Link href="/" className="flex items-center group">
-          {/* Dark Logo for Light Background */}
           <Image
             src="/Logo_dark.png"
             alt="ADAPTR Inc. Logo"
@@ -96,7 +155,6 @@ export default function Navbar() {
             className="h-6 w-auto object-contain block dark:hidden group-hover:scale-105 transition-transform duration-200"
             priority
           />
-          {/* Light Logo for Dark Background */}
           <Image
             src="/Logo_light.png"
             alt="ADAPTR Inc. Logo"
@@ -107,50 +165,57 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Desktop Navigation Links */}
+        {/* Desktop Navigation Links with Dropdown Menus */}
         <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-gunmetal dark:text-cerulean">
-          <Link href="/grid-adaptr" className="hover:text-sienna dark:hover:text-lightcyan transition-colors">
-            Grid Adaptr™
-          </Link>
-          <Link href="/amgcs" className="hover:text-sienna dark:hover:text-lightcyan transition-colors">
-            A-MGCS
-          </Link>
-          <Link href="/mobilegrid" className="hover:text-sienna dark:hover:text-lightcyan transition-colors">
-            Mobile Grid
-          </Link>
-          <Link href="/experience" className="hover:text-sienna dark:hover:text-lightcyan transition-colors">
-            Experience
-          </Link>
-          <Link href="/about" className="hover:text-sienna dark:hover:text-lightcyan transition-colors">
-            About
-          </Link>
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <div key={item.title} className="relative group py-5">
+                <Link
+                  href={item.href}
+                  className={`inline-flex items-center gap-1 transition-colors ${
+                    isActive
+                      ? 'text-sienna font-extrabold'
+                      : 'hover:text-sienna dark:hover:text-lightcyan'
+                  }`}
+                >
+                  <span>{item.title}</span>
+                  {item.subheadings && (
+                    <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 opacity-70" />
+                  )}
+                </Link>
+
+                {/* Dropdown Menu on Hover */}
+                {item.subheadings && (
+                  <div className="absolute top-full left-0 hidden group-hover:block w-56 pt-2 z-50">
+                    <div className="bg-white dark:bg-gunmetal border border-cerulean/20 dark:border-bdazzled/40 rounded-2xl p-2 shadow-xl backdrop-blur-md">
+                      {item.subheadings.map((sub) => (
+                        <Link
+                          key={sub.name}
+                          href={sub.href}
+                          className="block px-3.5 py-2 text-xs font-medium text-gunmetal dark:text-lightcyan hover:bg-lightcyan/40 dark:hover:bg-bdazzled/30 hover:text-sienna rounded-xl transition-colors"
+                        >
+                          {sub.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </nav>
 
-        {/* Header Controls: Free Consultation -> Login -> Theme Toggle */}
+        {/* Header Controls: Free Consultation CTA Button */}
         <div className="hidden md:flex items-center gap-3">
-          
-          {/* 1. Free Consultation CTA Button */}
           <button
             type="button"
             onClick={() => setIsMeetingModalOpen(true)}
-            className="inline-flex items-center gap-2 bg-sienna hover:bg-sienna/90 text-white dark:text-gunmetal font-bold text-sm px-4 sm:px-5 py-2.5 rounded-lg transition-all shadow-md shadow-sienna/10 hover:scale-[1.02] cursor-pointer"
+            className="inline-flex items-center gap-2 bg-sienna hover:bg-sienna/90 text-white font-bold text-sm px-4 sm:px-5 py-2.5 rounded-lg transition-all shadow-md shadow-sienna/10 hover:scale-[1.02] cursor-pointer"
           >
             <span>Free Consultation</span>
             <ArrowRight className="w-4 h-4" />
           </button>
-
-          {/* 2. Login Button */}
-          <Link
-            href="/login"
-            className="inline-flex items-center gap-2 border border-cerulean/30 dark:border-bdazzled/40 bg-lightcyan/20 dark:bg-gunmetal/60 hover:border-sienna/50 text-gunmetal dark:text-cerulean hover:text-sienna dark:hover:text-lightcyan font-semibold text-sm px-4 py-2.5 rounded-lg transition-all"
-          >
-            <User className="w-4 h-4 text-sienna" />
-            <span>Login</span>
-          </Link>
-
-          {/* 3. Light / Dark Theme Toggle */}
-          <ThemeToggle />
-
         </div>
 
         {/* Mobile Menu Toggle & Theme Toggle */}
@@ -166,68 +231,91 @@ export default function Navbar() {
         </div>
       </div>
 
+      {/* ─── ACTIVE PAGE CONTEXTUAL SUB-NAVBAR ─────────────────────────────── */}
+      {/* Visible automatically when on Grid Adaptr, A-MGCS, or About pages    */}
+      {activeNavItem && (
+        <div className="hidden md:block bg-lightcyan/30 dark:bg-gunmetal/90 border-t border-cerulean/15 dark:border-bdazzled/20 py-2.5 px-6 sm:px-12 transition-all">
+          <div className="max-w-7xl mx-auto flex items-center gap-6 overflow-x-auto text-xs font-semibold text-bdazzled dark:text-cerulean no-scrollbar">
+            <span className="text-[10px] uppercase tracking-wider font-extrabold text-sienna shrink-0">
+              {activeNavItem.title} Sections:
+            </span>
+            {activeNavItem.subheadings?.map((sub) => (
+              <Link
+                key={sub.name}
+                href={sub.href}
+                className="shrink-0 hover:text-sienna dark:hover:text-lightcyan transition-colors bg-white/60 dark:bg-gunmetal/60 border border-cerulean/15 dark:border-bdazzled/30 px-3 py-1 rounded-full shadow-2xs"
+              >
+                {sub.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-gunmetal border-b border-cerulean/20 dark:border-bdazzled/40 px-6 py-6 space-y-4 shadow-xl transition-colors duration-300">
-          <nav className="flex flex-col space-y-3 font-medium text-gunmetal dark:text-cerulean">
-            <Link
-              href="/grid-adaptr"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-2 hover:text-sienna dark:hover:text-lightcyan transition-colors border-b border-cerulean/10 dark:border-bdazzled/20"
-            >
-              Grid ADAPTR™
-            </Link>
-            <Link
-              href="/amgcs"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-2 hover:text-sienna dark:hover:text-lightcyan transition-colors border-b border-cerulean/10 dark:border-bdazzled/20"
-            >
-              A-MGCS
-            </Link>
-            <Link
-              href="/mobilegrid"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-2 hover:text-sienna dark:hover:text-lightcyan transition-colors border-b border-cerulean/10 dark:border-bdazzled/20"
-            >
-              Mobile Grid
-            </Link>
-            <Link
-              href="/experience"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-2 hover:text-sienna dark:hover:text-lightcyan transition-colors border-b border-cerulean/10 dark:border-bdazzled/20"
-            >
-              Experience
-            </Link>
-            <Link
-              href="/about"
-              onClick={() => setMobileMenuOpen(false)}
-              className="py-2 hover:text-sienna dark:hover:text-lightcyan transition-colors border-b border-cerulean/10 dark:border-bdazzled/20"
-            >
-              About
-            </Link>
+        <div className="md:hidden bg-white dark:bg-gunmetal border-b border-cerulean/20 dark:border-bdazzled/40 px-6 py-6 space-y-4 shadow-xl transition-colors duration-300 max-h-[85vh] overflow-y-auto">
+          <nav className="flex flex-col space-y-2 font-medium text-gunmetal dark:text-cerulean">
+            {navItems.map((item) => (
+              <div key={item.title} className="border-b border-cerulean/10 dark:border-bdazzled/20 pb-2">
+                <div className="flex justify-between items-center py-2">
+                  <Link
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="hover:text-sienna dark:hover:text-lightcyan transition-colors font-bold text-sm"
+                  >
+                    {item.title}
+                  </Link>
+
+                  {item.subheadings && (
+                    <button
+                      onClick={() =>
+                        setMobileExpandedItem(
+                          mobileExpandedItem === item.title ? null : item.title
+                        )
+                      }
+                      className="p-1 text-cerulean hover:text-sienna"
+                    >
+                      <ChevronDown
+                        className={`w-4 h-4 transition-transform duration-200 ${
+                          mobileExpandedItem === item.title ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+                  )}
+                </div>
+
+                {/* Expanded Subheadings in Mobile Menu */}
+                {item.subheadings && (mobileExpandedItem === item.title || pathname === item.href) && (
+                  <div className="pl-4 py-1.5 space-y-1.5 border-l-2 border-sienna/30 my-1 bg-lightcyan/20 dark:bg-gunmetal/50 rounded-r-xl">
+                    {item.subheadings.map((sub) => (
+                      <Link
+                        key={sub.name}
+                        href={sub.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block py-1 text-xs text-bdazzled dark:text-cerulean hover:text-sienna transition-colors font-medium"
+                      >
+                        • {sub.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
           </nav>
           
-          <div className="pt-2 space-y-3">
+          <div className="pt-2">
             <button
               type="button"
               onClick={() => {
                 setMobileMenuOpen(false);
                 setIsMeetingModalOpen(true);
               }}
-              className="w-full inline-flex items-center justify-center gap-2 bg-sienna text-white dark:text-gunmetal font-bold text-sm px-5 py-3 rounded-lg shadow-md cursor-pointer"
+              className="w-full inline-flex items-center justify-center gap-2 bg-sienna text-white font-bold text-sm px-5 py-3 rounded-lg shadow-md cursor-pointer"
             >
               <span>Free Consultation</span>
               <ArrowRight className="w-4 h-4" />
             </button>
-
-            <Link
-              href="/login"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full inline-flex items-center justify-center gap-2 border border-cerulean/30 dark:border-bdazzled/40 text-gunmetal dark:text-cerulean font-semibold text-sm px-5 py-3 rounded-lg"
-            >
-              <User className="w-4 h-4 text-sienna" />
-              <span>Login to Client Portal</span>
-            </Link>
           </div>
         </div>
       )}

@@ -141,11 +141,11 @@ function RequestConfigModal({
 // ─── HERO CAROUSEL DATA (WITH MATCHED USE CASE IMAGES) ────────────────
 const cyclingItems = [
   {
-    text: "Expand Facility Operations.",
+    text: "Expand Facility Load & Operations.",
     audience: "C&I Entities",
     icon: Building2,
     subtext: "Deploy industrial loads and EV infrastructure without costly feeder upgrades.",
-    image: "/images/usecases/ev.jpg",
+    image: "/images/usecases/ev_charger.jpg",
     imageAlt: "Heavy Commercial & Industrial Facility Load Deployment",
     tag: "Commercial & Industrial Application"
   },
@@ -154,7 +154,7 @@ const cyclingItems = [
     audience: "IPPs & Developers",
     icon: Zap,
     subtext: "Ensure grid compliance while building larger projects than substation capacities.",
-    image: "/images/usecases/generation.jpg",
+    image: "/images/usecases/dgen.jpg",
     imageAlt: "Utility-Scale Solar and Wind Generation Asset",
     tag: "Independent Power Producer (IPP)"
   },
@@ -163,9 +163,9 @@ const cyclingItems = [
     audience: "Distribution Utilities",
     icon: UtilityPole,
     subtext: "Reliably use all stranded substation capacities and defer CapEx reinforcements.",
-    image: "/images/usecases/utility.jpg",
+    image: "/images/usecases/subs.jpg",
     imageAlt: "Electric Distribution Substation & Feeder Line",
-    tag: "Utility Distribution Feeder"
+    tag: "Utility Distribution Substation"
   },
 ];
 
@@ -186,7 +186,7 @@ export default function GridAdaptrHero() {
       setTimeout(() => {
         setIndex((prevIndex) => (prevIndex + 1) % cyclingItems.length);
         setFade(true);
-      }, 300);
+      }, 400); // Extended slightly for a smoother cross-dissolve window
     }, 4000);
 
     return () => clearInterval(interval);
@@ -205,12 +205,6 @@ export default function GridAdaptrHero() {
         
         {/* Left Content Column */}
         <div className="lg:col-span-7 space-y-6 z-10">
-          
-          {/* Tech Badge */}
-          <div className="inline-flex items-center gap-2 bg-lightcyan/30 dark:bg-bdazzled/40 border border-cerulean/30 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-bdazzled dark:text-cerulean shadow-sm">
-            <Zap className="w-4 h-4 text-sienna shrink-0" />
-            <span>Advanced Multi-Port PCS for DERs & Industrial Loads</span>
-          </div>
 
           {/* Headline with Animated Flipper */}
           <div className="space-y-2 min-h-[130px] sm:min-h-[150px] flex flex-col justify-center">
@@ -219,8 +213,8 @@ export default function GridAdaptrHero() {
             </h1>
             
             <div
-              className={`transition-all duration-300 transform ${
-                fade ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'
+              className={`transition-opacity duration-500 ease-in-out ${
+                fade ? 'opacity-100' : 'opacity-0'
               }`}
             >
               <h2 className="text-3xl sm:text-4xl lg:text-4xl font-extrabold text-sienna leading-tight">
@@ -285,11 +279,11 @@ export default function GridAdaptrHero() {
         <div className="lg:col-span-5 relative flex justify-center">
           <div className="relative w-full max-w-md bg-white/80 dark:bg-gunmetal/80 p-4 rounded-2xl border border-cerulean/20 dark:border-bdazzled/40 shadow-xl dark:shadow-2xl transition-colors duration-300">
             
-            {/* Dynamic Image Container tied to fade state */}
+            {/* Soft, Dissolve-Style Image Container */}
             <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-lightcyan/20 dark:bg-gunmetal border border-cerulean/10 dark:border-bdazzled/30">
               <div 
-                className={`w-full h-full relative transition-all duration-300 ${
-                  fade ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                className={`w-full h-full relative transition-opacity duration-600 ease-in-out ${
+                  fade ? 'opacity-100' : 'opacity-15'
                 }`}
               >
                 <Image
@@ -297,7 +291,7 @@ export default function GridAdaptrHero() {
                   alt={current.imageAlt}
                   fill
                   sizes="(max-width: 768px) 100vw, 400px"
-                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  className="object-cover transition-transform duration-700 ease-out hover:scale-105"
                   priority
                 />
                 <div className="absolute top-3 left-3 bg-gunmetal/85 backdrop-blur-md px-3 py-1 rounded-lg border border-cerulean/30 text-[10px] font-bold text-lightcyan uppercase tracking-wider">

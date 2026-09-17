@@ -38,7 +38,7 @@ export default function RootLayout({
       className={`scroll-smooth ${inter.variable} ${outfit.variable} ${roboto.variable}`}
     >
       <body className="font-sans bg-lightcyan/30 dark:bg-gunmetal text-gunmetal dark:text-lightcyan antialiased min-h-screen flex flex-col transition-colors duration-300">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <Navbar />
           <main className="flex-grow">{children}</main>
           <Footer />

@@ -435,14 +435,14 @@ export default function GridSimulator() {
             Simulate Grid Interconnection Impact
           </h2>
           <p className="text-base text-bdazzled dark:text-cerulean font-medium leading-relaxed">
-            Adjust industrial loads and DER capacities below to estimate the impact on power quality compliance with the <span className="text-sienna font-bold">Grid Adaptr</span> set to active or bypassed mode by <span className="text-sienna font-bold">toggling the button</span> in the image.
+            Adjust industrial loads and DER capacities below to estimate the impact on power quality compliance with the <span className="text-sienna font-bold">Grid Adaptr</span> set to <span className="text-sienna font-bold">ON</span> or <span className="text-sienna font-bold">OFF</span> mode.
           </p>
         </div>
 
         {/* MAIN SIMULATOR CARD */}
         <div className="bg-white/80 dark:bg-gunmetal border border-cerulean/20 dark:border-bdazzled/40 rounded-3xl p-6 sm:p-8 shadow-xl dark:shadow-2xl space-y-8 backdrop-blur-sm">
           
-          {/* TOPOLOGY IMAGE WITH OVERLAY CONTROLS */}
+          {/* TOPOLOGY IMAGE */}
           <div className="relative w-full rounded-2xl overflow-hidden border border-cerulean/20 dark:border-bdazzled/40 bg-white shadow-sm">
             <Image
               src="/images/grid-adaptr-system.jpg"
@@ -452,24 +452,6 @@ export default function GridSimulator() {
               className="w-full h-auto object-cover rounded-2xl"
               priority
             />
-
-            {/* Bottom-Right Overlay: Grid Adaptr Status Switch */}
-            <div className="absolute bottom-3 right-3 sm:bottom-4 sm:right-4 bg-gunmetal/85 dark:bg-gunmetal/95 backdrop-blur-md text-white border border-cerulean/30 p-2 sm:px-3.5 sm:py-2 rounded-xl text-xs font-sans font-bold flex items-center gap-2.5 shadow-md">
-              <span className="text-[10px] sm:text-xs text-lightcyan uppercase tracking-wider hidden md:inline">
-                GRID ADAPTR STATUS:
-              </span>
-              <button
-                onClick={() => setGridAdaptrActive(!gridAdaptrActive)}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-extrabold text-[11px] uppercase tracking-wider transition-all shadow-md ${
-                  gridAdaptrActive
-                    ? 'bg-sienna text-white shadow-sienna/30 scale-105'
-                    : 'bg-gunmetal/90 text-cerulean border border-cerulean/30 hover:text-white'
-                }`}
-              >
-                <Zap className={`w-3.5 h-3.5 ${gridAdaptrActive ? 'fill-current' : ''}`} />
-                <span>{gridAdaptrActive ? 'ACTIVE' : 'BYPASSED'}</span>
-              </button>
-            </div>
           </div>
 
           {/* Secondary Header Row: Reset Button */}
@@ -498,7 +480,7 @@ export default function GridSimulator() {
             />
             <OscilloscopeCard
               title="Upstream (Utility POI)"
-              badge={gridAdaptrActive ? 'Grid Adaptr ACTIVE' : 'Grid Adaptr BYPASSED'}
+              badge={gridAdaptrActive ? 'Grid Adaptr ON' : 'Grid Adaptr OFF'}
               voltDev={voltDev}
               flickerPst={flickerPst}
               thdVal={thdVal}
@@ -695,7 +677,7 @@ export default function GridSimulator() {
 
               </div>
 
-              {/* Interconnection Status & Dynamic CapEx / Request Configuration Card */}
+              {/* Interconnection Status Readout */}
               <div className={`p-6 rounded-2xl border transition-all ${
                 isCompliant 
                   ? 'bg-cerulean/10 border-cerulean/30 dark:bg-bdazzled/20 dark:border-bdazzled/40' 
@@ -722,30 +704,23 @@ export default function GridSimulator() {
                     </div>
                   </div>
 
-                  {/* Dynamic CapEx OR Request Configuration Button */}
-                  <div className="text-left sm:text-right">
-                    {!(gridAdaptrActive && isCompliant) && (
+                  {/* Dynamic Cost or Configuration Request Message */}
+                  {gridAdaptrActive ? (
+                    <div className="text-left sm:text-right max-w-xs">
+                      <p className="text-xs font-bold text-bdazzled dark:text-cerulean leading-snug">
+                        Request Simulation Report to explore viable Grid Adaptr Configuration.
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="text-left sm:text-right">
                       <span className="text-[11px] font-sans font-bold uppercase tracking-wider text-bdazzled dark:text-cerulean">
                         Est. grid upgrade cost:
                       </span>
-                    )}
-
-                    <div className="mt-1">
-                      {gridAdaptrActive ? (
-                        <button
-                          onClick={() => setIsModalOpen(true)}
-                          className="inline-flex items-center gap-1.5 bg-sienna hover:bg-sienna/90 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl transition-all shadow-md hover:scale-[1.02] uppercase tracking-wider"
-                        >
-                          <span>Request Simulation Report</span>
-                          <ArrowRight className="w-3.5 h-3.5" />
-                        </button>
-                      ) : (
-                        <p className={`text-xl font-extrabold font-sans ${isCompliant ? 'text-bdazzled dark:text-cerulean' : 'text-sienna'}`}>
-                          {isCompliant ? '$0 CAD' : `$${traditionalUpgradeCostCAD.toLocaleString()} CAD`}
-                        </p>
-                      )}
+                      <p className={`text-xl font-extrabold font-sans mt-1 ${isCompliant ? 'text-bdazzled dark:text-cerulean' : 'text-sienna'}`}>
+                        {isCompliant ? '$0 CAD' : `$${traditionalUpgradeCostCAD.toLocaleString()} CAD`}
+                      </p>
                     </div>
-                  </div>
+                  )}
                 </div>
 
                 {/* Footnote Disclaimers */}
@@ -756,6 +731,65 @@ export default function GridSimulator() {
 
               </div>
 
+            </div>
+
+          </div>
+
+          {/* COMBINED CONTROL TOGGLE & SIMULATION REPORT CTA ROW */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-4 border-t border-cerulean/20 dark:border-bdazzled/40">
+            
+            {/* Box 1: Grid Adaptr Control Toggle */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-gunmetal/90 dark:bg-gunmetal/95 border border-cerulean/30 text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md h-full">
+              <div className="space-y-1.5 text-center sm:text-left">
+                <span className="text-xs sm:text-sm font-sans font-extrabold uppercase tracking-wider text-sienna block">
+                  GRID ADAPTR CONTROL
+                </span>
+                <p className="text-xs sm:text-xs font-medium text-lightcyan leading-snug">
+                  Turn on Grid Adaptr to vet impact on connection compliance.
+                </p>
+              </div>
+
+              <button
+                onClick={() => setGridAdaptrActive(!gridAdaptrActive)}
+                aria-label="Toggle Grid Adaptr Status"
+                className={`inline-flex items-center gap-2.5 px-4 py-2.5 rounded-lg font-extrabold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer shrink-0 ${
+                  gridAdaptrActive
+                    ? 'bg-sienna text-white shadow-sienna/30 scale-105'
+                    : 'bg-gunmetal text-cerulean border border-cerulean/30 hover:text-white'
+                }`}
+              >
+                {/* Visual Toggle Switch Track & Knob */}
+                <div
+                  className={`w-7 h-4 flex items-center rounded-full p-0.5 transition-colors duration-300 ${
+                    gridAdaptrActive ? 'bg-white/30' : 'bg-cerulean/30'
+                  }`}
+                >
+                  <div
+                    className={`w-3 h-3 rounded-full shadow-sm transform transition-transform duration-300 ${
+                      gridAdaptrActive ? 'translate-x-3 bg-white' : 'translate-x-0 bg-cerulean'
+                    }`}
+                  />
+                </div>
+                <Zap className={`w-3.5 h-3.5 ${gridAdaptrActive ? 'fill-current' : ''}`} />
+                <span>{gridAdaptrActive ? 'ON' : 'OFF'}</span>
+              </button>
+            </div>
+
+            {/* Box 2: Request Simulation Report CTA */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-lightcyan/20 dark:bg-bdazzled/20 border border-cerulean/20 dark:border-bdazzled/30 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-inner h-full">
+              <div className="space-y-1 text-center sm:text-left">
+                
+                <p className="text-xs text-bdazzled dark:text-cerulean/90 font-medium leading-snug">
+                  Generate a custom technical report based on your live simulation settings.
+                </p>
+              </div>
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="inline-flex items-center justify-center gap-2 bg-sienna hover:bg-sienna/90 text-white font-extrabold text-xs sm:text-sm px-6 py-3.5 rounded-xl transition-all shadow-lg shadow-sienna/20 hover:scale-[1.02] cursor-pointer uppercase tracking-wider shrink-0 w-full sm:w-auto"
+              >
+                <span>Request Simulation Report</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
             </div>
 
           </div>

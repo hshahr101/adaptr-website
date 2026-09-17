@@ -34,7 +34,7 @@ interface ScheduleMeetingModalProps {
 function ScheduleMeetingModal({ isOpen, onClose }: ScheduleMeetingModalProps) {
   if (!isOpen) return null;
 
-  const bookingUrl = "https://calendar.app.google/7yNUBYK9pRdUm8Kk7";
+  const bookingUrl = "https://calendar.app.google/WTLgMGZZQGBJaosm7";
 
   return (
     <div 
