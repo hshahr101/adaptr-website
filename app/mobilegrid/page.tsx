@@ -212,7 +212,7 @@ export default function TechnologyPage() {
                   className="inline-flex items-center justify-center gap-2 bg-white dark:bg-bdazzled hover:bg-lightcyan/30 dark:hover:bg-bdazzled/80 text-gunmetal dark:text-lightcyan font-medium text-base px-6 py-3 rounded-xl border border-cerulean/30 dark:border-cerulean/20 transition-all shadow-sm"
                 >
                   <Award className="w-5 h-5 text-sienna dark:text-cerulean" />
-                  <span>View Patent Portfolio</span>
+                  <span>View IP Milestones</span>
                 </a>
               </div>
             </div>

@@ -407,7 +407,7 @@ export default function GridAdaptrPage() {
                 {/* Left Photo - Stretches Full Height to Match Right Column */}
                 <div className="md:col-span-7 relative aspect-[16/10] md:aspect-auto w-full h-full min-h-[300px] overflow-hidden rounded-xl border border-cerulean/20 dark:border-bdazzled/40 shadow-sm">
                   <Image
-                    src="/images/Demo_Group_Pic1.jpg"
+                    src="/images/Demo_Group_Pic.jpg"
                     alt="ADAPTR team and stakeholder group photo during Grid Adaptr live demonstration"
                     fill
                     sizes="(max-width: 768px) 100vw, 60vw"

@@ -19,7 +19,11 @@ import {
   Video,
   CheckCircle2,
   X,
-  ExternalLink
+  ExternalLink,
+  GraduationCap,
+  Presentation,
+  Share2,
+  BookOpen
 } from 'lucide-react';
 
 // ─── GOOGLE CALENDAR APPOINTMENT SCHEDULING MODAL ─────────────────────────
@@ -128,7 +132,7 @@ const hierarchyTiers: HierarchyTier[] = [
     levelName: 'Tier 1 • Non-Negotiable Foundation',
     title: 'Availability and Reliability',
     subtitle: 'CONTINUOUS ACCESS & UNINTERRUPTED POWER',
-    description: 'Above all else, consumers prioritize availability and reliability of energy which forms the foundational prerequisite for any energy decision.',
+    description: 'Above all else, consumers prioritize availability and reliability of energy. This forms the foundational prerequisite for any energy decision.',
   },
   {
     id: 2,
@@ -136,7 +140,7 @@ const hierarchyTiers: HierarchyTier[] = [
     levelName: 'Tier 2 • Secondary Focus',
     title: 'Cost and Convenience',
     subtitle: 'FINANCIAL IMPACT & ECONOMIC VALUE',
-    description: 'Once power availability is confirmed, cost and operational convenience of the energy solution enter the decision-making process.',
+    description: 'Once power availability is confirmed, cost and operational convenience of the energy solution enter our decision-making process.',
   },
   {
     id: 3,
@@ -144,7 +148,7 @@ const hierarchyTiers: HierarchyTier[] = [
     levelName: 'Tier 3 • Elevated Priority',
     title: 'Benefits to Society',
     subtitle: 'CLEAN ENERGY & ENVIRONMENTAL IMPACT',
-    description: 'Lastly, consumers turn their focus to societal considerations and impact of their energy choices, whether they are clean and sustainabiles.',
+    description: 'Lastly, consumers turn their focus to societal considerations and the impact of their energy choices, whether they are clean and sustainable.',
   },
 ];
 
@@ -271,6 +275,20 @@ const teamMembers: TeamMember[] = [
     imageUrl: '/images/team/alex-rivera.jpg',
     linkedin: 'https://linkedin.com',
   },
+  {
+    id: '8',
+    name: 'Ross Huang',
+    role: 'Full-Stack Developer Intern',
+    badgeRole: 'Software',
+    expertise: ['Software Development', 'Coding', 'Database', 'RAG', 'LLM'],
+    achievements: [
+      'Develops real-time supervisory software for high-frequency converters',
+      'Engineered fast micro-grid switching algorithms',
+      'Optimizes SiL and HiL controller code execution',
+    ],
+    imageUrl: '/images/team/alex-rivera.jpg',
+    linkedin: 'https://linkedin.com',
+  },
 ];
 
 const coreValues = [
@@ -375,7 +393,7 @@ export default function AboutPage() {
                 
                 <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-lightcyan/20 dark:bg-gunmetal border border-cerulean/10 dark:border-bdazzled/30 shadow-inner">
                   <Image
-                    src="/images/DSC05412.jpg"
+                    src="/images/anywhere.jpg"
                     alt="Mountain Landscape & Clean Energy Environment"
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
@@ -793,7 +811,137 @@ export default function AboutPage() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECTION 6: VISION, MISSION & APPROACH (PORTRAIT IMAGE LAYOUT)        */}
+      {/* SECTION 6: KNOWLEDGE SHARING & STAKEHOLDER ENGAGEMENT               */}
+      {/* ==================================================================== */}
+      <section id="engagement" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30 bg-lightcyan/10 dark:bg-gunmetal/50">
+        <div className="max-w-7xl mx-auto space-y-12">
+          
+          <div className="text-center space-y-4 max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-2 bg-lightcyan/30 dark:bg-bdazzled/40 border border-cerulean/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-sienna uppercase tracking-wider">
+              <BookOpen className="w-3.5 h-3.5" />
+              <span>Communication & Knowledge Sharing</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl lg:text-4xl font-extrabold tracking-tight text-gunmetal dark:text-lightcyan">
+              Empowering Communities & Advancing the Sector
+            </h2>
+            <p className="text-base text-bdazzled dark:text-cerulean/90 font-medium leading-relaxed">
+              We believe sustainable energy transformation requires active knowledge sharing, youth mentorship, and open industry dialogue.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            {/* Card 1: Mentoring Future Innovators */}
+            <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 rounded-3xl overflow-hidden shadow-xl flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:border-sienna/40">
+              <div>
+                <div className="relative h-64 w-full overflow-hidden bg-gunmetal/10 dark:bg-gunmetal">
+                  <Image
+                    src="/images/education.jpg"
+                    alt="Hassan Shahriar demonstrating wind turbine technology to students"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover object-center hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-3 left-3 bg-gunmetal/90 backdrop-blur-md px-3 py-1 rounded-lg border border-cerulean/30 text-[10px] font-black text-lightcyan uppercase tracking-wider flex items-center gap-1.5">
+                    <GraduationCap className="w-3.5 h-3.5 text-sienna" />
+                    <span>Youth & STEM Education</span>
+                  </div>
+                </div>
+
+                <div className="p-6 sm:p-7 space-y-3">
+                  <h3 className="text-xl font-extrabold text-gunmetal dark:text-lightcyan">
+                    Hosting & Mentoring Students
+                  </h3>
+                  <p className="text-xs sm:text-sm text-bdazzled dark:text-cerulean/90 leading-relaxed font-medium">
+                    Conducting hands-on workshops and live technology demonstrations for students to learn about renewable generation, microgrids, and clean energy career paths.
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-6 sm:p-7 pt-0 border-t border-cerulean/10 dark:border-bdazzled/20">
+                <span className="text-[11px] font-bold text-sienna uppercase tracking-wider bg-sienna/10 px-3 py-1 rounded-md border border-sienna/20 inline-block">
+                  Educational Outreach
+                </span>
+              </div>
+            </div>
+
+         {/* Card 2: Stakeholder Engagement */}
+            <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 rounded-3xl overflow-hidden shadow-xl flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:border-sienna/40">
+              <div>
+                <div className="relative h-64 w-full overflow-hidden bg-gunmetal/10 dark:bg-gunmetal">
+                  <Image
+                    src="/images/stakeholders.jpg"
+                    alt="CanREA group delegation at Exhibition Place Toronto Wind Turbine"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover object-center hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-3 left-3 bg-gunmetal/90 backdrop-blur-md px-3 py-1 rounded-lg border border-cerulean/30 text-[10px] font-black text-lightcyan uppercase tracking-wider flex items-center gap-1.5">
+                    <Share2 className="w-3.5 h-3.5 text-sienna" />
+                    <span>Sector Collaboration</span>
+                  </div>
+                </div>
+
+                <div className="p-6 sm:p-7 space-y-3">
+                  <h3 className="text-xl font-extrabold text-gunmetal dark:text-lightcyan">
+                    Engaging Energy Stakeholders
+                  </h3>
+                  <p className="text-xs sm:text-sm text-bdazzled dark:text-cerulean/90 leading-relaxed font-medium">
+                    Partnering with clean energy associations like CanREA, utilities, municipal leaders, and industry groups to accelerate transition policies and grid modernization.
+                  </p>
+                </div>
+              </div>
+
+
+              <div className="p-6 sm:p-7 pt-0 border-t border-cerulean/10 dark:border-bdazzled/20">
+                <span className="text-[11px] font-bold text-cerulean uppercase tracking-wider bg-cerulean/10 px-3 py-1 rounded-md border border-cerulean/20 inline-block">
+                  Community & Industry Alignment
+                </span>
+              </div>
+              
+            </div>
+
+
+            {/* Card 3: Industry Event Insights */}
+            <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 rounded-3xl overflow-hidden shadow-xl flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:border-sienna/40">
+              <div>
+                <div className="relative h-64 w-full overflow-hidden bg-gunmetal/10 dark:bg-gunmetal">
+                  <Image
+                    src="/images/Demo_Group_Pic1.jpg"
+                    alt="Hassan Shahriar presenting key insights at Energy Transition Conference"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover object-center hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-3 left-3 bg-gunmetal/90 backdrop-blur-md px-3 py-1 rounded-lg border border-cerulean/30 text-[10px] font-black text-lightcyan uppercase tracking-wider flex items-center gap-1.5">
+                    <Presentation className="w-3.5 h-3.5 text-sienna" />
+                    <span>Technology Demonstration</span>
+                  </div>
+                </div>
+
+                <div className="p-6 sm:p-7 space-y-3">
+                  <h3 className="text-xl font-extrabold text-gunmetal dark:text-lightcyan">
+                    Sharing Technical Insights
+                  </h3>
+                  <p className="text-xs sm:text-sm text-bdazzled dark:text-cerulean/90 leading-relaxed font-medium">
+                    Presenting technical findings, microgrid lessons, and power systems insights at major conferences and lab demonstrations to advance sector-wide innovation.
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-6 sm:p-7 pt-0 border-t border-cerulean/10 dark:border-bdazzled/20">
+                <span className="text-[11px] font-bold text-sienna uppercase tracking-wider bg-sienna/10 px-3 py-1 rounded-md border border-sienna/20 inline-block">
+                  Conferences & Forums
+                </span>
+              </div>
+            </div>
+           
+          </div>
+        </div>
+      </section>
+
+      {/* ==================================================================== */}
+      {/* SECTION 7: VISION, MISSION & APPROACH (PORTRAIT IMAGE LAYOUT)        */}
       {/* ==================================================================== */}
       <section id="vision" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30">
         <div className="max-w-7xl mx-auto space-y-12">
@@ -895,22 +1043,11 @@ export default function AboutPage() {
 
           </div>
 
-          {/* Quote Banner 
-          <blockquote className="bg-gradient-to-r from-lightcyan/30 via-lightcyan/10 to-transparent dark:from-bdazzled/30 dark:to-gunmetal border-l-4 border-sienna p-8 sm:p-10 rounded-2xl shadow-md space-y-4">
-            <Quote className="w-8 h-8 text-sienna/60" />
-            <p className="text-lg sm:text-xl italic font-medium text-gunmetal dark:text-lightcyan leading-relaxed">
-              &ldquo;To make a meaningful change, you need to put in a meaningful amount of time and effort.&rdquo;
-            </p>
-            <cite className="block text-xs sm:text-sm font-bold text-sienna not-italic uppercase tracking-wider">
-              — Siddiqua Begum (Founder&apos;s Mentor & Mother)
-            </cite>
-          </blockquote>*/}
-
         </div>
       </section>
 
       {/* ==================================================================== */}
-      {/* SECTION 7: CALL TO ACTION (CTA)                                      */}
+      {/* SECTION 8: CALL TO ACTION (CTA)                                      */}
       {/* ==================================================================== */}
       <section className="py-20 px-6 sm:px-12">
         <div className="max-w-5xl mx-auto bg-gradient-to-br from-gunmetal to-bdazzled dark:from-gunmetal/90 dark:to-bdazzled/40 text-lightcyan rounded-3xl p-8 sm:p-12 border border-cerulean/30 shadow-2xl text-center space-y-8 relative overflow-hidden">
