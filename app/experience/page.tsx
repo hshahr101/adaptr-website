@@ -198,7 +198,7 @@ export default function ExperiencePage() {
               </p>
             </div>
             
-            <p className="text-base sm:text-lg text-bdazzled dark:text-cerulean/90 leading-relaxed font-medium">
+            <p className="text-base text-bdazzled dark:text-cerulean/90 leading-relaxed font-medium">
               ADAPTR brings a track record of technical compentency, proven technologies, and experience navigating complex power plant projects and grid interconnection processes in multiple jurisdictions.
             </p>
           </div>

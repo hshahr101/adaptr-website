@@ -664,7 +664,7 @@ export default function AboutPage() {
             })}
           </div>
 
-          {/* Restructured 3-Card Client's Verdicts Section */}
+          {/* Restructured 3-Card Client's Verdicts Section 
           <div className="space-y-8 pt-8 border-t border-cerulean/20 dark:border-bdazzled/30">
             <div className="text-center space-y-2">
               <h3 className="text-2xl sm:text-3xl font-extrabold text-gunmetal dark:text-lightcyan tracking-tight">
@@ -700,7 +700,7 @@ export default function AboutPage() {
                 </div>
               ))}
             </div>
-          </div>
+          </div>*/}
 
         </div>
       </section>

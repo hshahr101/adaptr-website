@@ -20,7 +20,8 @@ import {
   Server,
   Calendar,
   Video,
-  X
+  X,
+  Users
 } from 'lucide-react';
 
 // ─── GOOGLE CALENDAR APPOINTMENT SCHEDULING MODAL ─────────────────────────
@@ -94,8 +95,130 @@ function ScheduleMeetingModal({ isOpen, onClose }: ScheduleMeetingModalProps) {
   );
 }
 
+// ─── IN-PERSON DEMO REQUEST MODAL ─────────────────────────────────────────
+interface RequestDemoModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+function RequestDemoModal({ isOpen, onClose }: RequestDemoModalProps) {
+  const [name, setName] = useState('');
+  const [company, setCompany] = useState('');
+  const [email, setEmail] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  if (!isOpen) return null;
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !name || !company) return;
+
+    setIsSubmitted(true);
+    setTimeout(() => {
+      setIsSubmitted(false);
+      onClose();
+    }, 2500);
+  };
+
+  return (
+    <div 
+      className="fixed inset-0 w-screen h-screen bg-gunmetal/80 backdrop-blur-md flex items-center justify-center z-[99999] p-4"
+      onClick={onClose}
+    >
+      <div 
+        className="bg-gunmetal border border-cerulean/30 w-full max-w-md rounded-3xl p-6 sm:p-8 shadow-2xl text-lightcyan relative max-h-[90vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex justify-between items-center mb-4 border-b border-cerulean/20 pb-3">
+          <h2 className="text-base sm:text-lg font-extrabold text-white uppercase tracking-wider flex items-center gap-2">
+            <Users className="w-5 h-5 text-sienna" />
+            Request In-Person Demo
+          </h2>
+          <button 
+            onClick={onClose} 
+            className="text-cerulean/70 hover:text-white p-1 transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <p className="text-xs text-cerulean/80 leading-relaxed mb-5">
+          Enter your details below to schedule an in-person hardware and software telemetry demonstration at our laboratory facilities.
+        </p>
+
+        {isSubmitted ? (
+          <div className="py-8 text-center text-cerulean font-bold text-sm space-y-2">
+            <CheckCircle2 className="w-10 h-10 text-sienna mx-auto animate-bounce" />
+            <p className="text-white text-base font-extrabold">✓ Demo Request Submitted!</p>
+            <p className="text-xs text-cerulean/80 font-normal leading-relaxed">
+              Your request has been routed to <span className="text-sienna font-bold">engagement@adaptrenergy.com</span>. An ADAPTR engineer will contact you shortly.
+            </p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-4">
+            
+            {/* Full Name */}
+            <div>
+              <label className="block text-[10px] font-extrabold text-cerulean uppercase tracking-wider mb-1.5">
+                Your Name *
+              </label>
+              <input
+                type="text"
+                required
+                placeholder="e.g. Jane Doe"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full px-3.5 py-2.5 rounded-xl border border-cerulean/20 bg-gunmetal/90 text-white text-xs focus:outline-none focus:border-cerulean"
+              />
+            </div>
+
+            {/* Company Name */}
+            <div>
+              <label className="block text-[10px] font-extrabold text-cerulean uppercase tracking-wider mb-1.5">
+                Company / Organization *
+              </label>
+              <input
+                type="text"
+                required
+                placeholder="e.g. Hydro One / Utility Corp"
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
+                className="w-full px-3.5 py-2.5 rounded-xl border border-cerulean/20 bg-gunmetal/90 text-white text-xs focus:outline-none focus:border-cerulean"
+              />
+            </div>
+
+            {/* Email Address */}
+            <div>
+              <label className="block text-[10px] font-extrabold text-cerulean uppercase tracking-wider mb-1.5">
+                Work Email Address *
+              </label>
+              <input
+                type="email"
+                required
+                placeholder="jane@company.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-3.5 py-2.5 rounded-xl border border-cerulean/20 bg-gunmetal/90 text-white text-xs focus:outline-none focus:border-cerulean"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full mt-2 py-3.5 rounded-xl bg-sienna hover:bg-sienna/90 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <span>Submit Request</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function GridAdaptrPage() {
   const [isMeetingModalOpen, setIsMeetingModalOpen] = useState(false);
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
 
   // Force page to load at the absolute top
   useEffect(() => {
@@ -153,7 +276,7 @@ export default function GridAdaptrPage() {
           <div className="w-full bg-white/80 dark:bg-gunmetal/80 p-4 sm:p-6 rounded-2xl border border-cerulean/20 dark:border-bdazzled/40 shadow-xl dark:shadow-2xl transition-colors duration-300 space-y-4">
             <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-lightcyan/20 dark:bg-gunmetal flex items-center justify-center border border-cerulean/10 dark:border-bdazzled/30 shadow-inner p-2">
               <Image
-                src="/images/Grid-Adaptr.jpg"
+                src="/images/Grid-Adaptr_Module.jpg"
                 alt="Grid Adaptr Industrial Multi-Bay PCS Enclosure"
                 fill
                 sizes="100vw"
@@ -449,15 +572,16 @@ export default function GridAdaptrPage() {
               </div>
             </div>
 
-            {/* CTA Button */}
+            {/* CTA Button Triggering Demo Request Modal */}
             <div className="pt-2 flex justify-start">
-              <a
-                href="#assessment"
+              <button
+                type="button"
+                onClick={() => setIsDemoModalOpen(true)}
                 className="inline-flex items-center justify-center gap-2 bg-sienna hover:bg-sienna/90 text-white font-medium text-base px-7 py-3 rounded-xl transition-all shadow-lg shadow-sienna/20 hover:scale-[1.02] cursor-pointer"
               >
                 <span>Request In-person Demo</span>
                 <ExternalLink className="w-5 h-5" />
-              </a>
+              </button>
             </div>
 
           </div>
@@ -468,7 +592,7 @@ export default function GridAdaptrPage() {
       {/* ==================================================================== */}
       {/* SECTION 5: STAKEHOLDER BENEFIT MATRIX                                */}
       {/* ==================================================================== */}
-     <section id="applications" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30">
+      <section id="applications" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30">
         <div className="max-w-7xl mx-auto space-y-12">
           
           <div className="text-center space-y-4 max-w-3xl mx-auto">
@@ -516,7 +640,8 @@ export default function GridAdaptrPage() {
                     <div className="flex flex-wrap gap-1.5 text-base font-medium text-bdazzled dark:text-cerulean">
                       <span className="bg-sienna/10 dark:bg-sienna/20 border border-sienna/20 px-2.5 py-1 rounded-md">Unlock High-value Projects</span>
                       <span className="bg-sienna/10 dark:bg-sienna/20 border border-sienna/20 px-2.5 py-1 rounded-md">Align with Utility & Consumer Goals</span>
-                      <span className="bg-sienna/10 dark:bg-sienna/20 border border-sienna/20 px-2.5 py-1 rounded-md">Eliminate Integration Issues</span>                    </div>
+                      <span className="bg-sienna/10 dark:bg-sienna/20 border border-sienna/20 px-2.5 py-1 rounded-md">Eliminate Integration Issues</span>
+                    </div>
                   </div>
 
                   <ul className="space-y-3.5 text-xs sm:text-sm text-gunmetal/80 dark:text-lightcyan/80 font-medium pt-2 border-t border-cerulean/15 dark:border-bdazzled/30">
@@ -647,6 +772,7 @@ export default function GridAdaptrPage() {
 
         </div>
       </section>
+
       {/* ==================================================================== */}
       {/* SECTION 6: CALL TO ACTION (CTA)                                      */}
       {/* ==================================================================== */}
@@ -658,7 +784,7 @@ export default function GridAdaptrPage() {
               Ready to Propel Your Power Project?
             </h2>
             <p className="text-base text-cerulean/90 font-medium leading-relaxed">
-              Take advantage of our free techncial consultation today and let us help you advance your project initiatives.
+              Take advantage of our free preliminary consultation today and let us help you advance your project initiatives.
             </p>
           </div>
 
@@ -680,6 +806,12 @@ export default function GridAdaptrPage() {
       <ScheduleMeetingModal
         isOpen={isMeetingModalOpen}
         onClose={() => setIsMeetingModalOpen(false)}
+      />
+
+      {/* IN-PERSON DEMO REQUEST MODAL */}
+      <RequestDemoModal
+        isOpen={isDemoModalOpen}
+        onClose={() => setIsDemoModalOpen(false)}
       />
     </div>
   );

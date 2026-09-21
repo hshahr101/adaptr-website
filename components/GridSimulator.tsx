@@ -16,6 +16,9 @@ import {
   Gauge
 } from 'lucide-react';
 
+// Discrete Feeder Voltage Levels
+const VOLTAGE_STEPS = [4.16, 12.47, 27.6, 34.5, 44.0];
+
 interface OscilloscopeProps {
   title: string;
   badge: string;
@@ -418,6 +421,11 @@ export default function GridSimulator() {
     setGridAdaptrActive(true);
   };
 
+  // Find index of current voltage level
+  const currentVoltageIndex = VOLTAGE_STEPS.indexOf(feederVoltagekV) !== -1 
+    ? VOLTAGE_STEPS.indexOf(feederVoltagekV) 
+    : 2; // Default to 27.6 kV (index 2)
+
   return (
     <section id="simulator" className="relative bg-white dark:bg-gunmetal py-20 px-6 sm:px-12 overflow-hidden border-b border-cerulean/20 dark:border-bdazzled/30 transition-colors duration-300">
       
@@ -463,32 +471,6 @@ export default function GridSimulator() {
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Reset Parameters</span>
             </button>
-          </div>
-
-          {/* Real-time Oscilloscopes */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <OscilloscopeCard
-              title="Downstream (Asset Output)"
-              badge="Unmitigated Transients"
-              voltDev={rawVoltageDev}
-              flickerPst={rawFlickerPst}
-              thdVal={rawTHD}
-              phaseUnbal={rawPhaseUnbalance}
-              pulseMW={pulseCapacity}
-              availableLoadMVA={availableFeederMVA}
-              isClean={false}
-            />
-            <OscilloscopeCard
-              title="Upstream (Utility POI)"
-              badge={gridAdaptrActive ? 'Grid Adaptr ON' : 'Grid Adaptr OFF'}
-              voltDev={voltDev}
-              flickerPst={flickerPst}
-              thdVal={thdVal}
-              phaseUnbal={phaseUnbal}
-              pulseMW={pulseCapacity}
-              availableLoadMVA={availableFeederMVA}
-              isClean={gridAdaptrActive}
-            />
           </div>
 
           {/* Controls & Compliance Grid */}
@@ -579,7 +561,7 @@ export default function GridSimulator() {
                   />
                 </div>
 
-                {/* Slider 5: Feeder Line Voltage (kV) */}
+                {/* Slider 5: Feeder Line Voltage (kV) Discrete Step Slider */}
                 <div className="space-y-1.5">
                   <div className="flex justify-between items-center text-xs font-bold">
                     <span className="text-bdazzled dark:text-cerulean">Feeder Line Voltage</span>
@@ -587,17 +569,18 @@ export default function GridSimulator() {
                   </div>
                   <input
                     type="range"
-                    min="4.16"
-                    max="44.0"
-                    step="0.5"
-                    value={feederVoltagekV}
-                    onChange={(e) => setFeederVoltagekV(parseFloat(e.target.value))}
+                    min="0"
+                    max={VOLTAGE_STEPS.length - 1}
+                    step="1"
+                    value={currentVoltageIndex}
+                    onChange={(e) => setFeederVoltagekV(VOLTAGE_STEPS[parseInt(e.target.value)])}
                     className="w-full accent-bdazzled dark:accent-cerulean cursor-pointer bg-cerulean/30 rounded-lg h-2"
                   />
                   <div className="flex justify-between text-[10px] font-sans text-bdazzled/60 dark:text-cerulean/60 px-0.5">
                     <span>4.16 kV (Weak)</span>
                     <span>12.47 kV</span>
                     <span>27.6 kV (Std)</span>
+                    <span>34.5 kV</span>
                     <span>44.0 kV (Stiff)</span>
                   </div>
                 </div>
@@ -735,6 +718,32 @@ export default function GridSimulator() {
 
           </div>
 
+          {/* RELOCATED REAL-TIME OSCILLOSCOPES (Below Interconnection Status) */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-2">
+            <OscilloscopeCard
+              title="Downstream (Asset Output)"
+              badge="Unmitigated Transients"
+              voltDev={rawVoltageDev}
+              flickerPst={rawFlickerPst}
+              thdVal={rawTHD}
+              phaseUnbal={rawPhaseUnbalance}
+              pulseMW={pulseCapacity}
+              availableLoadMVA={availableFeederMVA}
+              isClean={false}
+            />
+            <OscilloscopeCard
+              title="Upstream (Utility POI)"
+              badge={gridAdaptrActive ? 'Grid Adaptr ON' : 'Grid Adaptr OFF'}
+              voltDev={voltDev}
+              flickerPst={flickerPst}
+              thdVal={thdVal}
+              phaseUnbal={phaseUnbal}
+              pulseMW={pulseCapacity}
+              availableLoadMVA={availableFeederMVA}
+              isClean={gridAdaptrActive}
+            />
+          </div>
+
           {/* COMBINED CONTROL TOGGLE & SIMULATION REPORT CTA ROW */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-4 border-t border-cerulean/20 dark:border-bdazzled/40">
             
@@ -778,7 +787,6 @@ export default function GridSimulator() {
             {/* Box 2: Request Simulation Report CTA */}
             <div className="p-5 sm:p-6 rounded-2xl bg-lightcyan/20 dark:bg-bdazzled/20 border border-cerulean/20 dark:border-bdazzled/30 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-inner h-full">
               <div className="space-y-1 text-center sm:text-left">
-                
                 <p className="text-xs text-bdazzled dark:text-cerulean/90 font-medium leading-snug">
                   Generate a custom technical report based on your live simulation settings.
                 </p>
