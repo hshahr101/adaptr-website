@@ -181,7 +181,7 @@ const teamMembers: TeamMember[] = [
     id: '1',
     name: 'Hassan Shahriar',
     role: 'FOUNDER & PRESIDENT',
-    badgeRole: 'FOUNDER',
+    badgeRole: 'BD & Sales',
     expertise: ['Business Development', 'Commercial Transactions', 'Strategy & Communications'],
     achievements: [
       'Led commercial transactions for over 500MW of wind energy projects',
@@ -195,7 +195,7 @@ const teamMembers: TeamMember[] = [
     id: '2',
     name: 'Amgad El Deib',
     role: 'CTO',
-    badgeRole: 'R&D LEAD',
+    badgeRole: 'Tech Lead',
     expertise: ['Power Systems', 'Controls & PCS', 'Research & Development'],
     achievements: [
       'R&D veteran with decades of power systems engineering experience',
