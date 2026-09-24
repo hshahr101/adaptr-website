@@ -21,7 +21,8 @@ import {
   Calendar,
   Video,
   X,
-  Users
+  Users,
+  Loader2
 } from 'lucide-react';
 
 // ─── GOOGLE CALENDAR APPOINTMENT SCHEDULING MODAL ─────────────────────────
@@ -44,7 +45,6 @@ function ScheduleMeetingModal({ isOpen, onClose }: ScheduleMeetingModalProps) {
         className="bg-gunmetal border border-cerulean/30 w-full max-w-3xl rounded-3xl p-6 sm:p-8 shadow-2xl text-lightcyan relative max-h-[92vh] flex flex-col justify-between"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
         <div className="flex justify-between items-start mb-4 border-b border-cerulean/20 pb-4 shrink-0">
           <div className="space-y-1">
             <div className="inline-flex items-center gap-1.5 bg-sienna/15 border border-sienna/30 px-3 py-1 rounded-full text-[11px] font-bold text-sienna uppercase tracking-wider">
@@ -66,7 +66,6 @@ function ScheduleMeetingModal({ isOpen, onClose }: ScheduleMeetingModalProps) {
           </button>
         </div>
 
-        {/* Embedded Google Calendar Appointment Page */}
         <div className="w-full flex-1 min-h-[480px] rounded-2xl overflow-hidden bg-white border border-cerulean/20 shadow-inner relative">
           <iframe
             src={bookingUrl}
@@ -75,7 +74,6 @@ function ScheduleMeetingModal({ isOpen, onClose }: ScheduleMeetingModalProps) {
           />
         </div>
 
-        {/* Footer Fallback Link */}
         <div className="pt-4 border-t border-cerulean/20 mt-4 flex flex-col sm:flex-row justify-between items-center gap-3 shrink-0 text-xs">
           <span className="text-cerulean/80 text-[11px]">
             Having trouble viewing the calendar frame above?
@@ -95,7 +93,7 @@ function ScheduleMeetingModal({ isOpen, onClose }: ScheduleMeetingModalProps) {
   );
 }
 
-// ─── IN-PERSON DEMO REQUEST MODAL ─────────────────────────────────────────
+// ─── IN-PERSON DEMO REQUEST MODAL WITH API DISPATCH ─────────────────────────
 interface RequestDemoModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -105,19 +103,43 @@ function RequestDemoModal({ isOpen, onClose }: RequestDemoModalProps) {
   const [name, setName] = useState('');
   const [company, setCompany] = useState('');
   const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !name || !company) return;
 
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      onClose();
-    }, 2500);
+    setIsSubmitting(true);
+    setErrorMessage('');
+
+    try {
+      const response = await fetch('/api/request-demo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, company, email }),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setName('');
+          setCompany('');
+          setEmail('');
+          onClose();
+        }, 3000);
+      } else {
+        setErrorMessage('Failed to send request. Please try again or email engagements@adaptrenergy.com directly.');
+      }
+    } catch (err) {
+      setErrorMessage('Network error occurred. Please check your connection and try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -157,7 +179,13 @@ function RequestDemoModal({ isOpen, onClose }: RequestDemoModalProps) {
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             
-            {/* Full Name (Mandatory) */}
+            {errorMessage && (
+              <p className="text-xs font-semibold text-red-400 bg-red-900/30 p-2.5 rounded-lg border border-red-500/30">
+                {errorMessage}
+              </p>
+            )}
+
+            {/* Full Name */}
             <div>
               <label className="block text-[10px] font-extrabold text-cerulean uppercase tracking-wider mb-1.5">
                 Your Name *
@@ -172,7 +200,7 @@ function RequestDemoModal({ isOpen, onClose }: RequestDemoModalProps) {
               />
             </div>
 
-            {/* Company Name (Mandatory) */}
+            {/* Company Name */}
             <div>
               <label className="block text-[10px] font-extrabold text-cerulean uppercase tracking-wider mb-1.5">
                 Company / Organization *
@@ -187,7 +215,7 @@ function RequestDemoModal({ isOpen, onClose }: RequestDemoModalProps) {
               />
             </div>
 
-            {/* Email Address (Mandatory) */}
+            {/* Email Address */}
             <div>
               <label className="block text-[10px] font-extrabold text-cerulean uppercase tracking-wider mb-1.5">
                 Work Email Address *
@@ -204,10 +232,20 @@ function RequestDemoModal({ isOpen, onClose }: RequestDemoModalProps) {
 
             <button
               type="submit"
-              className="w-full mt-2 py-3.5 rounded-xl bg-sienna hover:bg-sienna/90 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+              disabled={isSubmitting}
+              className="w-full mt-2 py-3.5 rounded-xl bg-sienna hover:bg-sienna/90 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
             >
-              <span>Submit Request</span>
-              <ArrowRight className="w-4 h-4" />
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Submitting Request...</span>
+                </>
+              ) : (
+                <>
+                  <span>Submit Request</span>
+                  <ArrowRight className="w-4 h-4" />
+                </>
+              )}
             </button>
           </form>
         )}
@@ -220,7 +258,6 @@ export default function GridAdaptrPage() {
   const [isMeetingModalOpen, setIsMeetingModalOpen] = useState(false);
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
 
-  // Force page to load at the absolute top
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -228,20 +265,13 @@ export default function GridAdaptrPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-gunmetal text-gunmetal dark:text-lightcyan transition-colors duration-300">
       
-      {/* ==================================================================== */}
-      {/* SECTION 1: HERO & US PATENT VALUE PROPOSITION (FULL-WIDTH IMAGE)     */}
-      {/* ==================================================================== */}
+      {/* SECTION 1: HERO & US PATENT VALUE PROPOSITION */}
       <section className="relative pt-20 pb-20 px-6 sm:px-12 overflow-hidden border-b border-cerulean/20 dark:border-bdazzled/30">
-        
-        {/* Background Glow Accents */}
         <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-sienna/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute top-0 left-0 -mb-12 -ml-12 w-96 h-96 bg-cerulean/15 dark:bg-bdazzled/30 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto space-y-12 relative z-10">
-          
-          {/* Top Text Block */}
           <div className="max-w-4xl space-y-6">
-            {/* Tech Badge */}
             <div className="inline-flex items-center gap-2 bg-lightcyan/30 dark:bg-bdazzled/40 border border-cerulean/30 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-bdazzled dark:text-cerulean shadow-sm">
               <Award className="w-4 h-4 text-sienna shrink-0" />
               <span>US Patent: US 12,706,459 B2</span>
@@ -260,7 +290,6 @@ export default function GridAdaptrPage() {
               The Grid Adaptr is an advanced multi-port Power Conversion System (PCS) bringing seamless integration of Distributed Energy Resources (DERs) and commercial/industrial loads in to weak distribution networks.
             </p>
 
-            {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
               <a
                 href="#validation"
@@ -272,7 +301,6 @@ export default function GridAdaptrPage() {
             </div>
           </div>
 
-          {/* Full-Width Spanning Image Container */}
           <div className="w-full bg-white/80 dark:bg-gunmetal/80 p-4 sm:p-6 rounded-2xl border border-cerulean/20 dark:border-bdazzled/40 shadow-xl dark:shadow-2xl transition-colors duration-300 space-y-4">
             <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-lightcyan/20 dark:bg-gunmetal flex items-center justify-center border border-cerulean/10 dark:border-bdazzled/30 shadow-inner p-2">
               <Image
@@ -291,7 +319,6 @@ export default function GridAdaptrPage() {
               </div>
             </div>
             
-            {/* Banner Sub-Bar */}
             <div className="p-4 bg-lightcyan/30 dark:bg-gunmetal rounded-lg border border-cerulean/20 dark:border-bdazzled/40 text-xs text-bdazzled dark:text-cerulean flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
               <div>
                 <p className="font-bold text-sm text-gunmetal dark:text-lightcyan">Grid Adaptr Multi-Port PCS</p>
@@ -302,16 +329,12 @@ export default function GridAdaptrPage() {
               </span>
             </div>
           </div>
-
         </div>
       </section>
 
-      {/* ==================================================================== */}
-      {/* SECTION 2: PROBLEM VS. SOLUTION (DECOUPLING & COMPLIANCE)            */}
-      {/* ==================================================================== */}
+      {/* SECTION 2: PROBLEM VS. SOLUTION */}
       <section id="functionalities" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30 bg-lightcyan/10 dark:bg-gunmetal/50">
         <div className="max-w-7xl mx-auto space-y-12">
-          
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 bg-lightcyan/30 dark:bg-bdazzled/40 border border-cerulean/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-sienna uppercase tracking-wider">
               <span>The Grid Bottleneck & Decoupling Solution</span>
@@ -325,8 +348,6 @@ export default function GridAdaptrPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            {/* Card 1 */}
             <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 p-6 sm:p-7 rounded-2xl space-y-4 shadow-sm">
               <div className="w-10 h-10 rounded-xl bg-sienna/10 flex items-center justify-center text-sienna">
                 <Zap className="w-5 h-5" />
@@ -340,7 +361,6 @@ export default function GridAdaptrPage() {
               </span>
             </div>
 
-            {/* Card 2 */}
             <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 p-6 sm:p-7 rounded-2xl space-y-4 shadow-sm">
               <div className="w-10 h-10 rounded-xl bg-cerulean/10 flex items-center justify-center text-cerulean">
                 <Sliders className="w-5 h-5" />
@@ -354,7 +374,6 @@ export default function GridAdaptrPage() {
               </span>
             </div>
 
-            {/* Card 3 */}
             <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 p-6 sm:p-7 rounded-2xl space-y-4 shadow-sm">
               <div className="w-10 h-10 rounded-xl bg-sienna/10 flex items-center justify-center text-sienna">
                 <Activity className="w-5 h-5" />
@@ -367,18 +386,13 @@ export default function GridAdaptrPage() {
                 Balanced Load Profile
               </span>
             </div>
-
           </div>
-
         </div>
       </section>
-      
-      {/* ==================================================================== */}
-      {/* SECTION 3: TECHNICAL CAPABILITIES & ARCHITECTURE                     */}
-      {/* ==================================================================== */}
+
+      {/* SECTION 3: TECHNICAL CAPABILITIES & ARCHITECTURE */}
       <section id="architecture" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30 bg-lightcyan/10 dark:bg-gunmetal/50">
         <div className="max-w-7xl mx-auto space-y-12">
-          
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 bg-lightcyan/30 dark:bg-bdazzled/40 border border-cerulean/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-sienna uppercase tracking-wider">
               <span>Architecture & Capabilities</span>
@@ -392,7 +406,6 @@ export default function GridAdaptrPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            
             <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 p-6 rounded-2xl space-y-3">
               <Layers className="w-6 h-6 text-sienna mb-1" />
               <h3 className="text-base sm:text-lg font-extrabold text-gunmetal dark:text-lightcyan">Multi-Port Topology</h3>
@@ -424,21 +437,15 @@ export default function GridAdaptrPage() {
                 Supports vehicle to microgrid (V2MG) for electrical delivery of stored energy enabling prolonged off-grid operation.
               </p>
             </div>
-
           </div>
-
         </div>
       </section>
 
-      {/* ==================================================================== */}
-      {/* SECTION 4: VALIDATION & LIVE TELEMETRY DEMO                          */}
-      {/* ==================================================================== */}
+      {/* SECTION 4: VALIDATION & LIVE TELEMETRY DEMO */}
       <section id="validation" className="py-20 px-6 sm:px-12">
         <div className="max-w-7xl mx-auto space-y-12">
-          
           <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 rounded-2xl p-8 sm:p-12 shadow-xl space-y-10">
             
-            {/* Header Bar */}
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 pb-6 border-b border-cerulean/20 dark:border-bdazzled/40">
               <div>
                 <div className="inline-flex items-center gap-2 text-xs font-bold text-sienna uppercase tracking-wider mb-2">
@@ -455,12 +462,10 @@ export default function GridAdaptrPage() {
               </div>
             </div>
 
-            {/* Intro Copy */}
             <p className="text-base sm:text-lg text-bdazzled dark:text-cerulean/90 leading-relaxed font-medium max-w-4xl">
               The live HMI telemetry recording below demonstrates Grid Adaptr in real-time operation. As dynamic disturbances are injected in the downstream network, the upstream grid waveform remains completely undisturbed and sinusoidal.
             </p>
 
-            {/* Full-Width Spanning Video Block */}
             <div className="w-full bg-lightcyan/10 dark:bg-gunmetal p-4 sm:p-6 rounded-2xl border border-cerulean/20 dark:border-bdazzled/40 shadow-inner space-y-4">
               <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-cerulean/20 dark:border-bdazzled/40 shadow-md bg-black p-1">
                 <video
@@ -477,7 +482,6 @@ export default function GridAdaptrPage() {
                 </div>
               </div>
               
-              {/* Telemetry Stats Banner */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center text-xs font-bold">
                 <div className="p-3 rounded-xl bg-white/80 dark:bg-gunmetal/90 border border-cerulean/20 shadow-sm">
                   <span className="block text-cerulean text-[11px] uppercase tracking-wider mb-0.5">DC LINK VOLTAGE</span>
@@ -494,7 +498,6 @@ export default function GridAdaptrPage() {
               </div>
             </div>
 
-            {/* Validation Highlights */}
             <div className="space-y-3">
               <h4 className="text-xs font-extrabold uppercase tracking-wider text-sienna">
                 Key Validation Highlights
@@ -515,7 +518,6 @@ export default function GridAdaptrPage() {
               </div>
             </div>
 
-            {/* Stakeholder Visit Collage */}
             <div className="pt-6 border-t border-cerulean/20 dark:border-bdazzled/40 space-y-4">
               <div className="space-y-1">
                 <h4 className="text-xs font-extrabold uppercase tracking-wider text-sienna">
@@ -527,7 +529,6 @@ export default function GridAdaptrPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-                {/* Left Photo - Stretches Full Height to Match Right Column */}
                 <div className="md:col-span-7 relative aspect-[16/10] md:aspect-auto w-full h-full min-h-[300px] overflow-hidden rounded-xl border border-cerulean/20 dark:border-bdazzled/40 shadow-sm">
                   <Image
                     src="/images/Demo_Group_Pic.jpg"
@@ -541,7 +542,6 @@ export default function GridAdaptrPage() {
                   </div>
                 </div>
 
-                {/* Right Photos - Two Stacked Images */}
                 <div className="md:col-span-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 gap-4">
                   <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl border border-cerulean/20 dark:border-bdazzled/40 shadow-sm">
                     <Image
@@ -572,7 +572,6 @@ export default function GridAdaptrPage() {
               </div>
             </div>
 
-            {/* CTA Button Triggering Demo Request Modal */}
             <div className="pt-2 flex justify-start">
               <button
                 type="button"
@@ -585,16 +584,12 @@ export default function GridAdaptrPage() {
             </div>
 
           </div>
-
         </div>
       </section>
 
-      {/* ==================================================================== */}
-      {/* SECTION 5: STAKEHOLDER BENEFIT MATRIX                                */}
-      {/* ==================================================================== */}
+      {/* SECTION 5: STAKEHOLDER BENEFIT MATRIX */}
       <section id="applications" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30">
         <div className="max-w-7xl mx-auto space-y-12">
-          
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 bg-lightcyan/30 dark:bg-bdazzled/40 border border-cerulean/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-sienna uppercase tracking-wider">
               <span>Stakeholder Value Matrix</span>
@@ -608,11 +603,8 @@ export default function GridAdaptrPage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
-            {/* Card 1: Renewable Generators */}
             <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between transition-colors">
               <div>
-                {/* Complementary Image */}
                 <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-cerulean/20 dark:border-bdazzled/40 bg-lightcyan/20">
                   <Image
                     src="/images/usecases/generation.jpg"
@@ -632,7 +624,6 @@ export default function GridAdaptrPage() {
                     <p className="text-xs text-sienna font-semibold uppercase tracking-wider mt-1">Solar, Wind & DER Developers</p>
                   </div>
 
-                  {/* Target Customer Benefits */}
                   <div className="space-y-2 pt-2 border-t border-cerulean/15 dark:border-bdazzled/30">
                     <span className="text-[11px] font-extrabold uppercase tracking-wider text-sienna block">
                       Benefits
@@ -662,10 +653,8 @@ export default function GridAdaptrPage() {
               </div>
             </div>
 
-            {/* Card 2: Commercial & Industrial */}
             <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between transition-colors">
               <div>
-                {/* Complementary Image */}
                 <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-cerulean/20 dark:border-bdazzled/40 bg-lightcyan/20">
                   <Image
                     src="/images/usecases/ev.jpg"
@@ -685,7 +674,6 @@ export default function GridAdaptrPage() {
                     <p className="text-xs text-cerulean font-semibold uppercase tracking-wider mt-1">Manufacturing, Mining & EV Hubs</p>
                   </div>
 
-                  {/* Target Customer Benefits */}
                   <div className="space-y-2 pt-2 border-t border-cerulean/15 dark:border-bdazzled/30">
                     <span className="text-[11px] font-extrabold uppercase tracking-wider text-cerulean block">
                       Benefits
@@ -715,10 +703,8 @@ export default function GridAdaptrPage() {
               </div>
             </div>
 
-            {/* Card 3: Distribution Utilities */}
             <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between transition-colors">
               <div>
-                {/* Complementary Image */}
                 <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-cerulean/20 dark:border-bdazzled/40 bg-lightcyan/20">
                   <Image
                     src="/images/usecases/utility.jpg"
@@ -738,7 +724,6 @@ export default function GridAdaptrPage() {
                     <p className="text-xs text-sienna font-semibold uppercase tracking-wider mt-1">Grid Operators & LDCs</p>
                   </div>
 
-                  {/* Target Customer Profiles */}
                   <div className="space-y-2 pt-2 border-t border-cerulean/15 dark:border-bdazzled/30">
                     <span className="text-[11px] font-extrabold uppercase tracking-wider text-sienna block">
                       Benefits
@@ -767,18 +752,13 @@ export default function GridAdaptrPage() {
                 </div>
               </div>
             </div>
-
           </div>
-
         </div>
       </section>
 
-      {/* ==================================================================== */}
-      {/* SECTION 6: CALL TO ACTION (CTA)                                      */}
-      {/* ==================================================================== */}
+      {/* SECTION 6: CALL TO ACTION (CTA) */}
       <section className="py-20 px-6 sm:px-12">
         <div className="max-w-5xl mx-auto bg-gradient-to-br from-gunmetal to-bdazzled dark:from-gunmetal/90 dark:to-bdazzled/40 text-lightcyan rounded-3xl p-8 sm:p-12 border border-cerulean/30 shadow-2xl text-center space-y-8 relative overflow-hidden">
-          
           <div className="space-y-4 max-w-2xl mx-auto">
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
               Ready to Propel Your Power Project?
@@ -798,7 +778,6 @@ export default function GridAdaptrPage() {
               <ArrowRight className="w-5 h-5" />
             </button>
           </div>
-
         </div>
       </section>
 

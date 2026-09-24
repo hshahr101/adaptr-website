@@ -13,7 +13,8 @@ import {
   Cpu,
   ArrowRight,
   X,
-  Gauge
+  Gauge,
+  Loader2
 } from 'lucide-react';
 
 // Discrete Feeder Voltage Levels
@@ -191,7 +192,7 @@ interface RequestConfigModalProps {
   feederVoltagekV: number;
 }
 
-// Configuration Request Modal Component with Selected Simulator Parameters
+// Configuration Request Modal Component with Real HTTP POST Email Dispatch
 function RequestConfigModal({ 
   isOpen, 
   onClose, 
@@ -204,7 +205,9 @@ function RequestConfigModal({
   const [userName, setUserName] = useState('');
   const [utilityZone, setUtilityZone] = useState(`Ontario Feeder — ${feederVoltagekV.toFixed(2)} kV Class`);
   const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     setUtilityZone(`Ontario Feeder — ${feederVoltagekV.toFixed(2)} kV Class`);
@@ -212,15 +215,43 @@ function RequestConfigModal({
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !userName || !utilityZone) return;
 
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      onClose();
-    }, 2500);
+    setIsSubmitting(true);
+    setErrorMessage('');
+
+    try {
+      const response = await fetch('/api/send-report', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userName,
+          utilityZone,
+          email,
+          pulseCapacity,
+          ibrCapacity,
+          unbalancedCapacity,
+          availableFeederMVA,
+          feederVoltagekV,
+        }),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        setTimeout(() => {
+          setIsSubmitted(false);
+          onClose();
+        }, 3000);
+      } else {
+        setErrorMessage('Failed to send request. Please try again or email engagements@adaptrenergy.com directly.');
+      }
+    } catch (err) {
+      setErrorMessage('Network error occurred. Please check your connection and try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -292,12 +323,18 @@ function RequestConfigModal({
             <CheckCircle2 className="w-10 h-10 text-sienna mx-auto animate-bounce" />
             <p className="text-white text-base font-extrabold">✓ Report Request Submitted!</p>
             <p className="text-xs text-cerulean/80 font-normal leading-relaxed">
-              Your simulation parameters and report request have been sent to <span className="text-sienna font-bold">engagements@adaptrenergy.com</span>. A team member will follow up with your report shortly.
+              Your simulation parameters and request details have been dispatched to <span className="text-sienna font-bold">engagements@adaptrenergy.com</span>. An engineer will follow up with your detailed report shortly.
             </p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             
+            {errorMessage && (
+              <p className="text-xs font-semibold text-red-400 bg-red-900/30 p-2.5 rounded-lg border border-red-500/30">
+                {errorMessage}
+              </p>
+            )}
+
             {/* User Name (Mandatory) */}
             <div>
               <label className="block text-[10px] font-extrabold text-cerulean uppercase tracking-wider mb-1.5">
@@ -346,10 +383,20 @@ function RequestConfigModal({
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full mt-2 py-3 rounded-xl bg-sienna hover:bg-sienna/90 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+              disabled={isSubmitting}
+              className="w-full mt-2 py-3 rounded-xl bg-sienna hover:bg-sienna/90 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
             >
-              <span>Request Report</span>
-              <ArrowRight className="w-4 h-4" />
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Sending Request...</span>
+                </>
+              ) : (
+                <>
+                  <span>Request Report</span>
+                  <ArrowRight className="w-4 h-4" />
+                </>
+              )}
             </button>
 
           </form>
