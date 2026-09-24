@@ -369,7 +369,7 @@ export default function Footer() {
 
               <div className="flex items-start gap-2 text-bdazzled dark:text-cerulean/80">
                 <MapPin className="w-4 h-4 text-sienna shrink-0 mt-0.5" />
-                <span>411 Richmond St E, Toronto, CA</span>
+                <span>411 Richmond St E, Toronto</span>
               </div>
             </div>
           </div>

@@ -189,11 +189,11 @@ const teamMembers: TeamMember[] = [
       'Managed the deployment of ADAPTR’s technologies from concept to commercial operation',
     ],
     imageUrl: '/images/team/hassan-shahriar.jpg',
-    linkedin: 'https://linkedin.com',
+    linkedin: 'https://www.linkedin.com/in/hassan-shahriar/',
   },
   {
     id: '2',
-    name: 'Dr. Amgad El-Deib',
+    name: 'Amgad El Deib',
     role: 'CTO',
     badgeRole: 'R&D LEAD',
     expertise: ['Power Systems', 'Controls & PCS', 'Research & Development'],
@@ -203,7 +203,7 @@ const teamMembers: TeamMember[] = [
       'University professor specializing in grid controls and system stability',
     ],
     imageUrl: '/images/team/amgad-eldeib.jpg',
-    linkedin: 'https://linkedin.com',
+    linkedin: 'https://www.linkedin.com/in/amgad-el-deib-889733141/',
   },
   {
     id: '3',
@@ -212,40 +212,40 @@ const teamMembers: TeamMember[] = [
     badgeRole: 'Operations',
     expertise: ['Management', 'Operations & Execution', 'Planning & Coordination'],
     achievements: [
-      'Proven track-record of growt',
-      'Manages power electronics manufacturing for grid-edge applications',
-      'Pioneered modular multi-bay PCS panel engineering',
+      'Proven track record on mananging operations and growing SMB teams',
+      'Ability to translate strategy into executable actions',
+      'Foster team mindset to adopt a plan-do-check-act approach',
     ],
     imageUrl: '/images/team/sarah-lin.jpg',
-    linkedin: 'https://linkedin.com',
+    linkedin: 'https://www.linkedin.com/in/alex-fournier-p-eng-mba-41142b3b/',
   },
   {
     id: '4',
     name: 'Mohamed Hafez',
     role: 'Research Scientist',
     badgeRole: 'R&D',
-    expertise: ['Control Algorithms', 'Microgrid Automation', 'R&D', 'Hardware-in-loop'],
+    expertise: ['Systems Validation', 'Microgrid Control Design', 'R&D', 'Hardware-in-loop'],
     achievements: [
-      'Specializes in dynamic power system modeling and transient studies',
-      'Executes high-penetration DER hosting capacity assessments',
-      'Leads grid interconnection compliance engineering across global utilities',
+      'Advancing grid integration technologies through the Technology Readiness Level (TRL) pipeline',
+      'Develop and commission advanced control algorithms for real-world hybrid microgrid energy projects',
+      'Control design and validation using advanced real-time simulation, Rapid Control Prototyping (RCP), and Hardware-in-the-Loop (HIL/PHIL) testing methodologies',
     ],
     imageUrl: '/images/team/marcus-vance.jpg',
-    linkedin: 'https://linkedin.com',
+    linkedin: 'https://www.linkedin.com/in/moashhafez/',
   },
   {
     id: '5',
     name: 'Hossein Chabok',
     role: 'Power System Modeler',
     badgeRole: 'Engineering',
-    expertise: ['Power Project Modeling', 'Grid Codes', 'PSSE / PSCAD / SymPowerSystems'],
+    expertise: ['Grid Modeling', 'Power System Analysis', 'Engineering Design & Technical Execution'],
     achievements: [
-      'Architect of Smart-Grid CS supervisory control algorithms',
-      'Engineered seamless islanding and black-start capability',
-      'Designed dynamic energy management for hybrid ESS applications',
+      'Design and develop power system models for specialized studies',
+      'Conduct Power System simulations and engineering studies to ensure compliance with industry standards',
+      'Prepare engineering specifications, schematics, and technical designs',
     ],
     imageUrl: '/images/team/david-okafor.jpg',
-    linkedin: 'https://linkedin.com',
+    linkedin: 'https://www.linkedin.com/in/hosseinchabok/',
   },
   {
     id: '6',
@@ -254,40 +254,40 @@ const teamMembers: TeamMember[] = [
     badgeRole: 'Software',
     expertise: ['Software Development', 'UX/UI', 'Client Enagagement'],
     achievements: [
-      'Coordinates utility interconnection frameworks across North America',
-      'Drives regulatory alignment for non-standard DER installations',
-      'Leads field validation and site commissioning protocols',
+      'Lead product roadmaps, sprint-planning, and strategic direction across ADAPTRs suite of digital products',
+      'Design intuitive digital experiences across UX/UI, translate client needs into clear, functional interfaces',
+      'Build and deliver digital tools across frontend and backend development',
     ],
     imageUrl: '/images/team/elena-rostova.jpg',
-    linkedin: 'https://linkedin.com',
+    linkedin: 'https://www.linkedin.com/in/carmanmach/',
   },
   {
     id: '7',
     name: 'Miranda Martin',
     role: 'Market Development Coordinator',
     badgeRole: 'Marketing',
-    expertise: ['Marketing', 'Stakeholder Engagement', 'Coordination', 'Workflow Management'],
+    expertise: ['Market Research', 'Stakeholder Engagement', 'Coordination', 'Workflow Management'],
     achievements: [
-      'Develops real-time supervisory software for high-frequency converters',
-      'Engineered fast micro-grid switching algorithms',
-      'Optimizes SiL and HiL controller code execution',
+      'Conduct market research and analysis to deliver data-driven insights that support strategic goals',
+      'Spearhead internal marketing efforts and created original graphic design assets to strengthen brand messaging',
+      'Manage day-to-day administrative functions and workflow coordination for various internal teams',
     ],
     imageUrl: '/images/team/alex-rivera.jpg',
-    linkedin: 'https://linkedin.com',
+    linkedin: 'https://www.linkedin.com/in/miranda-martin-a2a948293/',
   },
   {
     id: '8',
     name: 'Ross Huang',
     role: 'Full-Stack Developer Intern',
     badgeRole: 'Software',
-    expertise: ['Software Development', 'Coding', 'Database', 'RAG', 'LLM'],
+    expertise: ['UI Development', 'AI Architecture', 'Database', 'Agentic Systems'],
     achievements: [
-      'Develops real-time supervisory software for high-frequency converters',
-      'Engineered fast micro-grid switching algorithms',
-      'Optimizes SiL and HiL controller code execution',
+      'Develop responsive interfaces and features for custom software platforms',
+      'Engineered backend services using FastAPI',
+      'Architect Agentic workflows with Llama, ChromaDB, RAG and memory infrastructure',
     ],
     imageUrl: '/images/team/alex-rivera.jpg',
-    linkedin: 'https://linkedin.com',
+    linkedin: 'https://www.linkedin.com/in/ross-huang-0627b8224/',
   },
 ];
 
@@ -326,6 +326,7 @@ const coreValues = [
 
 export default function AboutPage() {
   const [isMeetingModalOpen, setIsMeetingModalOpen] = useState(false);
+  const [imageError, setImageError] = useState<Record<string, boolean>>({});
 
   // Force page to load at the absolute top
   useEffect(() => {
@@ -664,49 +665,11 @@ export default function AboutPage() {
             })}
           </div>
 
-          {/* Restructured 3-Card Client's Verdicts Section 
-          <div className="space-y-8 pt-8 border-t border-cerulean/20 dark:border-bdazzled/30">
-            <div className="text-center space-y-2">
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-gunmetal dark:text-lightcyan tracking-tight">
-                Stakeholder Feedback
-              </h3>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {clientVerdicts.map((verdict) => (
-                <div
-                  key={verdict.id}
-                  className="bg-gunmetal dark:bg-gunmetal/90 border border-cerulean/30 rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col justify-between text-left relative overflow-hidden text-lightcyan space-y-6"
-                >
-                  <div className="absolute top-0 right-0 -mt-6 -mr-6 w-32 h-32 bg-sienna/10 rounded-full blur-2xl pointer-events-none" />
-
-                  <div className="space-y-4">
-                    <Quote className="w-8 h-8 text-sienna/80 shrink-0" />
-                    <p className="text-xs sm:text-sm text-lightcyan/90 leading-relaxed font-medium italic">
-                      &ldquo;{verdict.quote}&rdquo;
-                    </p>
-                  </div>
-
-                  <div className="space-y-3 pt-4 border-t border-cerulean/20">
-                    <div>
-                      <p className="text-sm font-extrabold text-white">
-                        {verdict.author}
-                      </p>
-                      <p className="text-xs font-bold text-sienna uppercase tracking-wider">
-                        {verdict.role}, {verdict.company}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>*/}
-
         </div>
       </section>
 
       {/* ==================================================================== */}
-      {/* SECTION 5: LEADERSHIP & ENGINEERING TEAM (UPDATED CONTENT CARDS)     */}
+      {/* SECTION 5: LEADERSHIP & ENGINEERING TEAM (UPDATED WITH MONOGRAM)    */}
       {/* ==================================================================== */}
       <section id="team" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30">
         <div className="max-w-7xl mx-auto space-y-12">
@@ -719,7 +682,7 @@ export default function AboutPage() {
               Meet the ADAPTR Team
             </h2>
             <p className="text-base text-bdazzled dark:text-cerulean/90 font-medium leading-relaxed">
-              A multidisciplinary team with cumulative wind, microgrid, and power electronics experience.
+              A multidisciplinary team with 50+ yrs of renewables, control systems, power electronics and R&D experience.
             </p>
           </div>
 
@@ -730,16 +693,34 @@ export default function AboutPage() {
                 className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 rounded-3xl overflow-hidden shadow-lg flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:border-sienna/40"
               >
                 <div>
-                  {/* Photo Container */}
-                  <div className="relative h-72 w-full overflow-hidden bg-gunmetal/10 dark:bg-gunmetal">
-                    <Image
-                      src={member.imageUrl}
-                      alt={member.name}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      className="object-cover object-center hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute top-3 left-3 bg-gunmetal/90 backdrop-blur-md px-3 py-1 rounded-lg border border-cerulean/30 text-[10px] font-black text-lightcyan uppercase tracking-wider">
+                  {/* Photo Container with Automatic Branded Monogram Fallback */}
+                  <div className="relative h-72 w-full overflow-hidden bg-gunmetal/10 dark:bg-gunmetal/80 flex flex-col items-center justify-center">
+                    {member.imageUrl && !imageError[member.id] ? (
+                      <Image
+                        src={member.imageUrl}
+                        alt={member.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover object-center hover:scale-105 transition-transform duration-500"
+                        onError={() => setImageError((prev) => ({ ...prev, [member.id]: true }))}
+                      />
+                    ) : (
+                      /* Sleek Branded Placeholder Icon & Initials */
+                      <div className="flex flex-col items-center justify-center space-y-2 text-gunmetal dark:text-lightcyan">
+                        <div className="w-20 h-20 rounded-full bg-sienna/15 border-2 border-sienna/30 flex items-center justify-center text-sienna font-black text-2xl shadow-inner">
+                          {member.name
+                            .split(' ')
+                            .map((n) => n[0])
+                            .join('')}
+                        </div>
+                        <span className="text-[11px] font-bold text-bdazzled dark:text-cerulean uppercase tracking-wider">
+                          Photo Coming Soon
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Badge Pill */}
+                    <div className="absolute top-3 left-3 bg-gunmetal/90 backdrop-blur-md px-3 py-1 rounded-lg border border-cerulean/30 text-[10px] font-black text-lightcyan uppercase tracking-wider z-10">
                       {member.badgeRole || member.role.split(' ')[0]}
                     </div>
                   </div>
@@ -865,7 +846,7 @@ export default function AboutPage() {
               </div>
             </div>
 
-         {/* Card 2: Stakeholder Engagement */}
+            {/* Card 2: Stakeholder Engagement */}
             <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 rounded-3xl overflow-hidden shadow-xl flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:border-sienna/40">
               <div>
                 <div className="relative h-64 w-full overflow-hidden bg-gunmetal/10 dark:bg-gunmetal">
@@ -887,20 +868,17 @@ export default function AboutPage() {
                     Engaging Energy Stakeholders
                   </h3>
                   <p className="text-xs sm:text-sm text-bdazzled dark:text-cerulean/90 leading-relaxed font-medium">
-                    Partnering with clean energy associations like CanREA, utilities, municipal leaders, and industry groups to accelerate transition policies and grid modernization.
+                    Working with clean energy associations like CanREA, utilities, municipal leaders, and industry groups to accelerate transition policies and grid modernization.
                   </p>
                 </div>
               </div>
-
 
               <div className="p-6 sm:p-7 pt-0 border-t border-cerulean/10 dark:border-bdazzled/20">
                 <span className="text-[11px] font-bold text-cerulean uppercase tracking-wider bg-cerulean/10 px-3 py-1 rounded-md border border-cerulean/20 inline-block">
                   Community & Industry Alignment
                 </span>
               </div>
-              
             </div>
-
 
             {/* Card 3: Industry Event Insights */}
             <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 rounded-3xl overflow-hidden shadow-xl flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:border-sienna/40">
@@ -935,7 +913,7 @@ export default function AboutPage() {
                 </span>
               </div>
             </div>
-           
+
           </div>
         </div>
       </section>
@@ -955,7 +933,7 @@ export default function AboutPage() {
               Vision, Mission & Approach
             </h2>
             <p className="text-base text-bdazzled dark:text-cerulean/90 font-medium leading-relaxed">
-              Guiding our technology development and strategic direction to power growth and prosperity everywhere.
+              The North Star that guides our technology development and strategic direction is to power growth and prosperity everywhere.
             </p>
           </div>
 

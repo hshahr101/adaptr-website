@@ -128,7 +128,7 @@ const innovationPillarsData = [
       'Specialized In-house Power Systems Lab.',
       'Trusted Expertise in TRL Progression.',
     ],
-    image: '/images/Lab.jpg',
+    image: '/images/R&D_comp.jpg',
     imageAlt: 'R&D Hardware Simulation and In-House Power Systems Lab',
     imageCaption: 'Hardware-in-the-Loop Validation & In-House Power Systems Lab',
     isVideo: false,

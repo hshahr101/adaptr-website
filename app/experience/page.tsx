@@ -118,14 +118,14 @@ const clientVerdicts: ClientVerdict[] = [
   },
   {
     id: '2',
-    quote: "ADAPTR's Grid Adaptr technology has proven essential for enabling industrial loads to connect to our local feeder lines. Their technical execution and power system know-how helped progress our demonstration project initiative at Manitoulin Island.",
+    quote: "The ADAPTR team has repeatedly faced and overcome technical challenges for our demonstration project initiative at Manitoulin island. Hassan understands the needs of M'Chigeeng First Nation, and our trust in the ADAPTR team has been well placed.",
     author: 'Grant Taibossigai',
     role: 'Business & Economic Development',
     company: "M'Chigeeng First Nation",
   },
   {
     id: '3',
-    quote: "Working with ADAPTR allowed us to fast-track our interconnection feasibility studies and eliminate costly substation upgrades. Their team's deep utility background and proactive innovation brought immense value to our renewable energy pipeline.",
+    quote: "ADAPTR team's deep utility background and proactive innovation brought immense value to our control system and renewable energy initiatives. We are very happy to work with the ADAPTR team.",
     author: 'Laurie Murphy',
     role: 'Senior Project Manager',
     company: 'Port Hawkesbury Paper',
@@ -293,7 +293,7 @@ export default function ExperiencePage() {
         <div className="max-w-7xl mx-auto space-y-8">
           <div className="text-center space-y-2">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-gunmetal dark:text-lightcyan tracking-tight">
-              Client&apos;s Verdicts
+              Clients&apos; Verdicts
             </h2>
           </div>
 

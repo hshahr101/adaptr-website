@@ -143,7 +143,7 @@ function RequestDemoModal({ isOpen, onClose }: RequestDemoModalProps) {
         </div>
 
         <p className="text-xs text-cerulean/80 leading-relaxed mb-5">
-          Enter your details below to schedule an in-person hardware and software telemetry demonstration at our laboratory facilities.
+          Enter your details below to schedule an in-person hardware and software telemetry demonstration at our laboratory facilities. All fields are required.
         </p>
 
         {isSubmitted ? (
@@ -151,13 +151,13 @@ function RequestDemoModal({ isOpen, onClose }: RequestDemoModalProps) {
             <CheckCircle2 className="w-10 h-10 text-sienna mx-auto animate-bounce" />
             <p className="text-white text-base font-extrabold">✓ Demo Request Submitted!</p>
             <p className="text-xs text-cerulean/80 font-normal leading-relaxed">
-              Your request has been routed to <span className="text-sienna font-bold">engagement@adaptrenergy.com</span>. An ADAPTR engineer will contact you shortly.
+              Your request has been routed to <span className="text-sienna font-bold">engagements@adaptrenergy.com</span>. An ADAPTR engineer will contact you shortly.
             </p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             
-            {/* Full Name */}
+            {/* Full Name (Mandatory) */}
             <div>
               <label className="block text-[10px] font-extrabold text-cerulean uppercase tracking-wider mb-1.5">
                 Your Name *
@@ -172,7 +172,7 @@ function RequestDemoModal({ isOpen, onClose }: RequestDemoModalProps) {
               />
             </div>
 
-            {/* Company Name */}
+            {/* Company Name (Mandatory) */}
             <div>
               <label className="block text-[10px] font-extrabold text-cerulean uppercase tracking-wider mb-1.5">
                 Company / Organization *
@@ -187,7 +187,7 @@ function RequestDemoModal({ isOpen, onClose }: RequestDemoModalProps) {
               />
             </div>
 
-            {/* Email Address */}
+            {/* Email Address (Mandatory) */}
             <div>
               <label className="block text-[10px] font-extrabold text-cerulean uppercase tracking-wider mb-1.5">
                 Work Email Address *

@@ -214,13 +214,13 @@ function RequestConfigModal({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
+    if (!email || !userName || !utilityZone) return;
 
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
       onClose();
-    }, 1500);
+    }, 2500);
   };
 
   return (
@@ -289,20 +289,23 @@ function RequestConfigModal({
 
         {isSubmitted ? (
           <div className="py-8 text-center text-cerulean font-bold text-sm space-y-2">
-            <CheckCircle2 className="w-10 h-10 text-cerulean mx-auto animate-bounce" />
-            <p>✓ Request submitted successfully!</p>
-            <p className="text-xs text-cerulean/70 font-normal">Generating configuration report...</p>
+            <CheckCircle2 className="w-10 h-10 text-sienna mx-auto animate-bounce" />
+            <p className="text-white text-base font-extrabold">✓ Report Request Submitted!</p>
+            <p className="text-xs text-cerulean/80 font-normal leading-relaxed">
+              Your simulation parameters and report request have been sent to <span className="text-sienna font-bold">engagements@adaptrenergy.com</span>. A team member will follow up with your report shortly.
+            </p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             
-            {/* User Name */}
+            {/* User Name (Mandatory) */}
             <div>
               <label className="block text-[10px] font-extrabold text-cerulean uppercase tracking-wider mb-1.5">
-                Your Name
+                Your Name *
               </label>
               <input 
                 type="text"
+                required
                 placeholder="e.g., Jane Snow"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
@@ -310,23 +313,25 @@ function RequestConfigModal({
               />
             </div>
 
-            {/* Target Utility Zone / Location */}
+            {/* Target Utility Zone / Location (Mandatory) */}
             <div>
               <label className="block text-[10px] font-extrabold text-cerulean uppercase tracking-wider mb-1.5">
-                PROJECT LOCATION
+                PROJECT LOCATION *
               </label>
               <input 
                 type="text"
+                required
+                placeholder="e.g., Ontario Feeder / Toronto Area"
                 value={utilityZone}
                 onChange={(e) => setUtilityZone(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-lg border border-cerulean/20 bg-gunmetal/90 text-cerulean font-semibold text-xs focus:outline-none"
+                className="w-full px-3.5 py-2.5 rounded-lg border border-cerulean/20 bg-gunmetal/90 text-cerulean font-semibold text-xs focus:outline-none focus:border-cerulean"
               />
             </div>
 
-            {/* Email Address */}
+            {/* Email Address (Mandatory) */}
             <div>
               <label className="block text-[10px] font-extrabold text-cerulean uppercase tracking-wider mb-1.5">
-                WORK EMAIL ADDRESS
+                WORK EMAIL ADDRESS *
               </label>
               <input 
                 type="email"
@@ -341,7 +346,7 @@ function RequestConfigModal({
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full mt-2 py-3 rounded-xl bg-sienna hover:bg-sienna/90 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2"
+              className="w-full mt-2 py-3 rounded-xl bg-sienna hover:bg-sienna/90 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>Request Report</span>
               <ArrowRight className="w-4 h-4" />
