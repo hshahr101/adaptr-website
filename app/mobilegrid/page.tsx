@@ -195,7 +195,7 @@ export default function TechnologyPage() {
               </div>
               
               <p className="text-base sm:text-base text-bdazzled dark:text-cerulean/90 leading-relaxed font-medium">
-                Mobile Electric Grid bridges the gap between existing (static) power distribution grids and modern (dynamic) electrification demands. By pairing Grid Adaptr with vehicle delivery of electrical energy, we fast track load growth and DER deployments while enhancing reliability.
+                Mobile Electric Grid bridges the gap between existing (static) power distribution grids and modern (dynamic) electrification demands. By pairing Grid Adaptr with a mobile battery to deliver electrical energy, we fast track load growth and DER deployments while enhancing reliability.
               </p>
 
               {/* CTAs */}

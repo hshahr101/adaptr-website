@@ -1,8 +1,21 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import dns from 'dns/promises';
 
 // Initialize Resend API client using your environment variable
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+// Helper function to verify if the domain part of the email has active MX records
+async function hasValidMxRecords(email: string): Promise<boolean> {
+  const domain = email.split('@')[1];
+  if (!domain) return false;
+  try {
+    const records = await dns.resolveMx(domain);
+    return records && records.length > 0;
+  } catch {
+    return false;
+  }
+}
 
 export async function POST(request: Request) {
   try {
@@ -18,6 +31,23 @@ export async function POST(request: Request) {
       feederVoltagekV 
     } = body;
 
+    // Mandatory input validation
+    if (!userName || !utilityZone || !email) {
+      return NextResponse.json(
+        { error: 'Name, project location, and work email are required fields.' },
+        { status: 400 }
+      );
+    }
+
+    // Method 1: Perform server-side MX record check on the email domain
+    const isValidDomain = await hasValidMxRecords(email);
+    if (!isValidDomain) {
+      return NextResponse.json(
+        { error: 'The email domain provided cannot receive emails. Please enter a valid work email.' },
+        { status: 400 }
+      );
+    }
+
     // Dispatch email to engagements@adaptrenergy.com
     const data = await resend.emails.send({
       from: 'ADAPTR Simulator <noreply@adaptrenergy.com>',
@@ -25,7 +55,7 @@ export async function POST(request: Request) {
       replyTo: email,
       subject: `New Interconnection Report Request — ${userName} (${utilityZone})`,
       html: `
-        <div style="font-family: Arial, sans-serif; color: #293241; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; rounded-radius: 12px;">
+        <div style="font-family: Arial, sans-serif; color: #293241; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 12px;">
           <h2 style="color: #EE6C4D; border-bottom: 2px solid #EE6C4D; padding-bottom: 8px;">New Simulation Report Request</h2>
           
           <p><strong>Contact Information:</strong></p>

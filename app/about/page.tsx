@@ -366,7 +366,7 @@ export default function AboutPage() {
               </div>
               
               <p className="text-base sm:text-base text-bdazzled dark:text-cerulean/90 leading-relaxed font-medium">
-                Imagine unconstrained access to electricity, with weather-resistant resiliency at costs that foster economic growth. ADAPTR innovates renewable energy solutions that align with consumers&apos; hierarchy of energy priorities, both on and off the traditional grid.
+                Imagine unconstrained access to electricity, with weather-resilient systems, at costs that foster economic growth. This vision drives ADAPTR's renewable energy solutions while aligning with consumers&apos; hierarchy of energy priorities, both on and off the traditional grid.
               </p>
 
               {/* CTAs */}

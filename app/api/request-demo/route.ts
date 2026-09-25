@@ -1,26 +1,49 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
+import dns from 'dns/promises';
 
 // Initialize Resend API client using RESEND_API_KEY from .env.local
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+// Helper function to verify if the domain part of the email has active MX records
+async function hasValidMxRecords(email: string): Promise<boolean> {
+  const domain = email.split('@')[1];
+  if (!domain) return false;
+  try {
+    const records = await dns.resolveMx(domain);
+    return records && records.length > 0;
+  } catch {
+    return false;
+  }
+}
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const { name, company, email } = body;
 
-    if (!name || !company || !email) {
+    // Check for mandatory fields
+    if (!name || !company || !email) { 
+      return NextResponse.json( 
+        { error: 'Name, company, and work email are required fields.' }, 
+        { status: 400 } 
+      ); 
+    }
+
+    // Method 1: Perform server-side MX record check on the email domain
+    const isValidDomain = await hasValidMxRecords(email);
+    if (!isValidDomain) {
       return NextResponse.json(
-        { error: 'Name, company, and work email are required fields.' },
+        { error: 'The email domain provided cannot receive emails. Please enter a valid work email.' },
         { status: 400 }
       );
     }
 
     // Dispatch email notification to engagements@adaptrenergy.com
     const data = await resend.emails.send({
-      from: 'ADAPTR Demos <noreply@adaptrenergy.com>',
-      to: ['engagements@adaptrenergy.com'],
-      replyTo: email,
+      from: 'ADAPTR Demos <noreply@adaptrenergy.com>', 
+      to: ['engagements@adaptrenergy.com'], 
+      replyTo: email, 
       subject: `New In-Person Demo Request — ${name} (${company})`,
       html: `
         <div style="font-family: Arial, sans-serif; color: #293241; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 12px;">
@@ -47,14 +70,14 @@ export async function POST(request: Request) {
             This email was automatically generated from the ADAPTR website in-person demo modal.
           </p>
         </div>
-      `,
-    });
+      `, 
+    }); 
 
     return NextResponse.json({ success: true, data });
   } catch (error) {
     console.error('Demo Request API Error:', error);
     return NextResponse.json(
-      { error: 'Failed to send in-person demo request.' },
+      { error: 'Failed to send in-person demo request.' }, 
       { status: 500 }
     );
   }
