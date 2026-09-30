@@ -3,18 +3,18 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { 
-  Sparkles, 
-  ArrowRight, 
-  Award, 
-  TrendingUp, 
-  Users, 
-  Zap, 
-  Wrench, 
-  Workflow, 
-  Quote, 
-  Target, 
-  Compass, 
+import {
+  Sparkles,
+  ArrowRight,
+  Award,
+  TrendingUp,
+  Users,
+  Zap,
+  Wrench,
+  Workflow,
+  Quote,
+  Target,
+  Compass,
   ShieldCheck,
   Video,
   CheckCircle2,
@@ -38,11 +38,11 @@ function ScheduleMeetingModal({ isOpen, onClose }: ScheduleMeetingModalProps) {
   const bookingUrl = "https://calendar.app.google/WTLgMGZZQGBJaosm7";
 
   return (
-    <div 
+    <div
       className="fixed inset-0 w-screen h-screen bg-gunmetal/80 backdrop-blur-md flex items-center justify-center z-[99999] p-4"
       onClick={onClose}
     >
-      <div 
+      <div
         className="bg-gunmetal border border-cerulean/30 w-full max-w-3xl rounded-3xl p-6 sm:p-8 shadow-2xl text-lightcyan relative max-h-[92vh] flex flex-col justify-between"
         onClick={(e) => e.stopPropagation()}
       >
@@ -60,7 +60,7 @@ function ScheduleMeetingModal({ isOpen, onClose }: ScheduleMeetingModalProps) {
               Select an available time directly below to schedule a 30-minute Google Meet consultation with ADAPTR engineers.
             </p>
           </div>
-          <button 
+          <button
             onClick={onClose}
             className="text-cerulean/70 hover:text-white p-1 rounded-lg hover:bg-cerulean/10 transition-colors"
           >
@@ -252,7 +252,7 @@ const teamMembers: TeamMember[] = [
     name: 'Carman Mach',
     role: 'Product Lead (Software)',
     badgeRole: 'Software',
-    expertise: ['Software Development', 'UX/UI', 'Client Enagagement'],
+    expertise: ['Software Development', 'UX/UI Design', 'Product Management'],
     achievements: [
       'Lead product roadmaps, sprint-planning, and strategic direction across ADAPTRs suite of digital products',
       'Design intuitive digital experiences across UX/UI, translate client needs into clear, functional interfaces',
@@ -332,13 +332,13 @@ export default function AboutPage() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-    
+
   const [activeTierId, setActiveTierId] = useState<number>(1);
   const currentTier = hierarchyTiers.find((t) => t.id === activeTierId) || hierarchyTiers[0];
 
   return (
     <div className="min-h-screen bg-white dark:bg-gunmetal text-gunmetal dark:text-lightcyan transition-colors duration-300">
-      
+
       {/* ==================================================================== */}
       {/* SECTION 1: HERO OVERVIEW                                             */}
       {/* ==================================================================== */}
@@ -348,7 +348,7 @@ export default function AboutPage() {
 
         <div className="max-w-7xl mx-auto space-y-10 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
+
             {/* Left Column: Copy */}
             <div className="lg:col-span-6 space-y-6">
               <div className="inline-flex items-center gap-2 bg-lightcyan/30 dark:bg-bdazzled/40 border border-cerulean/30 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold text-bdazzled dark:text-cerulean shadow-sm">
@@ -364,7 +364,7 @@ export default function AboutPage() {
                   To Drive Prosperity.
                 </p>
               </div>
-              
+
               <p className="text-base sm:text-base text-bdazzled dark:text-cerulean/90 leading-relaxed font-medium">
                 Imagine unconstrained access to electricity, with weather-resilient systems, at costs that foster economic growth. This vision drives ADAPTR's renewable energy solutions while aligning with consumers&apos; hierarchy of energy priorities, both on and off the traditional grid.
               </p>
@@ -391,7 +391,7 @@ export default function AboutPage() {
             {/* Right Column: Static Image Showcase */}
             <div className="lg:col-span-6 relative flex justify-center">
               <div className="w-full bg-white/80 dark:bg-gunmetal/80 p-4 sm:p-5 rounded-2xl border border-cerulean/20 dark:border-bdazzled/40 shadow-xl dark:shadow-2xl space-y-4">
-                
+
                 <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-lightcyan/20 dark:bg-gunmetal border border-cerulean/10 dark:border-bdazzled/30 shadow-inner">
                   <Image
                     src="/images/anywhere.jpg"
@@ -469,7 +469,7 @@ export default function AboutPage() {
       {/* ==================================================================== */}
       <section id="hierarchy" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30 bg-lightcyan/10 dark:bg-gunmetal/50">
         <div className="max-w-7xl mx-auto space-y-12">
-          
+
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 bg-lightcyan/30 dark:bg-bdazzled/40 border border-cerulean/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-sienna uppercase tracking-wider">
               <span>Consumer Decision Framework</span>
@@ -483,15 +483,15 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 p-6 sm:p-10 rounded-3xl shadow-xl dark:shadow-2xl">
-            
+
             {/* Pyramid Interactive Area */}
-            <div 
+            <div
               className="lg:col-span-4 flex flex-col items-center justify-center relative"
             >
               <div className="absolute inset-0 bg-sienna/5 blur-3xl rounded-full pointer-events-none" />
-              
+
               <svg viewBox="0 0 400 340" className="w-full max-w-md h-auto drop-shadow-xl relative z-10">
-                
+
                 {/* Tier 3: Red Triangle - Benefits to Society */}
                 <g
                   onClick={() => setActiveTierId(3)}
@@ -500,11 +500,10 @@ export default function AboutPage() {
                 >
                   <polygon
                     points="200,30 144,135 256,135"
-                    className={`${
-                      activeTierId === 3
+                    className={`${activeTierId === 3
                         ? 'fill-sienna stroke-sienna scale-[1.02]'
                         : 'fill-sienna/80 dark:fill-sienna/100 stroke-transparent'
-                    } transition-all duration-300 origin-center stroke-2 hover:fill-sienna`}
+                      } transition-all duration-300 origin-center stroke-2 hover:fill-sienna`}
                   />
                   <text
                     x="200"
@@ -525,11 +524,10 @@ export default function AboutPage() {
                 >
                   <polygon
                     points="140,143 260,143 312,240 88,240"
-                    className={`${
-                      activeTierId === 2
+                    className={`${activeTierId === 2
                         ? 'fill-cerulean stroke-cerulean scale-[1.02]'
                         : 'fill-cerulean/80 dark:fill-cerulean/100 stroke-transparent'
-                    } transition-all duration-300 origin-center stroke-2 hover:fill-cerulean`}
+                      } transition-all duration-300 origin-center stroke-2 hover:fill-cerulean`}
                   />
                   <text
                     x="200"
@@ -550,11 +548,10 @@ export default function AboutPage() {
                 >
                   <polygon
                     points="84,248 316,248 370,350 30,350"
-                    className={`${
-                      activeTierId === 1
+                    className={`${activeTierId === 1
                         ? 'fill-gunmetal dark:fill-lightcyan stroke-gunmetal dark:stroke-lightcyan scale-[1.02]'
                         : 'fill-gunmetal/85 dark:fill-lightcyan/100 stroke-transparent'
-                    } transition-all duration-300 origin-center stroke-2 hover:fill-gunmetal dark:hover:fill-lightcyan/60`}
+                      } transition-all duration-300 origin-center stroke-2 hover:fill-gunmetal dark:hover:fill-lightcyan/60`}
                   />
                   <text
                     x="200"
@@ -575,7 +572,7 @@ export default function AboutPage() {
 
             {/* Right Column: Matched Layout */}
             <div className="lg:col-span-7 space-y-6">
-              
+
               {/* Main Heading & Subtext */}
               <div className="space-y-3">
                 <h3 className="text-2xl sm:text-2xl font-extrabold text-gunmetal dark:text-lightcyan">
@@ -592,11 +589,10 @@ export default function AboutPage() {
                   <button
                     key={tier.id}
                     onClick={() => setActiveTierId(tier.id)}
-                    className={`py-3 px-4 text-sm font-extrabold rounded-full border transition-all ${
-                      activeTierId === tier.id
+                    className={`py-3 px-4 text-sm font-extrabold rounded-full border transition-all ${activeTierId === tier.id
                         ? 'bg-sienna text-white border-sienna shadow-md scale-[1.02]'
                         : 'bg-white dark:bg-gunmetal/60 text-gunmetal dark:text-lightcyan border-cerulean/20 dark:border-bdazzled/40 hover:border-sienna'
-                    }`}
+                      }`}
                   >
                     {tier.priorityLabel}
                   </button>
@@ -628,7 +624,7 @@ export default function AboutPage() {
       {/* ==================================================================== */}
       <section className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30 bg-lightcyan/10 dark:bg-gunmetal/50">
         <div className="max-w-7xl mx-auto space-y-12">
-          
+
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 bg-lightcyan/30 dark:bg-bdazzled/40 border border-cerulean/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-sienna uppercase tracking-wider">
               <span>Why Partner With ADAPTR</span>
@@ -673,7 +669,7 @@ export default function AboutPage() {
       {/* ==================================================================== */}
       <section id="team" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30">
         <div className="max-w-7xl mx-auto space-y-12">
-          
+
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 bg-lightcyan/30 dark:bg-bdazzled/40 border border-cerulean/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-sienna uppercase tracking-wider">
               <span>Leadership & Engineering</span>
@@ -724,10 +720,10 @@ export default function AboutPage() {
                       {member.badgeRole || member.role.split(' ')[0]}
                     </div>
                   </div>
-                  
+
                   {/* Content Area: Name, Role, Expertise Tags, Achievement Bullets */}
                   <div className="p-6 sm:p-7 space-y-5">
-                    
+
                     {/* Header */}
                     <div className="space-y-1">
                       <h3 className="text-2xl font-black tracking-tight text-gunmetal dark:text-lightcyan">
@@ -778,7 +774,7 @@ export default function AboutPage() {
                       className="inline-flex items-center gap-1.5 text-xs font-bold text-cerulean hover:text-sienna transition-colors"
                     >
                       <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                        <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                        <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
                       </svg>
                       <span>LinkedIn Profile</span>
                     </a>
@@ -796,7 +792,7 @@ export default function AboutPage() {
       {/* ==================================================================== */}
       <section id="engagement" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30 bg-lightcyan/10 dark:bg-gunmetal/50">
         <div className="max-w-7xl mx-auto space-y-12">
-          
+
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 bg-lightcyan/30 dark:bg-bdazzled/40 border border-cerulean/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-sienna uppercase tracking-wider">
               <BookOpen className="w-3.5 h-3.5" />
@@ -811,7 +807,7 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            
+
             {/* Card 1: Mentoring Future Innovators */}
             <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 rounded-3xl overflow-hidden shadow-xl flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:border-sienna/40">
               <div>
@@ -919,11 +915,11 @@ export default function AboutPage() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECTION 7: VISION, MISSION & APPROACH (PORTRAIT IMAGE LAYOUT)        */}
+      {/* SECTION 7: VISION, MISSION & APPROACH (CLEAN IMAGE ONLY)            */}
       {/* ==================================================================== */}
       <section id="vision" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30">
         <div className="max-w-7xl mx-auto space-y-12">
-          
+
           {/* Section Header */}
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 bg-lightcyan/30 dark:bg-bdazzled/40 border border-cerulean/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-sienna uppercase tracking-wider">
@@ -939,30 +935,22 @@ export default function AboutPage() {
 
           {/* Side-by-Side Grid Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-            
-            {/* Left Column: Tall Portrait Image */}
-            <div className="lg:col-span-5 relative rounded-3xl overflow-hidden border border-cerulean/20 dark:border-bdazzled/40 shadow-xl min-h-[440px] lg:min-h-[540px] flex flex-col justify-end bg-gunmetal">
+
+            {/* Left Column: Pure Image Card (No Text Overlay) */}
+            <div className="lg:col-span-5 relative rounded-3xl overflow-hidden border border-cerulean/20 dark:border-bdazzled/40 shadow-xl min-h-[440px] lg:min-h-[540px] bg-gunmetal group">
               <Image
-                src="/images/wind_indigenous.jpg"
+                src="/images/Vision1.jpg"
                 alt="Community Clean Energy and Wind Turbine Development"
                 fill
-                sizes="(max-width: 1024px) 100vw, 40vw" 
-                className="object-cover hover:scale-105 transition-transform duration-500"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-gunmetal/90 via-gunmetal/20 to-transparent p-6 sm:p-8 flex flex-col justify-end text-lightcyan z-10">
-
-                <h3 className="text-xl sm:text-2xl font-black text-white">
-                  Powering Prosperity
-                </h3>
-                <p className="text-xs text-cerulean/90 font-medium mt-1">
-                  With energy solutions of today and tomorrow.
-                </p>
-              </div>
             </div>
 
             {/* Right Column: Stacked Vision, Mission & Approach Cards */}
             <div className="lg:col-span-7 flex flex-col justify-between space-y-4">
-              
+
               {/* Vision Card */}
               <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 p-6 sm:p-7 rounded-2xl space-y-3 shadow-md transition-all hover:border-sienna/40">
                 <div className="flex items-center gap-3">
@@ -1029,7 +1017,7 @@ export default function AboutPage() {
       {/* ==================================================================== */}
       <section className="py-20 px-6 sm:px-12">
         <div className="max-w-5xl mx-auto bg-gradient-to-br from-gunmetal to-bdazzled dark:from-gunmetal/90 dark:to-bdazzled/40 text-lightcyan rounded-3xl p-8 sm:p-12 border border-cerulean/30 shadow-2xl text-center space-y-8 relative overflow-hidden">
-          
+
           <div className="space-y-4 max-w-2xl mx-auto">
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
               Ready to Power Prosperity for Your Business or Community?

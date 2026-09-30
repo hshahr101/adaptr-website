@@ -111,24 +111,24 @@ interface ClientVerdict {
 const clientVerdicts: ClientVerdict[] = [
   {
     id: '1',
-    quote: "ADAPTR's team have been great advisors as we navigate our off-grid hybrid renewable project design and interconnection process with the local Utility. I would absolutely recommend bringing ADAPTR onto your team if you're developing similar projects.",
+    quote: "ADAPTR's team have been great advisors as we navigate our off-grid hybrid renewable project designs and interconnection processes with the local utility. I would absolutely recommend bringing ADAPTR onto your team if you're developing similar projects.",
     author: 'Dana May',
     role: 'Director of Development',
     company: 'Northern Energy Capital',
   },
   {
     id: '2',
-    quote: "The ADAPTR team has repeatedly faced and overcome technical challenges for our demonstration project initiative at Manitoulin island. Hassan understands the needs of M'Chigeeng First Nation, and our trust in the ADAPTR team has been well placed.",
+    quote: "The ADAPTR team has faced and overcome technical challenges for our demonstration project initiative at Manitoulin island. Hassan understands the needs of M'Chigeeng First Nation, and our trust in the ADAPTR team has been well placed.",
     author: 'Grant Taibossigai',
     role: 'Business & Economic Development',
     company: "M'Chigeeng First Nation",
   },
   {
     id: '3',
-    quote: "ADAPTR team's deep utility background and proactive innovation brought immense value to our control system and renewable energy initiatives. We are very happy to work with the ADAPTR team.",
+    quote: "ADAPTR’s deep knowledge of power system modeling, grid code requirements, and advanced control system design has yielded great value to PHP on our renewable power and enabling grid services initiatives.",
     author: 'Laurie Murphy',
-    role: 'Senior Project Manager',
-    company: 'Port Hawkesbury Paper',
+    role: 'Project Manager',
+    company: 'Port Hawkesbury Paper Group',
   },
 ];
 
