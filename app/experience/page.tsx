@@ -118,7 +118,7 @@ const clientVerdicts: ClientVerdict[] = [
   },
   {
     id: '2',
-    quote: "The ADAPTR team has faced and overcome technical challenges for our demonstration project initiative at Manitoulin island. Hassan understands the needs of M'Chigeeng First Nation, and our trust in the ADAPTR team has been well placed.",
+    quote: "Thanks to NRCan, and our technology partner, ADAPTR, we are building a new way. A system that helps to connect the past with the present and helps to unlock our future.",
     author: 'Grant Taibossigai',
     role: 'Business & Economic Development',
     company: "M'Chigeeng First Nation",

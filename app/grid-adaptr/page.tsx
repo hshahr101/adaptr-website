@@ -485,15 +485,15 @@ export default function GridAdaptrPage() {
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center text-xs font-bold">
                 <div className="p-3 rounded-xl bg-white/80 dark:bg-gunmetal/90 border border-cerulean/20 shadow-sm">
                   <span className="block text-cerulean text-[11px] uppercase tracking-wider mb-0.5">DC LINK VOLTAGE</span>
-                  <span className="text-sm font-extrabold text-gunmetal dark:text-lightcyan">400 V Stable</span>
+                  <span className="text-sm font-extrabold text-gunmetal dark:text-lightcyan">Stable</span>
                 </div>
                 <div className="p-3 rounded-xl bg-white/80 dark:bg-gunmetal/90 border border-cerulean/20 shadow-sm">
                   <span className="block text-cerulean text-[11px] uppercase tracking-wider mb-0.5">GRID FREQUENCY</span>
                   <span className="text-sm font-extrabold text-gunmetal dark:text-lightcyan">60.0 Hz Synced</span>
                 </div>
                 <div className="p-3 rounded-xl bg-white/80 dark:bg-gunmetal/90 border border-cerulean/20 shadow-sm">
-                  <span className="block text-sienna text-[11px] uppercase tracking-wider mb-0.5">GRID DECOUPLING</span>
-                  <span className="text-sm font-extrabold text-gunmetal dark:text-lightcyan">100% Active</span>
+                  <span className="block text-sienna text-[11px] uppercase tracking-wider mb-0.5">POWER DECOUPLING</span>
+                  <span className="text-sm font-extrabold text-gunmetal dark:text-lightcyan">Active</span>
                 </div>
               </div>
             </div>

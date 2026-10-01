@@ -236,7 +236,7 @@ const teamMembers: TeamMember[] = [
   {
     id: '5',
     name: 'Hossein Chabok',
-    role: 'Power System Modeler',
+    role: 'Power System Specialist',
     badgeRole: 'Engineering',
     expertise: ['Grid Modeling', 'Power System Analysis', 'Engineering Design & Technical Execution'],
     achievements: [
@@ -678,7 +678,7 @@ export default function AboutPage() {
               Meet the ADAPTR Team
             </h2>
             <p className="text-base text-bdazzled dark:text-cerulean/90 font-medium leading-relaxed">
-              A multidisciplinary team with 50+ yrs of renewables, control systems, power electronics and R&D experience.
+              A multidisciplinary team with 50+ years of renewables, control systems, power electronics and R&D experience.
             </p>
           </div>
 
