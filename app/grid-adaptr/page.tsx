@@ -304,7 +304,7 @@ export default function GridAdaptrPage() {
           <div className="w-full bg-white/80 dark:bg-gunmetal/80 p-4 sm:p-6 rounded-2xl border border-cerulean/20 dark:border-bdazzled/40 shadow-xl dark:shadow-2xl transition-colors duration-300 space-y-4">
             <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-lightcyan/20 dark:bg-gunmetal flex items-center justify-center border border-cerulean/10 dark:border-bdazzled/30 shadow-inner p-2">
               <Image
-                src="/images/Grid-Adaptr_Module.jpg"
+                src="/images/GA-Mod.jpg"
                 alt="Grid Adaptr Industrial Multi-Bay PCS Enclosure"
                 fill
                 sizes="100vw"
