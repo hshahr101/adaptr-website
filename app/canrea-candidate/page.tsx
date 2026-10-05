@@ -48,8 +48,8 @@ const expertiseData: ExpertiseItem[] = [
     icon: Award,
     title: 'Hassan Shahriar',
     subtitle: 'President, ADAPTR Inc. • Running for BTM Board Seat',
-    image: '/images/canrea_candidate/hassan_shahriar.jpg',
-    imageCaption: 'Hassan Shahriar — 15+ Years in Canadian Renewable Energy',
+    image: '/images/canrea_candidate/Nuttby_NS.jpg',
+    imageCaption: 'Hassan Shahriar — Nuttby Wind Farm commissioning 2010',
     summary:
       'Serving in renewables since 2010, Hassan’s experience spans technical, commercial, engineering, development, communications, M&A, and leadership across Canada.',
     highlights: [
@@ -245,65 +245,67 @@ export default function CanreaCandidatePage() {
             </h2>
           </div>
 
-          {/* Statement Callout Card */}
-          <div className="relative bg-gradient-to-br from-gunmetal via-gunmetal to-bdazzled dark:from-gunmetal/90 dark:to-bdazzled/40 border border-cerulean/30 rounded-3xl p-8 sm:p-12 shadow-2xl text-lightcyan overflow-hidden">
+          {/* Statement Callout Card with Hassan's Image on the Left */}
+          <div className="relative bg-gradient-to-br from-gunmetal via-gunmetal to-bdazzled dark:from-gunmetal/90 dark:to-bdazzled/40 border border-cerulean/30 rounded-3xl p-6 sm:p-10 shadow-2xl text-lightcyan overflow-hidden">
             
             <div className="absolute top-0 right-0 -mt-10 -mr-10 w-80 h-80 bg-sienna/10 rounded-full blur-3xl pointer-events-none" />
             
-            <div className="relative z-10 space-y-8 max-w-5xl mx-auto">
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center max-w-6xl mx-auto">
               
-              <div className="flex items-center gap-4 border-b border-cerulean/20 pb-6">
-                <div className="w-12 h-12 rounded-2xl bg-sienna/20 border border-sienna/30 flex items-center justify-center text-sienna shrink-0">
-                  <Quote className="w-6 h-6" />
+              {/* Left Column: Hassan's Portrait Image */}
+              <div className="lg:col-span-4 flex flex-col justify-center items-center">
+                <div className="relative w-full aspect-[4/5] max-w-sm rounded-2xl overflow-hidden border-2 border-sienna/40 shadow-xl bg-gunmetal">
+                  <Image
+                    src="/images/canrea_candidate/hassan_shahriar.jpg"
+                    alt="Hassan Shahriar — CanREA Board Candidate"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 33vw"
+                    className="object-cover object-top hover:scale-105 transition-transform duration-500"
+                    priority
+                  />
+                  <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-gunmetal via-gunmetal/80 to-transparent p-4 text-center">
+                    <p className="text-sm font-black text-white">Hassan Shahriar</p>
+                    <p className="text-[11px] font-bold text-sienna uppercase tracking-wider">President, ADAPTR Inc.</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-xl sm:text-2xl font-black text-white">
-                    Unlocking the Meters & Expanding Opportunities
-                  </h3>
-                  <p className="text-xs font-bold text-sienna uppercase tracking-wider">
-                    Hassan Shahriar &bull; BTM Candidate Statement
+              </div>
+
+              {/* Right Column: Statement Text */}
+              <div className="lg:col-span-8 space-y-6">
+                
+                <div className="flex items-center gap-4 border-b border-cerulean/20 pb-4">
+                  <div className="w-10 h-10 rounded-2xl bg-sienna/20 border border-sienna/30 flex items-center justify-center text-sienna shrink-0">
+                    <Quote className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-black text-white">
+                      Unlocking the Meters & Expanding Opportunities
+                    </h3>
+                    <p className="text-[11px] font-bold text-sienna uppercase tracking-wider">
+                      Hassan Shahriar &bull; BTM Candidate Statement
+                    </p>
+                  </div>
+                </div>
+
+                {/* Main Statement Text */}
+                <div className="space-y-4 text-xs sm:text-sm leading-relaxed text-lightcyan/95 font-medium">
+                  <p className="text-sm sm:text-base text-white font-semibold leading-relaxed border-l-4 border-sienna pl-4 italic">
+                    &ldquo;A major technical bottleneck for BTM renewables and energy storage is the limitation of existing grid capacity. Seven years ago, I left ENERCON to build hard-tech solutions to address these grid constraints, resulting in patented technologies supported by NRCan&apos;s Energy Innovation team.&rdquo;
+                  </p>
+
+                  <p>
+                    However, technology alone is not enough—we need the aligned support of regulators, utilities, governments, and consumers to accelerate electrification.
+                  </p>
+
+                  <p className="text-white font-bold text-sm sm:text-base">
+                    Garnering that consensus is my primary mission: one that will unlock meters and commercial opportunities for all CanREA members.
+                  </p>
+
+                  <p className="text-cerulean font-medium pt-1">
+                    This is the task I am eager to take on, on your behalf, as your BTM Board Member.
                   </p>
                 </div>
-              </div>
 
-              {/* Main Statement Text */}
-              <div className="space-y-5 text-sm sm:text-base leading-relaxed text-lightcyan/95 font-medium">
-                <p className="text-base sm:text-lg text-white font-semibold leading-relaxed border-l-4 border-sienna pl-4 sm:pl-6 italic">
-                  &ldquo;A major technical bottleneck for BTM renewables and energy storage is the limitation of existing grid capacity. Seven years ago, I left ENERCON to build hard-tech solutions to address these grid constraints, resulting in patented technologies supported by NRCan&apos;s Energy Innovation team.&rdquo;
-                </p>
-
-                <p>
-                  However, technology alone is not enough—we need the aligned support of regulators, utilities, governments, and consumers to accelerate electrification.
-                </p>
-
-                <p className="text-white font-bold text-base sm:text-lg">
-                  Garnering that consensus is my primary mission: one that will unlock meters and commercial opportunities for all CanREA members.
-                </p>
-
-                <p className="text-cerulean font-medium pt-2">
-                  This is the task I am eager to take on, on your behalf, as your BTM Board Member.
-                </p>
-              </div>
-
-              {/* Mission Pillars Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-cerulean/20 text-xs">
-                <div className="bg-gunmetal/80 border border-cerulean/20 p-4 rounded-xl space-y-1.5">
-                  <span className="text-sienna font-extrabold uppercase tracking-wider text-[10px] block">01 &bull; Hard Tech & Grid Resilience</span>
-                  <p className="text-white font-bold text-xs">Overcoming Grid Limits</p>
-                  <p className="text-cerulean/80 text-[11px]">Pursuing grid modernization initiatives to solve BTM hosting capacity limits.</p>
-                </div>
-
-                <div className="bg-gunmetal/80 border border-cerulean/20 p-4 rounded-xl space-y-1.5">
-                  <span className="text-sienna font-extrabold uppercase tracking-wider text-[10px] block">02 &bull; Multi-Stakeholder Alignment</span>
-                  <span className="text-white font-bold text-xs">Building True Consensus</span>
-                  <p className="text-cerulean/80 text-[11px]">Uniting regulators, utilities, governments, and consumers for electrification.</p>
-                </div>
-
-                <div className="bg-gunmetal/80 border border-cerulean/20 p-4 rounded-xl space-y-1.5">
-                  <span className="text-sienna font-extrabold uppercase tracking-wider text-[10px] block">03 &bull; Member Business Growth</span>
-                  <span className="text-white font-bold text-xs">Unlocking the Meters</span>
-                  <p className="text-cerulean/80 text-[11px]">Driving faster deployment and expanded business pipelines for CanREA members.</p>
-                </div>
               </div>
 
             </div>
