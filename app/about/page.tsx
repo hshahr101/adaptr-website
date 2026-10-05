@@ -152,30 +152,6 @@ const hierarchyTiers: HierarchyTier[] = [
   },
 ];
 
-const clientVerdicts: ClientVerdict[] = [
-  {
-    id: '1',
-    quote: "My time with Hassan spans over 8 years and I worked with him directly almost all the time. Hassan is a restless goal-getter who did everything for his clients to get them across the finish line. His expertise, his knowledge of what it takes to develop critical and challenging projects is immense and impressed me continuously. For anyone with the need to push a challenging project over the finish line, Hassan is the person to work with.",
-    author: 'Michael Weidemann',
-    role: 'Executive Vice President',
-    company: 'ENERCON Canada Inc.',
-  },
-  {
-    id: '2',
-    quote: "ADAPTR's Grid Adaptr technology has proven essential for decoupling heavy transient loads from our local feeder lines. Their technical execution and power system know-how made our microgrid integration seamless and reliable.",
-    author: 'Grant Taibossigai',
-    role: 'Business & Economic Development',
-    company: "M'Chigeeng First Nation",
-  },
-  {
-    id: '3',
-    quote: "Working with ADAPTR allowed us to fast-track our interconnection feasibility studies and eliminate costly substation upgrades. Their team's deep utility background and proactive innovation brought immense value to our renewable energy pipeline.",
-    author: 'Laurie Murphy',
-    role: 'Senior Project Manager',
-    company: 'Port Hawkesbury Paper',
-  },
-];
-
 const teamMembers: TeamMember[] = [
   {
     id: '1',
@@ -188,7 +164,7 @@ const teamMembers: TeamMember[] = [
       'Led the revitalization of the iconic wind turbine project in downtown Toronto',
       'Managed the deployment of ADAPTR’s technologies from concept to commercial operation',
     ],
-    imageUrl: '/images/team/hassan-shahriar.jpg',
+    imageUrl: '/images/canrea_candidate/hassan_shahriar.jpg',
     linkedin: 'https://www.linkedin.com/in/hassan-shahriar/',
   },
   {
@@ -328,7 +304,6 @@ export default function AboutPage() {
   const [isMeetingModalOpen, setIsMeetingModalOpen] = useState(false);
   const [imageError, setImageError] = useState<Record<string, boolean>>({});
 
-  // Force page to load at the absolute top
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -665,7 +640,7 @@ export default function AboutPage() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECTION 5: LEADERSHIP & ENGINEERING TEAM (UPDATED WITH MONOGRAM)    */}
+      {/* SECTION 5: LEADERSHIP & ENGINEERING TEAM (WITH CANREA BUTTON)        */}
       {/* ==================================================================== */}
       <section id="team" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30">
         <div className="max-w-7xl mx-auto space-y-12">
@@ -686,7 +661,11 @@ export default function AboutPage() {
             {teamMembers.map((member) => (
               <div
                 key={member.id}
-                className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 rounded-3xl overflow-hidden shadow-lg flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:border-sienna/40"
+                className={`bg-white/80 dark:bg-gunmetal/80 border rounded-3xl overflow-hidden shadow-lg flex flex-col justify-between transition-all duration-300 hover:shadow-xl ${
+                  member.id === '1' 
+                    ? 'border-sienna/50 shadow-sienna/10 ring-1 ring-sienna/30' 
+                    : 'border-cerulean/20 dark:border-bdazzled/40 hover:border-sienna/40'
+                }`}
               >
                 <div>
                   {/* Photo Container with Automatic Branded Monogram Fallback */}
@@ -719,6 +698,22 @@ export default function AboutPage() {
                     <div className="absolute top-3 left-3 bg-gunmetal/90 backdrop-blur-md px-3 py-1 rounded-lg border border-cerulean/30 text-[10px] font-black text-lightcyan uppercase tracking-wider z-10">
                       {member.badgeRole || member.role.split(' ')[0]}
                     </div>
+
+                    {/* PROMINENT CANREA BTM BOARD CANDIDATE OVERLAY BUTTON FOR HASSAN SHAHRIAR */}
+                    {member.id === '1' && (
+                      <div className="absolute bottom-3 inset-x-3 z-20">
+                        <Link
+                          href="/canrea-candidate"
+                          className="flex items-center justify-between gap-2 w-full px-4 py-2.5 rounded-xl bg-sienna hover:bg-sienna/90 text-white font-extrabold text-xs shadow-xl shadow-sienna/30 border border-sienna/40 transition-all hover:scale-[1.02] cursor-pointer"
+                        >
+                          <div className="flex items-center gap-1.5">
+                            <Sparkles className="w-4 h-4 text-lightcyan animate-pulse shrink-0" />
+                            <span>CanREA BTM Board Candidate</span>
+                          </div>
+                          <ArrowRight className="w-4 h-4 text-white shrink-0" />
+                        </Link>
+                      </div>
+                    )}
                   </div>
 
                   {/* Content Area: Name, Role, Expertise Tags, Achievement Bullets */}
