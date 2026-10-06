@@ -164,7 +164,7 @@ const teamMembers: TeamMember[] = [
       'Led the revitalization of the iconic wind turbine project in downtown Toronto',
       'Managed the deployment of ADAPTR’s technologies from concept to commercial operation',
     ],
-    imageUrl: '/images/canrea_candidate/hassan_shahriar.jpg',
+    imageUrl: '/images/team/hassan_s.jpg',
     linkedin: 'https://www.linkedin.com/in/hassan-shahriar/',
   },
   {
@@ -178,7 +178,7 @@ const teamMembers: TeamMember[] = [
       'Served in ENERCON’s R&D department in Aurich, Germany',
       'University professor specializing in grid controls and system stability',
     ],
-    imageUrl: '/images/team/amgad-eldeib.jpg',
+    imageUrl: '/images/team/amgad_ed.jpg',
     linkedin: 'https://www.linkedin.com/in/amgad-el-deib-889733141/',
   },
   {
@@ -206,7 +206,7 @@ const teamMembers: TeamMember[] = [
       'Develop and commission advanced control algorithms for real-world hybrid microgrid energy projects',
       'Control design and validation using advanced real-time simulation, Rapid Control Prototyping (RCP), and Hardware-in-the-Loop (HIL/PHIL) testing methodologies',
     ],
-    imageUrl: '/images/team/marcus-vance.jpg',
+    imageUrl: '/images/team/mohamed.jpg',
     linkedin: 'https://www.linkedin.com/in/moashhafez/',
   },
   {
@@ -220,7 +220,7 @@ const teamMembers: TeamMember[] = [
       'Conduct Power System simulations and engineering studies to ensure compliance with industry standards',
       'Prepare engineering specifications, schematics, and technical designs',
     ],
-    imageUrl: '/images/team/david-okafor.jpg',
+    imageUrl: '/images/team/hossein_c.jpg',
     linkedin: 'https://www.linkedin.com/in/hosseinchabok/',
   },
   {
@@ -234,7 +234,7 @@ const teamMembers: TeamMember[] = [
       'Design intuitive digital experiences across UX/UI, translate client needs into clear, functional interfaces',
       'Build and deliver digital tools across frontend and backend development',
     ],
-    imageUrl: '/images/team/elena-rostova.jpg',
+    imageUrl: '/images/team/carman_m.jpg',
     linkedin: 'https://www.linkedin.com/in/carmanmach/',
   },
   {
@@ -248,7 +248,7 @@ const teamMembers: TeamMember[] = [
       'Spearhead internal marketing efforts and created original graphic design assets to strengthen brand messaging',
       'Manage day-to-day administrative functions and workflow coordination for various internal teams',
     ],
-    imageUrl: '/images/team/alex-rivera.jpg',
+    imageUrl: '/images/team/miranda.jpg',
     linkedin: 'https://www.linkedin.com/in/miranda-martin-a2a948293/',
   },
   {
