@@ -213,7 +213,7 @@ export default function Navbar() {
             onClick={() => setIsMeetingModalOpen(true)}
             className="inline-flex items-center gap-2 bg-sienna hover:bg-sienna/90 text-white font-bold text-sm px-4 sm:px-5 py-2.5 rounded-lg transition-all shadow-md shadow-sienna/10 hover:scale-[1.02] cursor-pointer"
           >
-            <span>Free Consultation</span>
+            <span>Free Technical Review</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>
@@ -313,7 +313,7 @@ export default function Navbar() {
               }}
               className="w-full inline-flex items-center justify-center gap-2 bg-sienna text-white font-bold text-sm px-5 py-3 rounded-lg shadow-md cursor-pointer"
             >
-              <span>Free Consultation</span>
+              <span>Free Technical Review</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
