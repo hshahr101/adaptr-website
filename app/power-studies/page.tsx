@@ -32,7 +32,12 @@ import {
   Eye,
   Check,
   ChevronRight,
-  Building2
+  Network,
+  BatteryCharging,
+  Sun,
+  Radio,
+  SlidersHorizontal,
+  ChevronDown
 } from 'lucide-react';
 
 // ─── 1. GOOGLE CALENDAR SCHEDULING MODAL ──────────────────────────────────
@@ -105,7 +110,7 @@ function ScheduleMeetingModal({ isOpen, onClose }: ScheduleMeetingModalProps) {
 
 // ─── 2. STUDY CAPABILITY DRILL-DOWN MODAL ─────────────────────────────────
 interface CapabilityModalProps {
-  study: StudyType | null;
+  study: StudyItem | null;
   onClose: () => void;
   onOpenConsultation: () => void;
 }
@@ -130,7 +135,7 @@ function CapabilityDetailModal({ study, onClose, onOpenConsultation }: Capabilit
             </div>
             <div>
               <span className="text-[10px] font-black text-sienna uppercase tracking-widest block">
-                TECHNICAL CAPABILITY DEEP DIVE
+                {study.category} CLASSIFICATION
               </span>
               <h2 className="text-xl sm:text-2xl font-black text-white">{study.title}</h2>
               <p className="text-xs text-cerulean/80 font-semibold">{study.subtitle}</p>
@@ -230,6 +235,20 @@ function StageDetailModal({ stage, onClose }: StageModalProps) {
           {stage.summary}
         </p>
 
+        {/* Highlighted Studies for this Stage */}
+        <div className="bg-sienna/10 border border-sienna/30 p-3.5 rounded-2xl space-y-1.5">
+          <span className="text-[10px] font-black text-sienna uppercase tracking-wider">
+            PRIMARY STUDIES PERFORMED IN THIS STAGE
+          </span>
+          <div className="flex flex-wrap gap-2 pt-1">
+            {stage.studiesIncluded.map((s, idx) => (
+              <span key={idx} className="bg-gunmetal border border-cerulean/30 px-2.5 py-1 rounded-lg text-xs font-bold text-white">
+                {s}
+              </span>
+            ))}
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-gunmetal/80 p-4 rounded-2xl border border-cerulean/20 space-y-2.5">
             <div className="flex items-center gap-2 text-sienna font-extrabold text-xs uppercase tracking-wider border-b border-cerulean/20 pb-2">
@@ -299,175 +318,186 @@ function StageDetailModal({ stage, onClose }: StageModalProps) {
   );
 }
 
-// ─── DATA STRUCTURES ────────────────────────────────────────────────────────
+// ─── DATA DEFINITIONS ──────────────────────────────────────────────────────
 const adammUrl = "https://adamm.adaptrenergy.com";
 
-interface StudyType {
-  id: string;
+// Slide 2: Who We Are - 4 Domain Competencies
+interface CompetencyDomain {
   icon: React.ElementType;
   title: string;
+  focus: string;
+  projects: string[];
+}
+
+const domainCompetencies: CompetencyDomain[] = [
+  {
+    icon: Network,
+    title: 'Transmission Systems',
+    focus: 'System transfer limits, interties & high-voltage lines',
+    projects: ['MATL 240kV Transmission Interconnection', 'HVDC Interconnection Review (India)', 'Offshore AC/DC Platforms']
+  },
+  {
+    icon: Sun,
+    title: 'Renewables & IBRs',
+    focus: 'Interconnection assessments & grid compliance packs',
+    projects: ['North American ISO/RTO Queue Filings', 'Weak-Grid Inverter Controls', 'Salt River Solar-Storage SIS']
+  },
+  {
+    icon: BatteryCharging,
+    title: 'Energy Storage (BESS)',
+    focus: 'BESS and Hybrid BESS sizing, dynamic control & impacts',
+    projects: ['Hybrid Microgrid BESS Dispatching', 'Micro-cycling Degradation Analysis', 'Fast-Frequency Response Services']
+  },
+  {
+    icon: Layers,
+    title: 'System Design & Microgrids',
+    focus: 'Hybrid renewables for remote, industrial & off-grid networks',
+    projects: ["Mary's Harbour Wind+Solar+Hydro+BESS", 'Nain Arctic Remote Wind-Storage', 'Rankin Inlet Microgrid Integration']
+  }
+];
+
+// Slide 3: What We Do - Categorized into Steady-State vs Transient
+interface StudyItem {
+  id: string;
+  category: 'Steady-State' | 'Transient';
+  title: string;
   subtitle: string;
+  icon: React.ElementType;
   description: string;
   highlights: string[];
   deliverables: string;
 }
 
-const studyTypes: StudyType[] = [
+const categorizedStudies: StudyItem[] = [
+  // STEADY-STATE
   {
-    id: 'interconnection',
+    id: 'hosting-capacity',
+    category: 'Steady-State',
+    title: 'Hosting Capacity Studies',
+    subtitle: 'De-risk Bidding & Interconnection Capacity',
+    icon: Zap,
+    description: 'Uses full power system models and automated multi-contingency analyses to determine true feeder and substation hosting capacity limits prior to formal interconnection submissions.',
+    highlights: [
+      'Full power system model evaluation (PSS®E / PowerFactory)',
+      'Large-scale N-1 and N-2 contingency analyses',
+      'Early constraint identification to prevent interconnection rejection',
+      'De-risks bidding and capital allocation decisions'
+    ],
+    deliverables: 'Hosting Capacity Assessment Report, Substation Capacity Matrices, Feeder Curtailment Risks'
+  },
+  {
+    id: 'load-flow',
+    category: 'Steady-State',
+    title: 'Load Flow & BOP Loss Studies',
+    subtitle: 'Electrical Infrastructure Sizing & Loss Optimization',
     icon: Activity,
-    title: 'Interconnection & System Impact Studies (SIS)',
-    subtitle: 'Ensuring Full Grid Code Compliance',
-    description:
-      'Advanced power system modeling for both distribution and transmission connected projects, evaluating impact on feeder thermal limits, voltage profiles, and utility protection schemes.',
+    description: 'Detailed thermal and voltage profiles across normal and contingency operating regimes to compare design concepts, select optimal conductor sizing, and calculate Balance of Plant (BOP) losses.',
     highlights: [
-      'Hosting capacity determination for distribution LDCs',
-      'System Impact Studies (SIS) for transmission & LDC interconnection',
-      'Evaluation of grid-forming vs. grid-following IBR inverter behavior',
-      'Contingency analysis & N-1 reliability evaluations'
+      'Comparison of alternative collector design concepts',
+      'Optimal substation and transformer infrastructure sizing',
+      'Precise BOP electrical loss estimations across annual load profiles',
+      'Reactive power compensation sizing (shunt reactors / capacitors)'
     ],
-    deliverables: 'Comprehensive SIS Report, Utility-ready Interconnection Briefs, Feeder Load Flow Models'
+    deliverables: 'Thermal & Voltage Profile Reports, BOP Loss Schedule, Equipment Sizing Specs'
   },
   {
-    id: 'emt',
-    icon: Cpu,
-    title: 'Electromagnetic Transient (EMT) Simulations',
-    subtitle: 'Deep Dynamic Analysis for Inverter-Based Resources',
-    description:
-      'High-fidelity time-domain EMT simulations (PSCAD / Matlab) to model fast transient phenomena, weak-grid decoupling, sub-synchronous control interactions (SSCI), and fault ride-through performance.',
-    highlights: [
-      'Weak-grid dynamic stability & SCR (Short Circuit Ratio) analysis',
-      'Validation of high-penetration solar, wind & battery inverter controls',
-      'Transient overvoltage (TOV) & switching surge assessment',
-      'Fault Ride-Through (FRT) & dynamic reactive power support validation'
-    ],
-    deliverables: 'PSCAD/Matlab EMT Simulation Models, Dynamic Compliance Reports, Controller Parameter Tuning Specs'
-  },
-  {
-    id: 'power-quality',
-    icon: Sliders,
-    title: 'Harmonics, Power Quality & Flicker Analysis',
-    subtitle: 'Mitigating Grid Transients & Distortions',
-    description:
-      'Rigorous power quality assessments ensuring DERs and heavy industrial loads comply with IEEE 519, IEC 61000, and regional LDC Distribution System Codes.',
-    highlights: [
-      'Total Harmonic Distortion (THD) and individual harmonic spectrum limits',
-      'Voltage flicker severity (Pst / Plt) evaluation for pulsed industrial loads',
-      'Filter design & dynamic reactive power compensation sizing',
-      'Phase unbalance & voltage sag mitigation strategies'
-    ],
-    deliverables: 'Harmonic Compliance Telemetry, Active/Passive Filter Design Specs, Mitigation Strategy Brief'
-  },
-  {
-    id: 'protection',
+    id: 'short-circuit',
+    category: 'Steady-State',
+    title: 'Short Circuit & Fault Current Calculations',
+    subtitle: 'Streamlined Modeling for Equipment Safety',
     icon: ShieldCheck,
-    title: 'Protection Coordination & Short Circuit Studies',
-    subtitle: 'Safeguarding Equipment & Personnel',
-    description:
-      'Detailed short circuit calculations and relay protection coordination studies designed to maintain fault selectivity, speed, and safety across complex hybrid DER microgrids.',
+    description: 'Calculates maximum and minimum three-phase and phase-to-ground fault currents in compliance with IEEE/IEC standards, specifically addressing inverter-based current-limiting characteristics.',
     highlights: [
-      'Fault current contribution calculations for inverter-limited generation',
-      'Relay coordination curves (TCC) & breaker interruption capacity validation',
-      'Anti-islanding & loss-of-mains (LOM) protection philosophy',
-      'Arc flash boundary calculations and safety documentation'
+      'Effective standards interpretation (IEEE 551, IEC 60909)',
+      'Breaker interrupting rating validation and switchgear sizing',
+      'Inverter fault contribution modeling under weak-grid conditions',
+      'Fast turnaround models for early EPC procurement'
     ],
-    deliverables: 'Relay Setting Files, Time-Current Characteristic (TCC) Curves, Protection Philosophy Documentation'
+    deliverables: 'Short Circuit Duty Report, Breaker Evaluation Matrix, Fault Level Tabulation'
+  },
+  // TRANSIENT & DYNAMIC
+  {
+    id: 'dynamic-studies',
+    category: 'Transient',
+    title: 'Dynamic Stability & Controller Tuning',
+    subtitle: 'Utility-Centric Scenarios & Validated Models',
+    icon: Cpu,
+    description: 'Time-domain simulations in PSS®E and PSCAD™ assessing transient stability, frequency ride-through, voltage recovery, and inverter controller tuning during severe grid disturbances.',
+    highlights: [
+      'Utility-centric study scenarios tailored to regional ISO rules',
+      'Implementation and tuning of validated OEM vendor models',
+      'PPC (Power Plant Controller) & Inverter parameter selection',
+      'Weak-grid short circuit ratio (SCR) & sub-synchronous resonance (SSR)'
+    ],
+    deliverables: 'Dynamic Stability Report, Inverter/PPC Tuning Records, Simulation Event Waveforms'
   },
   {
-    id: 'hybrid-simulation',
-    icon: Layers,
-    title: 'EnVision Hybrid System Optimization',
-    subtitle: 'Derisking Hybrid Renewable Designs Early',
-    description:
-      'Leveraging ADAPTR’s proprietary EnVision project simulator to merge economic analysis with power flow simulation, enabling developers to size BESS, Solar, Hydro, and Wind assets with complete confidence.',
+    id: 'tov-pq',
+    category: 'Transient',
+    title: 'Transient Overvoltage (TOV) & Power Quality (PQ)',
+    subtitle: 'Switching Surges, Harmonics & Voltage Transients',
+    icon: Sliders,
+    description: 'Comprehensive analysis of rapid voltage spikes, switching surges, capacitor energization transients, and harmonic distortion compliance with IEEE 519 and IEC 61000 standards.',
     highlights: [
-      'BESS micro-cycling & operational lifetime impact analysis',
-      'Optimization of multi-asset dispatch logic (Hydro + Solar + Wind + BESS)',
-      'Substation capacity maximization & curtailment minimization',
-      'Generation profile replication with <2% uncertainty'
+      'Transient Overvoltage (TOV) & lightning/switching surge evaluations',
+      'Surge arrester rating and insulation coordination',
+      'Total Harmonic Distortion (THD) and resonance frequency scans',
+      'Harmonic filter and dynamic VAR compensator sizing'
     ],
-    deliverables: 'Optimized Asset Sizing Matrix, Financial-Technical Dispatch Model, BESS Degradation Forecasts'
+    deliverables: 'TOV Peak Evaluation Brief, IEEE 519 Compliance Certificate, Filter Sizing Specifications'
   },
   {
-    id: 'model-validation',
+    id: 'sia-studies',
+    category: 'Transient',
+    title: 'System Impact Assessments (SIA)',
+    subtitle: 'Global Grid-Code Compliance & Interconnection Filing',
     icon: BarChart3,
-    title: 'Dynamic Model Validation & Measurement Campaigns',
-    subtitle: 'Operational Field Verification',
-    description:
-      'Field measurement campaigns and Hardware-in-the-Loop (HIL) testing to validate dynamic models against actual operating data, bridging the gap between simulation and real-world asset operation.',
+    description: 'Turnkey interconnection study packages covering utility grid code requirements, dynamic fault ride-through, and grid-forming/grid-following compliance across North America and international grids.',
     highlights: [
-      '1st dynamic model validation for a remote microgrid in Canada',
-      'Rapid Control Prototyping (RCP) & Hardware-in-the-Loop (HIL) testing',
-      'Measurement campaigns during live site commissioning',
-      'OEM grid code compliance obligation reviews'
+      'Global grid-code compliance experience (NERC, AESO, CAISO, IESO, IEC)',
+      'Proficient in PSS®E, PSCAD, PSLF, PowerFactory, and MATLAB',
+      'Advanced power electronics & inverter-grid decoupling modeling',
+      'Utility RFI resolution and formal approval facilitation'
     ],
-    deliverables: 'Validated PSS/E & PSCAD Model Benchmarks, Field Measurement Comparison Reports'
+    deliverables: 'Utility-Ready Interconnection Package, Comprehensive SIA Report, Validated Model Archive'
   }
 ];
 
-const painPoints = [
+// Slide 4: ADAMM Value Pillars
+const adammPillars = [
   {
-    icon: AlertTriangle,
-    title: 'Evolving Interconnection Requirements',
-    subtitle: 'Tightening Grid Codes & Mandatory Validation',
+    number: '01',
+    title: 'Decrease Early Development Expenses',
     description:
-      'Utilities (e.g., NSPI, NERC) are shifting towards strict model benchmarking between PSS®E and PSCAD™ models within a 5% tolerance band, alongside mandatory field-test commissioning validation.',
+      'Catch grid code non-compliance early during feasibility to avoid expensive redesigns and unbudgeted equipment additions during late-stage EPC.'
   },
   {
-    icon: Layers,
-    title: 'Incomplete OEM Models',
-    subtitle: 'Model Version Drift & Control Discrepancies',
+    number: '02',
+    title: 'Increase Project Throughput',
     description:
-      'Incomplete technical information and unvalidated OEM models cause critical delays during System Impact Studies (SIS), leading to design drift between early bidding and final engineering.',
+      'Centralized orchestration between OEMs, Developers, Utilities, and Consultants reduces RFI loop delays and cuts study completion time dramatically.'
   },
   {
-    icon: RefreshCw,
-    title: 'Piecemeal Studies & Data Loss',
-    subtitle: 'Fragmented Hand-Offs Across Lifecycles',
+    number: '03',
+    title: 'Ensure Lifetime Continuous Compliance',
     description:
-      'Traditional modeling relies on discrete, one-off studies. Handing off models between feasibility, bidding, engineering, construction, and operations causes data loss and fragmented coordination.',
-  },
-  {
-    icon: ShieldAlert,
-    title: 'Cost of Reactive Compliance',
-    subtitle: 'Late Discoveries & Sub-optimal Bids',
-    description:
-      'Discovering dynamic stability, harmonic distortion, or weak-grid issues late in engineering forces reactive compliance—resulting in costly STATCOM additions, BESS retrofits, or power curtailment.',
-  },
+      'Maintain an active, version-controlled digital twin from Stage 1 Feasibility through Stage 5 Operations, ensuring seamless model updates when grid codes evolve.'
+  }
 ];
 
+// Slide 5: Stage-Gated Scope of Works Offered by ADAPTR
 interface StageDetail {
   id: string;
   stageNumber: string;
   stageName: string;
   phaseLabel: string;
   summary: string;
+  studiesIncluded: string[];
   scopeTasks: string[];
   requiredDocs: string[];
   deliverables: { name: string; type: string; date?: string }[];
   statusLabel: string;
 }
-
-const adammPillars = [
-  {
-    number: '01',
-    title: 'Decrease Early Development Expenses',
-    description:
-      'Catch grid code non-compliance early during feasibility to avoid expensive redesigns and unbudgeted equipment additions during late-stage EPC.',
-  },
-  {
-    number: '02',
-    title: 'Increase Project Throughput',
-    description:
-      'Centralized orchestration between OEMs, Developers, Utilities, and Consultants reduces RFI loop delays and cuts study completion time dramatically.',
-  },
-  {
-    number: '03',
-    title: 'Ensure Lifetime Continuous Compliance',
-    description:
-      'Maintain an active, version-controlled digital twin from Stage 1 Feasibility through Stage 5 Operations, ensuring seamless model updates when grid codes evolve.',
-  },
-];
 
 const stageDetails: StageDetail[] = [
   {
@@ -477,6 +507,7 @@ const stageDetails: StageDetail[] = [
     phaseLabel: 'Stage 1 • Early Screening & Hosting Capacity',
     summary:
       'Formulating the initial grid model, assessing baseline grid codes, and determining substation hosting capacity to derisk early project origination.',
+    studiesIncluded: ['Hosting Capacity Study', 'Baseline Load Flow', 'POI Sizing & Screening'],
     scopeTasks: [
       'Grid Code Assessment',
       'Grid Model Setup',
@@ -500,10 +531,11 @@ const stageDetails: StageDetail[] = [
     stageName: 'Offtake Bid',
     phaseLabel: 'Stage 2 • Offtake Bid & SIA Package Prep',
     summary:
-      'Reviewing OEM turbine/inverter models, formulating basic plant design, and assembling utility-ready System Impact Assessment (SIA) packages.',
+      'Reviewing OEM turbine/inverter models, formulating basic plant design, estimating BOP losses, and assembling utility-ready System Impact Assessment (SIA) packages.',
+    studiesIncluded: ['BOP Electrical Loss Estimates', 'Preliminary SIA Package', 'OEM Model Benchmarking'],
     scopeTasks: [
       'OEM Model Reviews',
-      'Basic Design Formulation',
+      'Basic Design Formulation & BOP Loss Calculations',
       'Grid Code Compliance Validation',
       'SIA Package Preparation',
       'Utility RFI Management'
@@ -524,10 +556,12 @@ const stageDetails: StageDetail[] = [
     stageName: 'Engineering',
     phaseLabel: 'Stage 3 • Detailed Engineering & EMT Approvals',
     summary:
-      'Validating design updates against utility RFI comments, updating PSS®E & PSCAD™ models, and securing formal CIA/SIA utility approvals.',
+      'Validating design updates against utility RFI comments, updating PSS®E & PSCAD™ models, and conducting comprehensive Short Circuit, TOV, and Dynamic simulations.',
+    studiesIncluded: ['Dynamic Stability & EMT', 'Short Circuit & Breaker Ratings', 'Transient Overvoltage (TOV)', 'Harmonics (IEEE 519)'],
     scopeTasks: [
       'Compliance Validation of Design Updates',
-      'Model Updates with Approved Changes',
+      'EMT & High-Fidelity Dynamic Simulations',
+      'Harmonics & Switching Surge Verification',
       'Model Update Approval with Utility'
     ],
     requiredDocs: [
@@ -548,6 +582,7 @@ const stageDetails: StageDetail[] = [
     phaseLabel: 'Stage 4 • Construction & Commissioning Validation',
     summary:
       'Benchmarking factory acceptance test (FAT) data and field commissioning results against PSS®E/PSCAD™ models to satisfy grid operator witnessing requirements.',
+    studiesIncluded: ['FAT / SAT Benchmarking', 'HIL Controller Verification', 'Commissioning Test Plans'],
     scopeTasks: [
       'FAT & SAT Data Benchmarking',
       'Field Test Model Validation',
@@ -572,6 +607,7 @@ const stageDetails: StageDetail[] = [
     phaseLabel: 'Stage 5 • Operational Lifetime Compliance',
     summary:
       'Maintaining continuous model-reality alignment over the project lifetime, updating models when SCADA limits, curtailment rules, or utility software versions change.',
+    studiesIncluded: ['Digital Twin Continuous Compliance', 'Grid Code Version Updates', 'Repowering Impact Studies'],
     scopeTasks: [
       'Model-Reality Alignment Validation',
       'SCADA Limits & Curtailment Integration',
@@ -591,37 +627,35 @@ const stageDetails: StageDetail[] = [
   }
 ];
 
-const comparisonTable = [
+const painPoints = [
   {
-    criterion: 'Coordination',
-    traditional: 'Onerous & fragmented across email / disconnected silos',
-    adamm: 'Centralized & automated workflow orchestration',
+    icon: AlertTriangle,
+    title: 'Evolving Interconnection Requirements',
+    subtitle: 'Tightening Grid Codes & Mandatory Validation',
+    description:
+      'Utilities (e.g., NSPI, NERC) are shifting towards strict model benchmarking between PSS®E and PSCAD™ models within a 5% tolerance band, alongside mandatory field-test commissioning validation.'
   },
   {
-    criterion: 'Model Accuracy',
-    traditional: 'Version drift between PSS®E & PSCAD™ models',
-    adamm: 'Continuous validation for high-fidelity accuracy',
+    icon: Layers,
+    title: 'Incomplete OEM Models',
+    subtitle: 'Model Version Drift & Control Discrepancies',
+    description:
+      'Incomplete technical information and unvalidated OEM models cause critical delays during System Impact Studies (SIS), leading to design drift between early bidding and final engineering.'
   },
   {
-    criterion: 'Compliance',
-    traditional: 'Verified only when requested by utility (reactive)',
-    adamm: 'Continuous verification aligned with latest grid code needs',
+    icon: RefreshCw,
+    title: 'Piecemeal Studies & Data Loss',
+    subtitle: 'Fragmented Hand-Offs Across Lifecycles',
+    description:
+      'Traditional modeling relies on discrete, one-off studies. Handing off models between feasibility, bidding, engineering, construction, and operations causes data loss and fragmented coordination.'
   },
   {
-    criterion: 'Information Sources',
-    traditional: 'Dispersed across OEM, consultant, and utility inboxes',
-    adamm: 'Centralized and fully traceable single source of truth',
-  },
-  {
-    criterion: 'Time to Completion',
-    traditional: 'Prolonged due to multi-party RFI loops & rework',
-    adamm: 'Shortened via streamlined interface & template workflows',
-  },
-  {
-    criterion: 'Lifecycle Interest',
-    traditional: 'Discrete, one-off transactional studies',
-    adamm: 'Project lifetime success & continuous partnership',
-  },
+    icon: ShieldAlert,
+    title: 'Cost of Reactive Compliance',
+    subtitle: 'Late Discoveries & Sub-optimal Bids',
+    description:
+      'Discovering dynamic stability, harmonic distortion, or weak-grid issues late in engineering forces reactive compliance—resulting in costly STATCOM additions, BESS retrofits, or power curtailment.'
+  }
 ];
 
 const labEquipment = [
@@ -630,19 +664,7 @@ const labEquipment = [
   { name: 'Imperix Modules', detail: 'Rapid prototyping power hardware' },
   { name: 'SEL RTAC & SEL Axion', detail: 'Utility-grade protection & automation controllers' },
   { name: 'AC/DC Programmable Loads', detail: 'Real-world load and impedance profiling' },
-  { name: 'Precision Variac & DC Power Supply', detail: 'Voltage sag, swell, and weak-grid emulation' },
-];
-
-const studyScopeGrid = [
-  'Micro-Grid Control Philosophy',
-  'System Impact Study (SIS)',
-  'Dynamic Stability & EMT Study',
-  'Load Flow & Feeder Analysis',
-  'PQ, TOV & Short Circuit Studies',
-  'Hosting Capacity Determination',
-  'Protection Philosophy',
-  'BESS RFP Requirements & Specs',
-  'Commissioning Protocols & Validation'
+  { name: 'Precision Variac & DC Power Supply', detail: 'Voltage sag, swell, and weak-grid emulation' }
 ];
 
 const experienceProjects = [
@@ -656,76 +678,60 @@ const experienceProjects = [
   { title: 'Transmission Planning Studies for MATL Interconnection', type: 'Alberta 240kV Corridor' },
   { title: 'System Impact Study for Salt River Solar-Storage Project', type: 'Arizona Utility Interconnection' },
   { title: 'Design Review of an HVDC Transmission Project', type: 'India Grid Interconnection' },
-  { title: 'Vetting Grid Forming Functionality for Wind Farm', type: 'Alberta Weak-Grid Compliance' },
+  { title: 'Vetting Grid Forming Functionality for Wind Farm', type: 'Alberta Weak-Grid Compliance' }
 ];
 
 export default function PowerSystemStudiesPage() {
   const [isMeetingModalOpen, setIsMeetingModalOpen] = useState(false);
-  const [selectedCapabilityModal, setSelectedCapabilityModal] = useState<StudyType | null>(null);
+  const [selectedCapabilityModal, setSelectedCapabilityModal] = useState<StudyItem | null>(null);
   const [selectedStageModal, setSelectedStageModal] = useState<StageDetail | null>(null);
+  const [activeTechnicalTab, setActiveTechnicalTab] = useState<'Steady-State' | 'Transient'>('Steady-State');
+
+  const filteredStudies = categorizedStudies.filter(
+    (study) => study.category === activeTechnicalTab
+  );
 
   return (
     <div className="min-h-screen bg-white dark:bg-gunmetal text-gunmetal dark:text-lightcyan transition-colors duration-300">
 
       {/* ==================================================================== */}
-      {/* SECTION 1: PRESENTATION HERO DECK HEADER                             */}
+      {/* SECTION 1: HERO VALUE BANNER (PPT SLIDE 1)                           */}
       {/* ==================================================================== */}
-      <section className="relative pt-10 pb-16 px-6 sm:px-12 overflow-hidden border-b border-cerulean/20 dark:border-bdazzled/30">
+      <section className="relative pt-12 pb-20 px-6 sm:px-12 overflow-hidden border-b border-cerulean/20 dark:border-bdazzled/30">
         <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-sienna/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute top-0 left-0 -mb-12 -ml-12 w-96 h-96 bg-cerulean/15 dark:bg-bdazzled/30 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto space-y-8 relative z-10">
-          <div className="flex flex-wrap justify-between items-center gap-4 bg-gunmetal/90 border border-cerulean/30 px-5 py-3 rounded-2xl text-lightcyan">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-sienna animate-ping" />
-              <span className="text-xs font-black uppercase tracking-wider text-sienna">
-                Client Interactive Deck Mode
-              </span>
-            </div>
-            <div className="flex items-center gap-3 text-xs font-semibold">
-              <a href="#study-types" className="hover:text-sienna transition-colors">1. Capabilities</a>
-              <span>•</span>
-              <a href="#pain-points" className="hover:text-sienna transition-colors">2. Pain Points</a>
-              <span>•</span>
-              <a href="#adamm" className="hover:text-sienna transition-colors">3. ADAMM Platform</a>
-              <span>•</span>
-              <a href="#stage-gated-scope" className="hover:text-sienna transition-colors">4. Stage Gates</a>
-            </div>
-          </div>
-
+        <div className="max-w-7xl mx-auto space-y-10 relative z-10">
+          
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-
-            {/* Left Column: Deck Pitch */}
-            <div className="lg:col-span-7 space-y-5">
+            {/* Left Column: Core Value Proposition */}
+            <div className="lg:col-span-7 space-y-6">
               <div className="inline-flex items-center gap-2 bg-lightcyan/30 dark:bg-bdazzled/40 border border-cerulean/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-bdazzled dark:text-cerulean shadow-sm">
                 <Sparkles className="w-4 h-4 text-sienna shrink-0" />
-                <span>Power System Engineering & ADAMM Platform</span>
+                <span>Smarter Interconnection Studies</span>
               </div>
 
-              <div className="space-y-2">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gunmetal dark:text-lightcyan leading-tight">
+              <div className="space-y-3">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gunmetal dark:text-lightcyan leading-[1.15]">
                   Power System Studies
                 </h1>
-                <p className="text-xl sm:text-2xl font-extrabold text-sienna leading-snug">
-                  For Renewables, Storage & Hybrid Renewables.
+                <p className="text-xl sm:text-2xl font-black text-sienna leading-snug">
+                  Less Onerous. Less Expensive. Continuously Compliant.
                 </p>
               </div>
 
               <p className="text-base text-bdazzled dark:text-cerulean/90 leading-relaxed font-medium max-w-2xl">
-                Combining 25+ years of power systems engineering and an in-house Hardware-in-the-Loop (HIL) laboratory with <strong>ADAMM</strong>—our platform that orchestrates modeling workflows, eliminates version drift, and guarantees continuous connection compliance across all project stages.
+                We deliver the full suite of power system studies from early project origination to commercial operations. Backed by 25+ years of engineering experience and delivered through <strong>ADAMM</strong>—our adaptive model management platform that accelerates utility review cycles and protects your project timeline.
               </p>
 
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-4 pt-2">
                 <a
-                  href={adammUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#adamm"
                   className="inline-flex items-center justify-center gap-2 bg-sienna hover:bg-sienna/90 text-white font-bold text-base px-7 py-3.5 rounded-xl transition-all shadow-lg shadow-sienna/20 hover:scale-[1.02] cursor-pointer"
                 >
-                  <Laptop className="w-5 h-5 text-white" />
-                  <span>Launch ADAMM App</span>
-                  <ExternalLink className="w-4 h-4 text-white/80" />
+                  <Workflow className="w-5 h-5 text-white" />
+                  <span>Explore ADAMM</span>
                 </a>
                 <button
                   type="button"
@@ -738,70 +744,270 @@ export default function PowerSystemStudiesPage() {
               </div>
             </div>
 
-            {/* Right Column: Key Metrics Showcase */}
-            <div className="lg:col-span-5 relative flex justify-center">
-              <div className="w-full bg-gunmetal p-6 rounded-3xl border border-cerulean/30 shadow-2xl text-lightcyan space-y-4">
+            {/* Right Column: 4-Pillar Executive Summary (Slide 1 Pillars) */}
+            <div className="lg:col-span-5 relative">
+              <div className="w-full bg-gunmetal p-6 sm:p-7 rounded-3xl border border-cerulean/30 shadow-2xl text-lightcyan space-y-4">
                 <div className="flex justify-between items-center border-b border-cerulean/20 pb-3">
                   <span className="text-[10px] font-mono text-sienna font-black uppercase tracking-widest">
-                    ADAPTR DECK OVERVIEW
+                    THE ADAPTR ADVANTAGE
                   </span>
                   <span className="bg-sienna/20 text-sienna px-2.5 py-0.5 rounded text-[10px] font-bold border border-sienna/30">
-                    Live Demo Ready
+                    25+ Yrs Experience
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 text-center">
+                <div className="space-y-3 text-xs">
                   <div className="p-3 bg-gunmetal/80 border border-cerulean/20 rounded-2xl">
-                    <p className="text-2xl font-black text-white">1 GW+</p>
-                    <p className="text-[10px] text-cerulean/80 font-bold uppercase">Renewables Studied</p>
+                    <span className="text-[10px] font-black uppercase tracking-wider text-sienna block">Goal</span>
+                    <p className="font-semibold text-white mt-0.5">Make power system studies less onerous and less expensive for IPPs and utilities.</p>
                   </div>
                   <div className="p-3 bg-gunmetal/80 border border-cerulean/20 rounded-2xl">
-                    <p className="text-2xl font-black text-white">&lt;5%</p>
-                    <p className="text-[10px] text-cerulean/80 font-bold uppercase">Model Tolerance</p>
+                    <span className="text-[10px] font-black uppercase tracking-wider text-sienna block">Scope</span>
+                    <p className="font-semibold text-white mt-0.5">Deliver the complete lifecycle scope from origination to commercial operations.</p>
                   </div>
                   <div className="p-3 bg-gunmetal/80 border border-cerulean/20 rounded-2xl">
-                    <p className="text-2xl font-black text-white">5 Stages</p>
-                    <p className="text-[10px] text-cerulean/80 font-bold uppercase">Continuous Gate</p>
+                    <span className="text-[10px] font-black uppercase tracking-wider text-sienna block">Tooling & Lab</span>
+                    <p className="font-semibold text-white mt-0.5">PSCAD™, PSS®E, MATLAB, PowerFactory, and our in-house Opal-RT HIL laboratory.</p>
                   </div>
-                  <div className="p-3 bg-gunmetal/80 border border-cerulean/20 rounded-2xl">
-                    <p className="text-2xl font-black text-white">25+ Yrs</p>
-                    <p className="text-[10px] text-cerulean/80 font-bold uppercase">Engineering Exp</p>
+                  <div className="p-3 bg-sienna/15 border border-sienna/30 rounded-2xl">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-sienna block">Execution</span>
+                    <p className="font-semibold text-white mt-0.5">Orchestrated through ADAMM to eliminate version drift and hand-off data loss.</p>
                   </div>
-                </div>
-
-                <div className="p-3 bg-sienna/10 rounded-xl border border-sienna/20 text-center">
-                  <p className="text-xs text-lightcyan font-semibold">
-                    Click any capability or stage-gate below to open deep-dive client presentation cards.
-                  </p>
                 </div>
               </div>
             </div>
 
           </div>
+
         </div>
       </section>
 
       {/* ==================================================================== */}
-      {/* SECTION 2: INTERACTIVE CAPABILITIES SLIDE (CLEAN SLIDE TILES)        */}
+      {/* SECTION 2: WHO WE ARE - DOMAIN COMPETENCIES (PPT SLIDE 2)            */}
       {/* ==================================================================== */}
-      <section id="study-types" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30 bg-lightcyan/10 dark:bg-gunmetal/50">
+      <section id="competencies" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30 bg-lightcyan/10 dark:bg-gunmetal/50">
         <div className="max-w-7xl mx-auto space-y-12">
 
           <div className="text-center space-y-3 max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 bg-lightcyan/30 dark:bg-bdazzled/40 border border-cerulean/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-sienna uppercase tracking-wider">
-              <Cpu className="w-3.5 h-3.5 text-sienna" />
-              <span>Full-Spectrum Capabilities</span>
+              <Globe className="w-3.5 h-3.5 text-sienna" />
+              <span>Who We Are & Where We Operate</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-gunmetal dark:text-lightcyan">
-              Power System Study Capabilities
+              Competencies & Asset Domains
             </h2>
             <p className="text-xs sm:text-sm text-bdazzled dark:text-cerulean/90 font-medium">
-              Click any study domain below to inspect analytical focus areas and formal deliverables.
+              Our engineering team has performed complex power system studies for IPPs, utilities, and global consultants across North America, Europe, and Asia.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {studyTypes.map((study) => {
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {domainCompetencies.map((comp, idx) => {
+              const Icon = comp.icon;
+              return (
+                <div
+                  key={idx}
+                  className="bg-white dark:bg-gunmetal border border-cerulean/20 dark:border-bdazzled/40 p-6 rounded-3xl shadow-md hover:border-sienna transition-all space-y-4 flex flex-col justify-between"
+                >
+                  <div className="space-y-3">
+                    <div className="w-12 h-12 rounded-2xl bg-sienna/10 border border-sienna/20 flex items-center justify-center text-sienna">
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-black text-gunmetal dark:text-lightcyan">
+                        {comp.title}
+                      </h3>
+                      <p className="text-xs text-sienna font-bold mt-0.5">
+                        {comp.focus}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2 pt-3 border-t border-cerulean/15 text-xs">
+                    <span className="text-[10px] font-black uppercase tracking-wider text-cerulean block">
+                      Sample Engagements
+                    </span>
+                    <ul className="space-y-1.5 font-semibold text-gunmetal dark:text-lightcyan/90">
+                      {comp.projects.map((proj, pIdx) => (
+                        <li key={pIdx} className="flex items-start gap-1.5 text-[11px]">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-sienna shrink-0 mt-0.5" />
+                          <span>{proj}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ==================================================================== */}
+      {/* SECTION 3: THE PROPRIETARY EDGE - INTRODUCING ADAMM (PPT SLIDE 4)   */}
+      {/* ==================================================================== */}
+      <section id="adamm" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30">
+        <div className="max-w-7xl mx-auto space-y-12">
+
+          <div className="text-center space-y-3 max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-2 bg-sienna/15 border border-sienna/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-sienna uppercase tracking-wider">
+              <Workflow className="w-3.5 h-3.5" />
+              <span>A New Way to Manage Interconnection</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-gunmetal dark:text-lightcyan">
+              Introducing ADAMM
+            </h2>
+            <p className="text-xs font-extrabold text-sienna uppercase tracking-wider">
+              Adaptive Model Manager for Optimized Project Delivery
+            </p>
+            <p className="text-xs sm:text-sm text-bdazzled dark:text-cerulean/90 font-medium leading-relaxed">
+              A platform that orchestrates workflow and compliance checks while embodying decades of interconnection experience across all project stages.
+            </p>
+          </div>
+
+          {/* 3 Value Pillars (Slide 4) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {adammPillars.map((pillar) => (
+              <div
+                key={pillar.number}
+                className="bg-white dark:bg-gunmetal border border-cerulean/20 dark:border-bdazzled/40 rounded-3xl p-6 sm:p-8 shadow-md flex flex-col justify-between space-y-4 hover:border-sienna transition-all"
+              >
+                <div className="space-y-3">
+                  <span className="text-4xl font-black text-sienna font-mono block">
+                    {pillar.number}
+                  </span>
+                  <h3 className="text-lg font-extrabold text-gunmetal dark:text-lightcyan leading-snug">
+                    {pillar.title}
+                  </h3>
+                  <p className="text-xs text-bdazzled dark:text-cerulean/90 font-medium leading-relaxed">
+                    {pillar.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="max-w-7xl mx-auto space-y-12">
+
+
+          {/* 5 Stage-Gate Interactive Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {stageDetails.map((stage) => (
+              <div
+                key={stage.id}
+                onClick={() => setSelectedStageModal(stage)}
+                className="bg-white dark:bg-gunmetal border border-cerulean/20 dark:border-bdazzled/40 p-5 rounded-3xl shadow-md hover:shadow-2xl hover:border-sienna transition-all cursor-pointer group flex flex-col justify-between space-y-4"
+              >
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] font-black font-mono text-sienna bg-sienna/10 px-2 py-0.5 rounded border border-sienna/20 uppercase">
+                      {stage.stageNumber}
+                    </span>
+                    <Eye className="w-4 h-4 text-cerulean group-hover:text-sienna transition-colors" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-extrabold text-gunmetal dark:text-lightcyan group-hover:text-sienna transition-colors">
+                      {stage.stageName}
+                    </h3>
+                    <p className="text-[11px] text-bdazzled dark:text-cerulean/80 line-clamp-2 font-medium mt-1">
+                      {stage.summary}
+                    </p>
+                  </div>
+
+                  <div className="pt-2 border-t border-cerulean/15 space-y-1">
+                    <span className="text-[9px] font-black uppercase tracking-wider text-sienna block">Included Studies:</span>
+                    <div className="flex flex-col gap-1">
+                      {stage.studiesIncluded.map((studyName, sIdx) => (
+                        <span key={sIdx} className="text-[10px] font-semibold text-gunmetal dark:text-lightcyan/90 truncate">
+                          • {studyName}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-3 border-t border-cerulean/15 flex items-center justify-between text-[11px] font-bold text-sienna">
+                  <span>Inspect Scope</span>
+                  <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+
+          {/* Value Action Banner */}
+          <div className="p-6 bg-gradient-to-r from-gunmetal via-gunmetal to-bdazzled rounded-3xl border border-cerulean/30 text-lightcyan flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div className="space-y-1">
+              <h4 className="text-base font-bold text-white">Smarter Interconnection Starts Here</h4>
+              <p className="text-xs text-cerulean/80">Faster Studies. Greater Accuracy. Complete Visibility.</p>
+            </div>
+            <a
+              href={adammUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-sienna hover:bg-sienna/90 text-white font-bold text-xs px-6 py-3 rounded-xl transition-all shadow-md shrink-0"
+            >
+              <span>Explore ADAMM Portal</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          </div>
+
+        </div>
+        
+      </section>
+
+      
+      {/* ==================================================================== */}
+      {/* SECTION 5: TECHNICAL STUDY TAXONOMY (PPT SLIDE 3 DRAWER/TOGGLE)     */}
+      {/* ==================================================================== */}
+      <section id="study-taxonomy" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30">
+        <div className="max-w-7xl mx-auto space-y-10">
+
+          <div className="text-center space-y-3 max-w-3xl mx-auto">
+            <div className="inline-flex items-center gap-2 bg-lightcyan/30 dark:bg-bdazzled/40 border border-cerulean/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-sienna uppercase tracking-wider">
+              <SlidersHorizontal className="w-3.5 h-3.5 text-sienna" />
+              <span>What We Do</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-gunmetal dark:text-lightcyan">
+              Technical Studies Catalog
+            </h2>
+            <p className="text-xs sm:text-sm text-bdazzled dark:text-cerulean/90 font-medium">
+              Classified by fundamental power system analysis regimes. Click any study to review analytical focus and formal deliverables.
+            </p>
+          </div>
+
+          {/* Tab Filter Toggle */}
+          <div className="flex justify-center">
+            <div className="inline-flex p-1.5 bg-gunmetal border border-cerulean/30 rounded-2xl">
+              <button
+                type="button"
+                onClick={() => setActiveTechnicalTab('Steady-State')}
+                className={`px-6 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  activeTechnicalTab === 'Steady-State'
+                    ? 'bg-sienna text-white shadow-md'
+                    : 'text-cerulean hover:text-white'
+                }`}
+              >
+                Steady-State Studies
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTechnicalTab('Transient')}
+                className={`px-6 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  activeTechnicalTab === 'Transient'
+                    ? 'bg-sienna text-white shadow-md'
+                    : 'text-cerulean hover:text-white'
+                }`}
+              >
+                Transient & Dynamic Studies
+              </button>
+            </div>
+          </div>
+
+          {/* Active Studies Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {filteredStudies.map((study) => {
               const Icon = study.icon;
               return (
                 <div
@@ -822,255 +1028,21 @@ export default function PowerSystemStudiesPage() {
                     <h3 className="text-lg font-extrabold text-gunmetal dark:text-lightcyan group-hover:text-sienna transition-colors leading-snug">
                       {study.title}
                     </h3>
-                    <p className="text-xs font-bold text-cerulean uppercase tracking-wider">
+                    <p className="text-xs font-bold text-sienna uppercase tracking-wider">
                       {study.subtitle}
+                    </p>
+                    <p className="text-xs text-bdazzled dark:text-cerulean/90 line-clamp-3 font-medium">
+                      {study.description}
                     </p>
                   </div>
 
                   <div className="pt-3 border-t border-cerulean/15 flex items-center justify-between text-xs font-bold text-sienna">
-                    <span>Click to Inspect Scope</span>
+                    <span>Inspect Methodology</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
               );
             })}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ==================================================================== */}
-      {/* SECTION 3: IPP PAIN POINTS & UTILITY POLICY SPOTLIGHT                */}
-      {/* ==================================================================== */}
-      <section id="pain-points" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30">
-        <div className="max-w-7xl mx-auto space-y-12">
-
-          <div className="text-center space-y-3 max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 bg-sienna/10 border border-sienna/20 px-3.5 py-1.5 rounded-full text-xs font-bold text-sienna uppercase tracking-wider">
-              <AlertTriangle className="w-3.5 h-3.5" />
-              <span>Interconnection Realities</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-gunmetal dark:text-lightcyan">
-              Observations on Coordination & Compliance
-            </h2>
-            <p className="text-xs sm:text-sm text-bdazzled dark:text-cerulean/90 font-medium leading-relaxed">
-              Evolving utility requirements and incomplete technical information lead to severe coordination bottlenecks between OEMs, Developers, Utilities, and Consultants.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {painPoints.map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={idx}
-                  className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 p-6 sm:p-8 rounded-3xl space-y-3 shadow-md"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-sienna/10 border border-sienna/20 flex items-center justify-center text-sienna shrink-0">
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-black text-gunmetal dark:text-lightcyan">
-                        {item.title}
-                      </h3>
-                      <p className="text-[11px] font-extrabold text-sienna uppercase tracking-wider">
-                        {item.subtitle}
-                      </p>
-                    </div>
-                  </div>
-                  <p className="text-xs text-bdazzled dark:text-cerulean/90 leading-relaxed font-medium pt-1">
-                    {item.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Real-World Utility Policy Spotlight */}
-          <div className="bg-gradient-to-br from-gunmetal via-gunmetal to-bdazzled text-lightcyan border border-cerulean/30 rounded-3xl p-6 sm:p-10 shadow-xl space-y-6">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-cerulean/20 pb-4">
-              <div>
-                <span className="text-[10px] font-bold text-sienna uppercase tracking-widest block">
-                  UTILITY POLICY SPOTLIGHT
-                </span>
-                <h3 className="text-xl font-bold text-white">
-                  Tighter Interconnection Requirements
-                </h3>
-              </div>
-              <span className="bg-cerulean/20 text-cerulean border border-cerulean/30 px-3 py-1 rounded-lg text-xs font-bold shrink-0">
-                NSPI / NERC Benchmarking Standards
-              </span>
-            </div>
-
-            <p className="text-xs sm:text-sm text-cerulean/90 leading-relaxed font-medium">
-              Utilities like Nova Scotia Power Inc. (NSPI) now perform stringent model quality testing. The PSS®E model must be an accurate representation of plant response and <strong>benchmarked against the validated PSCAD™ model within a 5% tolerance band</strong> for 3-phase faults across 0%, 10%, 50%, and 80% residual voltage levels.
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1 text-xs font-medium">
-              <div className="bg-gunmetal/80 p-4 rounded-xl border border-cerulean/20 space-y-1">
-                <span className="text-sienna font-bold block">4.0 Model Quality Testing</span>
-                <p className="text-cerulean/80 text-[11px]">All PSS®E and PSCAD™ deficiencies must be remedied before study commencement.</p>
-              </div>
-              <div className="bg-gunmetal/80 p-4 rounded-xl border border-cerulean/20 space-y-1">
-                <span className="text-sienna font-bold block">5.0 Field Commissioning</span>
-                <p className="text-cerulean/80 text-[11px]">Model results are benchmarked against Factory Acceptance Test (FAT) & field test data.</p>
-              </div>
-              <div className="bg-gunmetal/80 p-4 rounded-xl border border-cerulean/20 space-y-1">
-                <span className="text-sienna font-bold block">6.0 Lifetime Revisions</span>
-                <p className="text-cerulean/80 text-[11px]">Facility modifications or utility software updates require updated model submittals.</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ==================================================================== */}
-      {/* SECTION 4: THE ADAMM SOLUTION & COMPARISON MATRIX                    */}
-      {/* ==================================================================== */}
-      <section id="adamm" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30 bg-lightcyan/10 dark:bg-gunmetal/50">
-        <div className="max-w-7xl mx-auto space-y-12">
-
-          <div className="text-center space-y-3 max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 bg-sienna/15 border border-sienna/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-sienna uppercase tracking-wider">
-              <Workflow className="w-3.5 h-3.5" />
-              <span>A New Way to Manage Interconnection</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-gunmetal dark:text-lightcyan">
-              Introducing ADAMM
-            </h2>
-            <p className="text-xs font-extrabold text-sienna uppercase tracking-wider">
-              Adaptive Model Manager for Optimized Project Delivery
-            </p>
-            <p className="text-xs sm:text-sm text-bdazzled dark:text-cerulean/90 font-medium leading-relaxed">
-              A platform that orchestrates workflow and compliance checks while embodying decades of interconnection experience across all project stages.
-            </p>
-          </div>
-
-          {/* 3 Value Pillars */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {adammPillars.map((pillar) => (
-              <div
-                key={pillar.number}
-                className="bg-white dark:bg-gunmetal border border-cerulean/20 dark:border-bdazzled/40 rounded-3xl p-6 sm:p-8 shadow-md flex flex-col justify-between space-y-4"
-              >
-                <div className="space-y-3">
-                  <span className="text-4xl font-black text-sienna font-mono block">
-                    {pillar.number}
-                  </span>
-                  <h3 className="text-lg font-extrabold text-gunmetal dark:text-lightcyan leading-snug">
-                    {pillar.title}
-                  </h3>
-                  <p className="text-xs text-bdazzled dark:text-cerulean/90 font-medium leading-relaxed">
-                    {pillar.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Comparison Table */}
-          <div className="space-y-6 pt-2">
-            <div className="text-center space-y-1">
-              <h3 className="text-xl font-extrabold text-gunmetal dark:text-lightcyan">
-                The ADAMM Approach Summary
-              </h3>
-              <p className="text-xs text-bdazzled dark:text-cerulean/80 font-medium">
-                Comparing current traditional modeling against ADAMM continuous orchestration.
-              </p>
-            </div>
-
-            <div className="overflow-x-auto rounded-2xl border border-cerulean/20 dark:border-bdazzled/40 shadow-lg">
-              <table className="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr className="bg-gunmetal text-white border-b border-cerulean/30">
-                    <th className="p-3.5 font-black uppercase text-[10px] tracking-wider">Criteria</th>
-                    <th className="p-3.5 font-black uppercase text-[10px] tracking-wider text-cerulean/80">Current Approach</th>
-                    <th className="p-3.5 font-black uppercase text-[10px] tracking-wider text-sienna">ADAMM Approach</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-cerulean/15 dark:divide-bdazzled/30 font-medium">
-                  {comparisonTable.map((row, idx) => (
-                    <tr key={idx} className={idx % 2 === 0 ? 'bg-white/60 dark:bg-gunmetal/60' : 'bg-lightcyan/30 dark:bg-gunmetal/30'}>
-                      <td className="p-3.5 font-bold text-gunmetal dark:text-lightcyan">{row.criterion}</td>
-                      <td className="p-3.5 text-bdazzled dark:text-cerulean/80">{row.traditional}</td>
-                      <td className="p-3.5 font-bold text-sienna dark:text-sienna">{row.adamm}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ==================================================================== */}
-      {/* SECTION 5: INTERACTIVE STAGE-GATED PIPELINE (SLIDES 12-14 MODALS)     */}
-      {/* ==================================================================== */}
-      <section id="stage-gated-scope" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30">
-        <div className="max-w-7xl mx-auto space-y-12">
-
-          <div className="text-center space-y-3 max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 bg-sienna/10 border border-sienna/20 px-3.5 py-1.5 rounded-full text-xs font-bold text-sienna uppercase tracking-wider">
-              <Layers3 className="w-3.5 h-3.5" />
-              <span>Project Delivery Scope</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-gunmetal dark:text-lightcyan">
-              Stage-Gated Scope of Works Offered by ADAPTR
-            </h2>
-            <p className="text-xs sm:text-sm text-bdazzled dark:text-cerulean/90 font-medium leading-relaxed">
-              Click any stage gate below to open the interactive scope inspector detailing tasks, required documentation, and formal deliverables.
-            </p>
-          </div>
-
-          {/* Interactive Stage-Gated Pipeline Tiles */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {stageDetails.map((stage) => (
-              <div
-                key={stage.id}
-                onClick={() => setSelectedStageModal(stage)}
-                className="bg-white dark:bg-gunmetal border border-cerulean/20 dark:border-bdazzled/40 p-5 rounded-3xl shadow-md hover:shadow-2xl hover:border-sienna transition-all cursor-pointer group flex flex-col justify-between space-y-4"
-              >
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-black font-mono text-sienna bg-sienna/10 px-2 py-0.5 rounded border border-sienna/20 uppercase">
-                      {stage.stageNumber}
-                    </span>
-                    <Eye className="w-4 h-4 text-cerulean group-hover:text-sienna transition-colors" />
-                  </div>
-                  <h3 className="text-base font-extrabold text-gunmetal dark:text-lightcyan group-hover:text-sienna transition-colors">
-                    {stage.stageName}
-                  </h3>
-                  <p className="text-[11px] text-bdazzled dark:text-cerulean/80 line-clamp-2 font-medium">
-                    {stage.summary}
-                  </p>
-                </div>
-
-                <div className="pt-2 border-t border-cerulean/15 flex items-center justify-between text-[11px] font-bold text-sienna">
-                  <span>Inspect Scope</span>
-                  <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Stage Flow Indicator Banner */}
-          <div className="p-4 bg-gunmetal rounded-2xl border border-cerulean/30 text-center text-xs text-lightcyan flex flex-wrap justify-between items-center gap-3">
-            <div className="flex items-center gap-2 font-semibold">
-              <ShieldCheck className="w-4 h-4 text-sienna shrink-0" />
-              <span>Continuous Model Twin across all 5 project stages eliminates data loss during hand-offs.</span>
-            </div>
-            <a
-              href={adammUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sienna font-bold hover:underline"
-            >
-              <span>Explore ADAMM Digital Twin</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
           </div>
 
         </div>
@@ -1091,7 +1063,7 @@ export default function PowerSystemStudiesPage() {
               ADAPTR's Hardware-in-the-Loop (HIL) Lab
             </h2>
             <p className="text-xs sm:text-sm text-bdazzled dark:text-cerulean/90 font-medium leading-relaxed">
-              Our 25+ years of modeling and simulation experience is backed by an in-house laboratory for real-time power system testing.
+              Our 25+ years of modeling experience is validated by an in-house real-time laboratory for hardware-in-the-loop and controller prototyping.
             </p>
           </div>
 
@@ -1100,7 +1072,7 @@ export default function PowerSystemStudiesPage() {
             {/* Left: Lab Hardware */}
             <div className="lg:col-span-6 space-y-3">
               <span className="text-[11px] font-extrabold uppercase tracking-widest text-sienna block">
-                LAB SETUP & SIMULATORS:
+                LAB HARDWARE & REAL-TIME SIMULATORS:
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 {labEquipment.map((eq, idx) => (
@@ -1112,21 +1084,31 @@ export default function PowerSystemStudiesPage() {
               </div>
             </div>
 
-            {/* Right: Full Study Scope Coverage */}
-            <div className="lg:col-span-6 space-y-3 border-t lg:border-t-0 lg:border-l border-cerulean/20 dark:border-bdazzled/30 pt-6 lg:pt-0 lg:pl-8">
+            {/* Right: Real-World Testing & Benchmarking */}
+            <div className="lg:col-span-6 space-y-4 border-t lg:border-t-0 lg:border-l border-cerulean/20 dark:border-bdazzled/30 pt-6 lg:pt-0 lg:pl-8">
               <span className="text-[11px] font-extrabold uppercase tracking-widest text-cerulean block">
-                FULL STUDY COMPETENCIES:
+                VALIDATION METHODOLOGY & STANDARDS:
               </span>
               <p className="text-xs text-bdazzled dark:text-cerulean/90 font-medium leading-relaxed">
-                Comprehensive study reports accepted by utilities and system operators:
+                We bridge the simulation gap by bench-testing controllers against high-fidelity real-time simulators prior to site commissioning:
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-                {studyScopeGrid.map((studyName, idx) => (
-                  <div key={idx} className="flex items-center gap-2 text-xs font-bold text-gunmetal dark:text-lightcyan">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-sienna shrink-0" />
-                    <span>{studyName}</span>
-                  </div>
-                ))}
+              <div className="space-y-2 text-xs font-semibold text-gunmetal dark:text-lightcyan">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-sienna shrink-0" />
+                  <span>PSS®E and PSCAD™ 5% tolerance cross-validation benchmarks</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-sienna shrink-0" />
+                  <span>Rapid Control Prototyping (RCP) for complex hybrid microgrids</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-sienna shrink-0" />
+                  <span>Factory Acceptance Test (FAT) telemetry benchmark comparisons</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-sienna shrink-0" />
+                  <span>Active & reactive power control under weak-grid SCR conditions</span>
+                </div>
               </div>
             </div>
 

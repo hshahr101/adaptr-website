@@ -26,7 +26,8 @@ import {
   Radio,
   Quote,
   Target,
-  Compass
+  Compass,
+  Play
 } from 'lucide-react';
 
 interface ExpertiseItem {
@@ -170,6 +171,54 @@ const visionPillars = [
   },
 ];
 
+interface CandidateVideoItem {
+  number: string;
+  title: string;
+  category: string;
+  embedUrl: string;
+  watchUrl: string;
+  description: string;
+}
+
+const candidateKeyVideos: CandidateVideoItem[] = [
+  {
+    number: '01',
+    title: 'Background',
+    category: 'Candidate Journey',
+    embedUrl: 'https://www.youtube.com/embed/upcZ4MzYzlU',
+    watchUrl: 'https://www.youtube.com/watch?v=upcZ4MzYzlU',
+    description:
+      'Hassan’s 15+ year path in wind, solar, and smart-grids across Canada, from commissioning turbines to running hard-tech ventures.',
+  },
+  {
+    number: '02',
+    title: 'Perspective',
+    category: 'Industry Outlook',
+    embedUrl: 'https://www.youtube.com/embed/SQoS519k_28',
+    watchUrl: 'https://www.youtube.com/watch?v=SQoS519k_28',
+    description:
+      'Tackling distribution grid bottlenecks, unlocking behind-the-meter capacity, and reframing renewables around reliability and speed.',
+  },
+  {
+    number: '03',
+    title: 'Objectives',
+    category: 'CanREA Priorities',
+    embedUrl: 'https://www.youtube.com/embed/BoQdXIpIBIo',
+    watchUrl: 'https://www.youtube.com/watch?v=BoQdXIpIBIo',
+    description:
+      'A targeted 3-year roadmap: utility modernization alignment (UTM), proactive cross-sector alliances, and expanding member opportunities.',
+  },
+  {
+    number: '04',
+    title: 'Contribution',
+    category: 'Board Competencies',
+    embedUrl: 'https://www.youtube.com/embed/NX821bxT6uk',
+    watchUrl: 'https://www.youtube.com/watch?v=NX821bxT6uk',
+    description:
+      'Fulfilling identified CanREA board skill requirements through hands-on technology development, M&A governance, and persistent advocacy.',
+  },
+];
+
 const mediaVideos = [
   {
     id: '1',
@@ -309,6 +358,82 @@ export default function CanreaCandidatePage() {
               </div>
 
             </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ==================================================================== */}
+      {/* SECTION 1.8: FOUR CANDIDATE VIDEOS                                    */}
+      {/* ==================================================================== */}
+      <section className="py-16 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30 bg-lightcyan/10 dark:bg-gunmetal/40">
+        <div className="max-w-7xl mx-auto space-y-12">
+          
+          <div className="text-center max-w-3xl mx-auto space-y-3">
+            <div className="inline-flex items-center gap-2 bg-sienna/10 border border-sienna/20 px-3.5 py-1.5 rounded-full text-xs font-bold text-sienna uppercase tracking-wider">
+              <Video className="w-3.5 h-3.5 text-sienna" />
+              <span>Candidate Briefings</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-gunmetal dark:text-lightcyan tracking-tight">
+              Watch Hassan&apos;s Candidacy Videos
+            </h2>
+            <p className="text-xs sm:text-sm text-bdazzled dark:text-cerulean/80 font-medium">
+              Explore Hassan&apos;s perspective through four concise video briefings covering his background, sector outlook, CanREA objectives, and Board contribution.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {candidateKeyVideos.map((video) => (
+              <div
+                key={video.number}
+                className="bg-white dark:bg-gunmetal/90 border border-cerulean/20 dark:border-bdazzled/40 rounded-3xl overflow-hidden shadow-xl hover:border-sienna/40 hover:shadow-2xl transition-all duration-300 flex flex-col justify-between p-6 sm:p-7 space-y-5"
+              >
+                <div className="space-y-4">
+                  {/* Embedded YouTube Player */}
+                  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl bg-black border border-cerulean/15 shadow-inner">
+                    <iframe
+                      src={video.embedUrl}
+                      title={`${video.number}. ${video.title} - Hassan Shahriar`}
+                      className="w-full h-full border-0 rounded-2xl"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  </div>
+
+                  {/* Header & Meta */}
+                  <div className="flex items-center justify-between gap-2 pt-1">
+                    <div className="inline-flex items-center gap-2">
+                      <span className="text-xs font-black font-mono bg-sienna text-white px-2.5 py-1 rounded-md">
+                        {video.number}
+                      </span>
+                      <span className="text-[11px] font-bold text-sienna uppercase tracking-wider bg-sienna/10 px-2.5 py-1 rounded-md border border-sienna/20">
+                        {video.category}
+                      </span>
+                    </div>
+
+                    <a
+                      href={video.watchUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[11px] font-bold text-bdazzled hover:text-sienna dark:text-cerulean dark:hover:text-sienna transition-colors"
+                    >
+                      <span>YouTube</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+
+                  {/* Title & Description */}
+                  <div className="space-y-2">
+                    <h3 className="text-xl font-extrabold text-gunmetal dark:text-lightcyan leading-snug">
+                      {video.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-bdazzled dark:text-cerulean/90 leading-relaxed font-medium">
+                      {video.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
 
         </div>
@@ -575,7 +700,7 @@ export default function CanreaCandidatePage() {
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 bg-lightcyan/30 dark:bg-bdazzled/40 border border-cerulean/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-sienna uppercase tracking-wider">
               <Video className="w-3.5 h-3.5 text-sienna" />
-              <span>Featured Keynote</span>
+              <span>Philosophy on Energy Decisions</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-gunmetal dark:text-lightcyan">
               Hierarchy of Energy Priorities
