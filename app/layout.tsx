@@ -4,6 +4,8 @@ import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import './globals.css';
 
 const inter = Outfit({
   subsets: ['latin'],
@@ -44,6 +46,7 @@ export default function RootLayout({
           <Footer />
         </ThemeProvider>
       </body>
+      <GoogleAnalytics gaId="G-HSV1Z8DVS0" />
     </html>
   );
 }
