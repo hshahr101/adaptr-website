@@ -744,38 +744,122 @@ export default function PowerSystemStudiesPage() {
               </div>
             </div>
 
-            {/* Right Column: 4-Pillar Executive Summary (Slide 1 Pillars) */}
-            <div className="lg:col-span-5 relative">
-              <div className="w-full bg-gunmetal p-6 sm:p-7 rounded-3xl border border-cerulean/30 shadow-2xl text-lightcyan space-y-4">
-                <div className="flex justify-between items-center border-b border-cerulean/20 pb-3">
-                  <span className="text-[10px] font-mono text-sienna font-black uppercase tracking-widest">
-                    THE ADAPTR ADVANTAGE
-                  </span>
-                  <span className="bg-sienna/20 text-sienna px-2.5 py-0.5 rounded text-[10px] font-bold border border-sienna/30">
-                    25+ Yrs Experience
-                  </span>
-                </div>
+{/* Right Column: ADAMM 3-Tier Layered Architecture Graphic */}
+<div className="lg:col-span-5 relative flex justify-center">
+  <div className="w-full bg-gunmetal/95 backdrop-blur-xl border border-cerulean/30 rounded-3xl p-5 sm:p-6 shadow-2xl relative overflow-hidden text-lightcyan flex flex-col justify-between">
 
-                <div className="space-y-3 text-xs">
-                  <div className="p-3 bg-gunmetal/80 border border-cerulean/20 rounded-2xl">
-                    <span className="text-[10px] font-black uppercase tracking-wider text-sienna block">Goal</span>
-                    <p className="font-semibold text-white mt-0.5">Make power system studies less onerous and less expensive for IPPs and utilities.</p>
-                  </div>
-                  <div className="p-3 bg-gunmetal/80 border border-cerulean/20 rounded-2xl">
-                    <span className="text-[10px] font-black uppercase tracking-wider text-sienna block">Scope</span>
-                    <p className="font-semibold text-white mt-0.5">Deliver the complete lifecycle scope from origination to commercial operations.</p>
-                  </div>
-                  <div className="p-3 bg-gunmetal/80 border border-cerulean/20 rounded-2xl">
-                    <span className="text-[10px] font-black uppercase tracking-wider text-sienna block">Tooling & Lab</span>
-                    <p className="font-semibold text-white mt-0.5">PSCAD™, PSS®E, MATLAB, PowerFactory, and our in-house Opal-RT HIL laboratory.</p>
-                  </div>
-                  <div className="p-3 bg-sienna/15 border border-sienna/30 rounded-2xl">
-                    <span className="text-[10px] font-black uppercase tracking-wider text-sienna block">Execution</span>
-                    <p className="font-semibold text-white mt-0.5">Orchestrated through ADAMM to eliminate version drift and hand-off data loss.</p>
-                  </div>
-                </div>
+    {/* Ambient Glows */}
+    <div className="absolute top-0 right-0 w-48 h-48 bg-sienna/15 rounded-full blur-3xl pointer-events-none" />
+    <div className="absolute bottom-0 left-0 w-48 h-48 bg-cerulean/15 rounded-full blur-3xl pointer-events-none" />
+
+    {/* Card Header Chrome */}
+    <div className="flex justify-between items-center border-b border-cerulean/20 pb-3 relative z-10 mb-2">
+      <div className="flex items-center gap-2">
+        <div className="flex gap-1.5">
+          <span className="w-2.5 h-2.5 rounded-full bg-sienna" />
+          <span className="w-2.5 h-2.5 rounded-full bg-cerulean" />
+          <span className="w-2.5 h-2.5 rounded-full bg-white/80" />
+        </div>
+        <span className="text-[14px] font-mono text-cerulean font-bold ml-1 tracking-wider uppercase">
+          Adaptive Model Manager - ADAMM
+        </span>
+      </div>
+      <span className="bg-sienna/20 text-sienna px-2.5 py-0.5 rounded text-[10px] font-black border border-sienna/30 uppercase tracking-wider">
+        3-Tier Platform
+      </span>
+    </div>
+
+    {/* Isometric Graphic Container with Layer Callout Annotations */}
+    <div className="relative w-full flex items-center justify-center">
+      
+      {/* Centered Isometric Image */}
+      <div className="relative w-full max-w-[340px] sm:max-w-[380px] aspect-[4/5] flex items-center justify-center">
+        <Image
+          src="/images/adamm-approach.png"
+          alt="ADAMM Three-Tier Architecture: ADAMM Portal, Orchestrator, and ADAPTR Engineering"
+          fill
+          priority
+          className="object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.6)]"
+        />
+
+        {/* ─── LAYER 1 ANNOTATION (TOP): ADAMM portal ─── */}
+        <div className="absolute top-[8%] -left-2 sm:-left-4 z-20 animate-fadeIn">
+          <div className="flex items-center gap-2">
+            <div className="bg-gunmetal/90 border border-sienna/60 backdrop-blur-md px-3 py-1.5 rounded-xl shadow-xl flex items-center gap-2">
+              
+              <div>
+                <span className="text-[9px] font-mono uppercase tracking-widest text-sienna font-black block leading-none">
+                  Top Layer
+                </span>
+                <span className="text-xs font-black text-white whitespace-nowrap">
+                  CLIENT PORTAL
+                </span>
               </div>
             </div>
+            {/* Visual Leader Indicator Line */}
+            <div className="hidden sm:block w-8 border-t-2 border-dashed border-sienna/60" />
+          </div>
+        </div>
+
+        {/* ─── LAYER 2 ANNOTATION (MID): Orchestrator ─── */}
+        <div className="absolute top-[48%] -right-2 sm:-right-4 z-20 animate-fadeIn">
+          <div className="flex items-center gap-2">
+            {/* Visual Leader Indicator Line */}
+            <div className="hidden sm:block w-8 border-t-2 border-dashed border-cerulean/60" />
+            <div className="bg-gunmetal/90 border border-cerulean/60 backdrop-blur-md px-3 py-1.5 rounded-xl shadow-xl flex items-center gap-2">
+              
+              <div>
+                <span className="text-[9px] font-mono uppercase tracking-widest text-cerulean font-black block leading-none">
+                  Mid Layer
+                </span>
+                <span className="text-xs font-black text-white whitespace-nowrap">
+                  COORDINATOR
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ─── LAYER 3 ANNOTATION (BOTTOM): ADAPTR Engineering ─── */}
+        <div className="absolute bottom-[8%] -left-2 sm:-left-4 z-20 animate-fadeIn">
+          <div className="flex items-center gap-2">
+            <div className="bg-gunmetal/90 border border-bdazzled/80 backdrop-blur-md px-3 py-1.5 rounded-xl shadow-xl flex items-center gap-2">
+              
+              <div>
+                <span className="text-[9px] font-mono uppercase tracking-widest text-cerulean/80 font-black block leading-none">
+                  Bottom Layer
+                </span>
+                <span className="text-xs font-black text-white whitespace-nowrap">
+                  TECHNICAL STUDIES
+                </span>
+              </div>
+            </div>
+            {/* Visual Leader Indicator Line */}
+            <div className="hidden sm:block w-8 border-t-2 border-dashed border-bdazzled/80" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    {/* Bottom Summary Strip */}
+    <div className="grid grid-cols-3 gap-2 pt-3 border-t border-cerulean/20 text-center relative z-10">
+      <div className="p-2 bg-gunmetal/80 border border-cerulean/20 rounded-xl">
+        <p className="text-[9px] font-mono font-black uppercase tracking-widest text-sienna">Lower</p>
+        <p className="text-xs font-black text-white mt-0.5">COST</p>
+      </div>
+      <div className="p-2 bg-gunmetal/80 border border-cerulean/20 rounded-xl">
+        <p className="text-[9px] font-mono font-black uppercase tracking-widest text-sienna">Higher</p>
+        <p className="text-xs font-black text-white mt-0.5">THROUGHPUT</p>
+      </div>
+      <div className="p-2 bg-gunmetal/80 border border-cerulean/20 rounded-xl">
+        <p className="text-[9px] font-mono font-black uppercase tracking-widest text-sienna">Continous</p>
+        <p className="text-xs font-black text-white mt-0.5">COMPLIANCE</p>
+      </div>
+    </div>
+
+  </div>
+</div>
 
           </div>
 
