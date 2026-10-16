@@ -775,7 +775,7 @@ export default function PowerSystemStudiesPage() {
       {/* Centered Isometric Image */}
       <div className="relative w-full max-w-[340px] sm:max-w-[380px] aspect-[4/5] flex items-center justify-center">
         <Image
-          src="/images/adamm-approach.png"
+          src="/images/adamm1.png"
           alt="ADAMM Three-Tier Architecture: ADAMM Portal, Orchestrator, and ADAPTR Engineering"
           fill
           priority
