@@ -27,7 +27,10 @@ import {
   Quote,
   Target,
   Compass,
-  Play
+  Play,
+  QrCode,
+  X,
+  Smartphone
 } from 'lucide-react';
 
 interface ExpertiseItem {
@@ -231,6 +234,7 @@ const mediaVideos = [
 
 export default function CanreaCandidatePage() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [showQrModal, setShowQrModal] = useState(false);
   const currentItem = expertiseData[activeIndex];
 
   return (
@@ -750,9 +754,9 @@ export default function CanreaCandidatePage() {
       {/* SECTION 6: CALL TO ACTION FOR CANREA MEMBERS                         */}
       {/* ==================================================================== */}
       <section className="py-20 px-6 sm:px-12">
-        <div className="max-w-5xl mx-auto bg-gradient-to-br from-gunmetal to-bdazzled dark:from-gunmetal/90 dark:to-bdazzled/40 text-lightcyan rounded-3xl p-8 sm:p-12 border border-cerulean/30 shadow-2xl text-center space-y-8 relative overflow-hidden">
+        <div className="max-w-5xl mx-auto bg-gradient-to-br from-gunmetal to-bdazzled dark:from-gunmetal/90 dark:to-bdazzled/40 text-lightcyan rounded-3xl p-8 sm:p-12 border border-cerulean/30 shadow-2xl space-y-10 relative overflow-hidden">
           
-          <div className="space-y-4 max-w-2xl mx-auto">
+          <div className="space-y-4 max-w-2xl mx-auto text-center">
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
               Vote Hassan Shahriar for the CanREA Board
             </h2>
@@ -761,14 +765,16 @@ export default function CanreaCandidatePage() {
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-2">
+          {/* Action Links & QR Code Trigger */}
+          <div className="flex flex-wrap gap-4 justify-center items-center">
             <a
               href="mailto:hassan@adaptrenergy.com?subject=CanREA%20Board%20Candidacy%20Inquiry"
-              className="inline-flex items-center justify-center gap-2 bg-sienna hover:bg-sienna/90 text-white font-bold text-base px-8 py-3.5 rounded-xl transition-all shadow-lg shadow-sienna/20 hover:scale-[1.02] cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 bg-sienna hover:bg-sienna/90 text-white font-bold text-base px-7 py-3.5 rounded-xl transition-all shadow-lg shadow-sienna/20 hover:scale-[1.02] cursor-pointer"
             >
               <span>Connect via Email</span>
               <ArrowRight className="w-5 h-5" />
             </a>
+            
             <a
               href="https://www.linkedin.com/in/hassan-shahriar/"
               target="_blank"
@@ -778,10 +784,112 @@ export default function CanreaCandidatePage() {
               <span>LinkedIn Profile</span>
               <ExternalLink className="w-4 h-4" />
             </a>
+
+            <button
+              onClick={() => setShowQrModal(true)}
+              className="inline-flex items-center justify-center gap-2 bg-cerulean/20 hover:bg-cerulean/30 text-white font-bold text-base px-6 py-3.5 rounded-xl border border-cerulean/40 transition-all cursor-pointer"
+            >
+              <QrCode className="w-4 h-4 text-sienna" />
+              <span>Show QR Code</span>
+            </button>
+          </div>
+
+          {/* Dedicated In-Person Sharing QR Code Display Card */}
+          <div className="pt-8 border-t border-cerulean/20 max-w-md mx-auto text-center space-y-4">
+            <div className="inline-flex items-center gap-2 bg-sienna/10 border border-sienna/20 px-3.5 py-1.5 rounded-full text-xs font-bold text-sienna uppercase tracking-wider">
+              <Smartphone className="w-3.5 h-3.5 text-sienna" />
+              <span>Scan to Share & Bookmark</span>
+            </div>
+
+            <div className="flex justify-center">
+              <div className="bg-white p-3.5 rounded-2xl shadow-2xl border-4 border-white inline-block">
+                <Image
+                  src="/images/canrea_candidate/qr_code.png"
+                  alt="Scan QR code to open Hassan Shahriar's CanREA Candidate Profile"
+                  width={180}
+                  height={180}
+                  className="w-40 h-40 object-contain"
+                  priority
+                />
+              </div>
+            </div>
+
+            <p className="text-xs sm:text-sm text-cerulean/90 font-medium leading-relaxed max-w-xs mx-auto">
+              Scan with your phone camera to quickly pull up and share this candidate page during in-person conversations.
+            </p>
           </div>
 
         </div>
       </section>
+
+      {/* ==================================================================== */}
+      {/* MOBILE STICKY FLOATING QUICK-SHARE BUTTON                            */}
+      {/* ==================================================================== */}
+      <div className="fixed bottom-5 right-5 z-40 sm:hidden">
+        <button
+          onClick={() => setShowQrModal(true)}
+          className="flex items-center gap-2 bg-sienna text-white px-4 py-3 rounded-full shadow-2xl font-bold text-xs uppercase tracking-wider border border-white/20 active:scale-95 transition-transform cursor-pointer"
+          aria-label="Open Candidate QR Code"
+        >
+          <QrCode className="w-4 h-4" />
+          <span>Quick QR</span>
+        </button>
+      </div>
+
+      {/* ==================================================================== */}
+      {/* FULL-SCREEN QR CODE MODAL FOR QUICK DISPLAY                          */}
+      {/* ==================================================================== */}
+      {showQrModal && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gunmetal/80 backdrop-blur-md transition-all duration-200"
+          onClick={() => setShowQrModal(false)}
+        >
+          <div 
+            className="bg-white dark:bg-gunmetal border border-cerulean/30 rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl space-y-5 text-center relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowQrModal(false)}
+              className="absolute top-4 right-4 p-2 rounded-full bg-lightcyan/60 dark:bg-bdazzled/30 text-bdazzled dark:text-cerulean hover:text-gunmetal dark:hover:text-lightcyan transition-colors cursor-pointer"
+              aria-label="Close QR Modal"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            
+            <div className="space-y-1 pt-2">
+              <span className="text-[10px] font-black uppercase tracking-wider text-sienna bg-sienna/10 px-2.5 py-1 rounded-md border border-sienna/20">
+                CanREA Board Candidate
+              </span>
+              <h3 className="text-xl sm:text-2xl font-extrabold text-gunmetal dark:text-lightcyan">
+                Hassan Shahriar
+              </h3>
+              <p className="text-xs text-bdazzled dark:text-cerulean/90">
+                Scan with any mobile camera to view full candidate profile, videos, and strategic objectives.
+              </p>
+            </div>
+
+            <div className="flex justify-center">
+              <div className="bg-white p-4 rounded-2xl shadow-xl border-4 border-white inline-block">
+                <Image
+                  src="/images/canrea_candidate/qr_code.png"
+                  alt="Scan QR code to open Hassan Shahriar's CanREA Candidate Profile"
+                  width={220}
+                  height={220}
+                  className="w-52 h-52 object-contain"
+                  priority
+                />
+              </div>
+            </div>
+
+            <button
+              onClick={() => setShowQrModal(false)}
+              className="w-full py-3 bg-sienna text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md hover:bg-sienna/90 transition-colors cursor-pointer"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
     </div>
   );
