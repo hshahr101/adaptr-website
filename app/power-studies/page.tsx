@@ -37,7 +37,9 @@ import {
   Sun,
   Radio,
   SlidersHorizontal,
-  ChevronDown
+  ChevronDown,
+  Factory,
+  Binary
 } from 'lucide-react';
 
 // ─── 1. GOOGLE CALENDAR SCHEDULING MODAL ──────────────────────────────────
@@ -298,7 +300,7 @@ function StageDetailModal({ stage, onClose }: StageModalProps) {
 
         <div className="pt-4 border-t border-cerulean/20 flex justify-between items-center text-xs">
           <a
-            href="https://adamm.adaptrenergy.com"
+            href="https://adamm-frontend-2fnfzf3t5-adaptrenergy.vercel.app/dashboard"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-sienna font-bold hover:underline"
@@ -319,7 +321,7 @@ function StageDetailModal({ stage, onClose }: StageModalProps) {
 }
 
 // ─── DATA DEFINITIONS ──────────────────────────────────────────────────────
-const adammUrl = "https://adamm.adaptrenergy.com";
+const adammUrl = "https://adamm-frontend-2fnfzf3t5-adaptrenergy.vercel.app/dashboard";
 
 // Slide 2: Who We Are - 4 Domain Competencies
 interface CompetencyDomain {
@@ -349,17 +351,17 @@ const domainCompetencies: CompetencyDomain[] = [
     projects: ['Hybrid Microgrid BESS Dispatching', 'Micro-cycling Degradation Analysis', 'Fast-Frequency Response Services']
   },
   {
-    icon: Layers,
-    title: 'System Design & Microgrids',
-    focus: 'Hybrid renewables for remote, industrial & off-grid networks',
-    projects: ["Mary's Harbour Wind+Solar+Hydro+BESS", 'Nain Arctic Remote Wind-Storage', 'Rankin Inlet Microgrid Integration']
+    icon: Factory,
+    title: 'OEM Model Validation',
+    focus: 'Dynamic model build, parameter tuning & regulatory compliance',
+    projects: ['RMS/EMT User-written custom models', 'PSS®E and PSCAD™ Benchmarking (5%)', 'MQT Grid Code Conformity Packages']
   }
 ];
 
-// Slide 3: What We Do - Categorized into Steady-State vs Transient
+// Slide 3: What We Do - Categorized into Steady-State, Transient & OEM-Services
 interface StudyItem {
   id: string;
-  category: 'Steady-State' | 'Transient';
+  category: 'Steady-State' | 'Transient' | 'OEM-Services';
   title: string;
   subtitle: string;
   icon: React.ElementType;
@@ -460,6 +462,52 @@ const categorizedStudies: StudyItem[] = [
       'Utility RFI resolution and formal approval facilitation'
     ],
     deliverables: 'Utility-Ready Interconnection Package, Comprehensive SIA Report, Validated Model Archive'
+  },
+  // OEM-SERVICES (SPECIALIZED CAPABILITIES)
+  {
+    id: 'oem-custom-dev',
+    category: 'OEM-Services',
+    title: 'Specialized OEM Model Development & Coding',
+    subtitle: 'Translating Complex Controls to Approved Simulations',
+    icon: Binary,
+    description: 'Bespoke development of certified PSS®E (user-written DLLs) and high-fidelity PSCAD™ model packages directly from physical controller firmware or C++ code. Saves OEM R&D time and unlocks bottlenecked product deployment.',
+    highlights: [
+      'Development of dynamic RMS/EMT simulation blocks directly from logic',
+      'User-written PSS®E DLL, custom PowerFactory, and custom PSCAD™ packages',
+      'Translating manufacturer C++ parameters and physical logic to virtual assets',
+      'Providing turnkey, operator-approved model libraries to shorten project delivery'
+    ],
+    deliverables: 'Compiled Model Archive (.dll/.dllx/.pscx), User Custom Libraries, Detailed User & Commissioning Guides'
+  },
+  {
+    id: 'oem-validation-mqt',
+    category: 'OEM-Services',
+    title: 'Model Quality Testing (MQT) & Benchmark Cross-Validation',
+    subtitle: 'Matching Transient to Dynamic Models within Strict Tolerances',
+    icon: ShieldCheck,
+    description: 'Ensuring equipment is ready for the stringent approval gates of utilities (such as NERC or regional LDCs) by benchmarking and cross-validating RMS (PSS®E) and EMT (PSCAD™) models against tight 5% tolerance guidelines.',
+    highlights: [
+      'Performing automated Model Quality Testing (MQT) scripts for grid compliance',
+      'Rigorous bench-test comparing of transience, faults, and weak-grid scenarios',
+      'Resolving pre-study queue RFIs and identifying dynamic parameter defects',
+      'Assisting OEM design and test engineers with pre-commissioning grid compliance'
+    ],
+    deliverables: 'Complete Benchmark MQT Report, Multi-Scenarios Alignment Datasets, Overlay Validation Curves'
+  },
+  {
+    id: 'oem-lab-realtime',
+    category: 'OEM-Services',
+    title: 'Hardware-in-the-Loop (HIL) & Factory Acceptance Validation',
+    subtitle: 'Evaluating Physical Controllers Against Real-World Grids',
+    icon: Server,
+    description: 'Bringing OEM equipment and PLC controllers into our advanced real-time testing laboratory to perform Hardware-in-the-Loop (HIL) simulations against realistic network contingencies and weak grid parameters.',
+    highlights: [
+      'Real-time simulation interfacing (using Opal-RT & Speedgoat systems)',
+      'Benchmarking actual device responses (PPC/Inverters) against simulated environments',
+      'Testing dynamic fault recovery, ride-through, and frequency support loops',
+      'Developing robust, witness-ready compliance and factory test datasets'
+    ],
+    deliverables: 'Commissioning-Ready Test Results, Device Controller Setting Files, Real-Time Laboratory Performance Metrics'
   }
 ];
 
@@ -685,7 +733,7 @@ export default function PowerSystemStudiesPage() {
   const [isMeetingModalOpen, setIsMeetingModalOpen] = useState(false);
   const [selectedCapabilityModal, setSelectedCapabilityModal] = useState<StudyItem | null>(null);
   const [selectedStageModal, setSelectedStageModal] = useState<StageDetail | null>(null);
-  const [activeTechnicalTab, setActiveTechnicalTab] = useState<'Steady-State' | 'Transient'>('Steady-State');
+  const [activeTechnicalTab, setActiveTechnicalTab] = useState<'Steady-State' | 'Transient' | 'OEM-Services'>('Steady-State');
 
   const filteredStudies = categorizedStudies.filter(
     (study) => study.category === activeTechnicalTab
@@ -984,7 +1032,7 @@ export default function PowerSystemStudiesPage() {
               >
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <span className="text-[10px] font-black font-mono text-sienna bg-sienna/10 px-2 py-0.5 rounded border border-sienna/20 uppercase">
+                    <span className="text-[10px] font-black font-mono text-sienna bg-sienna/10 px-2.5 py-0.5 rounded border border-sienna/20 uppercase">
                       {stage.stageNumber}
                     </span>
                     <Eye className="w-4 h-4 text-cerulean group-hover:text-sienna transition-colors" />
@@ -1063,7 +1111,7 @@ export default function PowerSystemStudiesPage() {
 
           {/* Tab Filter Toggle */}
           <div className="flex justify-center">
-            <div className="inline-flex p-1.5 bg-gunmetal border border-cerulean/30 rounded-2xl">
+            <div className="inline-flex p-1.5 bg-gunmetal border border-cerulean/30 rounded-2xl flex-wrap">
               <button
                 type="button"
                 onClick={() => setActiveTechnicalTab('Steady-State')}
@@ -1086,11 +1134,23 @@ export default function PowerSystemStudiesPage() {
               >
                 Transient & Dynamic Studies
               </button>
+              <button
+                type="button"
+                onClick={() => setActiveTechnicalTab('OEM-Services')}
+                className={`px-6 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1 ${
+                  activeTechnicalTab === 'OEM-Services'
+                    ? 'bg-sienna text-white shadow-md'
+                    : 'text-cerulean hover:text-white'
+                }`}
+              >
+                <Factory className="w-3.5 h-3.5" />
+                OEM Model Validation
+              </button>
             </div>
           </div>
 
           {/* Active Studies Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-fadeIn">
             {filteredStudies.map((study) => {
               const Icon = study.icon;
               return (
