@@ -1144,7 +1144,7 @@ export default function PowerSystemStudiesPage() {
                 }`}
               >
                 <Factory className="w-3.5 h-3.5" />
-                OEM Model Validation
+                OEM Model Support
               </button>
             </div>
           </div>
