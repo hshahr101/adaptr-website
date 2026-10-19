@@ -254,7 +254,7 @@ function StageDetailModal({ stage, onClose }: StageModalProps) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-gunmetal/80 p-4 rounded-2xl border border-cerulean/20 space-y-2.5">
             <div className="flex items-center gap-2 text-sienna font-extrabold text-xs uppercase tracking-wider border-b border-cerulean/20 pb-2">
-              <CheckCircle2 className="w-4 h-4" />
+              <CheckCircle2 className="w-4 h-4 text-sienna" />
               <span>Scope & Tasks</span>
             </div>
             <ul className="space-y-1.5 text-xs font-semibold text-white">
@@ -269,7 +269,7 @@ function StageDetailModal({ stage, onClose }: StageModalProps) {
 
           <div className="bg-gunmetal/80 p-4 rounded-2xl border border-cerulean/20 space-y-2.5">
             <div className="flex items-center gap-2 text-cerulean font-extrabold text-xs uppercase tracking-wider border-b border-cerulean/20 pb-2">
-              <FileText className="w-4 h-4" />
+              <FileText className="w-4 h-4 text-cerulean" />
               <span>Required Inputs</span>
             </div>
             <ul className="space-y-1.5 text-xs font-semibold text-white">
@@ -284,7 +284,7 @@ function StageDetailModal({ stage, onClose }: StageModalProps) {
 
           <div className="bg-gunmetal/80 p-4 rounded-2xl border border-cerulean/20 space-y-2.5">
             <div className="flex items-center gap-2 text-sienna font-extrabold text-xs uppercase tracking-wider border-b border-cerulean/20 pb-2">
-              <FolderDown className="w-4 h-4" />
+              <FolderDown className="w-4 h-4 text-sienna" />
               <span>Deliverables</span>
             </div>
             <div className="space-y-2">
@@ -305,7 +305,7 @@ function StageDetailModal({ stage, onClose }: StageModalProps) {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-sienna font-bold hover:underline"
           >
-            <span>Open {stage.stageName} Workspace in ADAMM Portal</span>
+            <span>Open {stage.stageName} Workspace in ADAMM Portal Mockup</span>
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
           <button
@@ -769,7 +769,7 @@ export default function PowerSystemStudiesPage() {
               </div>
 
               <p className="text-base text-bdazzled dark:text-cerulean/90 leading-relaxed font-medium max-w-2xl">
-                We deliver the full suite of power system studies from early project origination to commercial operations. Backed by 25+ years of engineering experience and delivered through <strong>ADAMM</strong>—our adaptive model management platform that accelerates utility review cycles and protects your project timeline.
+                We deliver the full suite of power system studies from early project origination to commercial operations. Backed by 25+ years of engineering experience and delivered through <strong>ADAMM</strong>—our adaptive mockup model manager that accelerates utility review cycles and protects your project timeline.
               </p>
 
               {/* CTAs */}
@@ -779,7 +779,7 @@ export default function PowerSystemStudiesPage() {
                   className="inline-flex items-center justify-center gap-2 bg-sienna hover:bg-sienna/90 text-white font-bold text-base px-7 py-3.5 rounded-xl transition-all shadow-lg shadow-sienna/20 hover:scale-[1.02] cursor-pointer"
                 >
                   <Workflow className="w-5 h-5 text-white" />
-                  <span>Explore ADAMM</span>
+                  <span>Explore ADAMM Mockup</span>
                 </a>
                 <button
                   type="button"
@@ -809,7 +809,7 @@ export default function PowerSystemStudiesPage() {
           <span className="w-2.5 h-2.5 rounded-full bg-white/80" />
         </div>
         <span className="text-[14px] font-mono text-cerulean font-bold ml-1 tracking-wider uppercase">
-          Adaptive Model Manager - ADAMM
+          Adaptive Model Manager - ADAMM Mockup
         </span>
       </div>
       <span className="bg-sienna/20 text-sienna px-2.5 py-0.5 rounded text-[10px] font-black border border-sienna/30 uppercase tracking-wider">
@@ -901,7 +901,7 @@ export default function PowerSystemStudiesPage() {
         <p className="text-xs font-black text-white mt-0.5">THROUGHPUT</p>
       </div>
       <div className="p-2 bg-gunmetal/80 border border-cerulean/20 rounded-xl">
-        <p className="text-[9px] font-mono font-black uppercase tracking-widest text-sienna">Continous</p>
+        <p className="text-[9px] font-mono font-black uppercase tracking-widest text-sienna">Continuous</p>
         <p className="text-xs font-black text-white mt-0.5">COMPLIANCE</p>
       </div>
     </div>
@@ -1080,7 +1080,7 @@ export default function PowerSystemStudiesPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-sienna hover:bg-sienna/90 text-white font-bold text-xs px-6 py-3 rounded-xl transition-all shadow-md shrink-0"
             >
-              <span>Explore ADAMM Portal</span>
+              <span>Explore ADAMM Mockup Portal</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </div>
@@ -1242,15 +1242,15 @@ export default function PowerSystemStudiesPage() {
                   <span>PSS®E and PSCAD™ 5% tolerance cross-validation benchmarks</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-sienna shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-sienna" />
                   <span>Rapid Control Prototyping (RCP) for complex hybrid microgrids</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-sienna shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-sienna animate-pulse" />
                   <span>Factory Acceptance Test (FAT) telemetry benchmark comparisons</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-sienna shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-sienna" />
                   <span>Active & reactive power control under weak-grid SCR conditions</span>
                 </div>
               </div>
@@ -1310,7 +1310,7 @@ export default function PowerSystemStudiesPage() {
               Ready to Derisk Your Interconnection?
             </h2>
             <p className="text-base text-cerulean/90 font-medium leading-relaxed">
-              Streamline your power system studies, catch compliance issues early, and manage model lifecycle seamlessly with ADAPTR & ADAMM.
+              Streamline your power system studies, catch compliance issues early, and manage mockup model lifecycles seamlessly with ADAPTR & ADAMM.
             </p>
           </div>
 
@@ -1322,7 +1322,7 @@ export default function PowerSystemStudiesPage() {
               className="inline-flex items-center justify-center gap-2 bg-sienna hover:bg-sienna/90 text-white font-bold text-base px-8 py-3.5 rounded-xl transition-all shadow-lg shadow-sienna/20 hover:scale-[1.02] cursor-pointer"
             >
               <Laptop className="w-5 h-5 text-white" />
-              <span>Launch ADAMM Portal</span>
+              <span>Launch ADAMM Mockup Portal</span>
               <ExternalLink className="w-4 h-4 text-white/80" />
             </a>
             <button
@@ -1330,7 +1330,7 @@ export default function PowerSystemStudiesPage() {
               onClick={() => setIsMeetingModalOpen(true)}
               className="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold text-base px-6 py-3.5 rounded-xl border border-white/20 transition-all cursor-pointer"
             >
-              <Video className="w-5 h-5" />
+              <Video className="w-5 h-5 text-white" />
               <span>Schedule Study Consultation</span>
             </button>
           </div>
