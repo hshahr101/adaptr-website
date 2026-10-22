@@ -192,7 +192,7 @@ const teamMembers: TeamMember[] = [
       'Ability to translate strategy into executable actions',
       'Foster team mindset to adopt a plan-do-check-act approach',
     ],
-    imageUrl: '/images/team/sarah-lin.jpg',
+    imageUrl: '/images/team/Alex_fou.jpg',
     linkedin: 'https://www.linkedin.com/in/alex-fournier-p-eng-mba-41142b3b/',
   },
   {
@@ -234,7 +234,7 @@ const teamMembers: TeamMember[] = [
       'Design intuitive digital experiences across UX/UI, translate client needs into clear, functional interfaces',
       'Build and deliver digital tools across frontend and backend development',
     ],
-    imageUrl: '/images/team/carman_m.jpg',
+    imageUrl: '/images/team/car_mach.jpg',
     linkedin: 'https://www.linkedin.com/in/carmanmach/',
   },
   {
@@ -262,7 +262,7 @@ const teamMembers: TeamMember[] = [
       'Engineered backend services using FastAPI',
       'Architect Agentic workflows with Llama, ChromaDB, RAG and memory infrastructure',
     ],
-    imageUrl: '/images/team/alex-rivera.jpg',
+    imageUrl: '/images/team/Ross_h.jpg',
     linkedin: 'https://www.linkedin.com/in/ross-huang-0627b8224/',
   },
 ];
