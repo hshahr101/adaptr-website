@@ -699,21 +699,6 @@ export default function AboutPage() {
                       {member.badgeRole || member.role.split(' ')[0]}
                     </div>
 
-                    {/* PROMINENT CANREA BTM BOARD CANDIDATE OVERLAY BUTTON FOR HASSAN SHAHRIAR */}
-                    {member.id === '1' && (
-                      <div className="absolute bottom-3 inset-x-3 z-20">
-                        <Link
-                          href="/canrea-candidate"
-                          className="flex items-center justify-between gap-2 w-full px-4 py-2.5 rounded-xl bg-sienna hover:bg-sienna/90 text-white font-extrabold text-xs shadow-xl shadow-sienna/30 border border-sienna/40 transition-all hover:scale-[1.02] cursor-pointer"
-                        >
-                          <div className="flex items-center gap-1.5">
-                            <Sparkles className="w-4 h-4 text-lightcyan animate-pulse shrink-0" />
-                            <span>CanREA BTM Board Candidate</span>
-                          </div>
-                          <ArrowRight className="w-4 h-4 text-white shrink-0" />
-                        </Link>
-                      </div>
-                    )}
                   </div>
 
                   {/* Content Area: Name, Role, Expertise Tags, Achievement Bullets */}
