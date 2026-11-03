@@ -305,7 +305,7 @@ function StageDetailModal({ stage, onClose }: StageModalProps) {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 text-sienna font-bold hover:underline"
           >
-            <span>Open {stage.stageName} Workspace in ADAMM Portal Mockup</span>
+            <span>Open {stage.stageName} Workspace in ADAMM Portal</span>
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
           <button
@@ -769,7 +769,7 @@ export default function PowerSystemStudiesPage() {
               </div>
 
               <p className="text-base text-bdazzled dark:text-cerulean/90 leading-relaxed font-medium max-w-2xl">
-                We deliver the full suite of power system studies from early project origination to commercial operations. Backed by 25+ years of engineering experience and delivered through <strong>ADAMM</strong>—our adaptive mockup model manager that accelerates utility review cycles and protects your project timeline.
+                We deliver the full suite of power system studies from early project origination to commercial operations. Backed by 25+ years of engineering experience and delivered through <strong>ADAMM</strong>—our adaptive model manager that accelerates utility review cycles and protects your project timeline.
               </p>
 
               {/* CTAs */}
@@ -779,7 +779,7 @@ export default function PowerSystemStudiesPage() {
                   className="inline-flex items-center justify-center gap-2 bg-sienna hover:bg-sienna/90 text-white font-bold text-base px-7 py-3.5 rounded-xl transition-all shadow-lg shadow-sienna/20 hover:scale-[1.02] cursor-pointer"
                 >
                   <Workflow className="w-5 h-5 text-white" />
-                  <span>Explore ADAMM Mockup</span>
+                  <span>Explore ADAMM</span>
                 </a>
                 <button
                   type="button"
@@ -809,7 +809,7 @@ export default function PowerSystemStudiesPage() {
           <span className="w-2.5 h-2.5 rounded-full bg-white/80" />
         </div>
         <span className="text-[14px] font-mono text-cerulean font-bold ml-1 tracking-wider uppercase">
-          Adaptive Model Manager - ADAMM Mockup
+          Adaptive Model Manager - ADAMM
         </span>
       </div>
       <span className="bg-sienna/20 text-sienna px-2.5 py-0.5 rounded text-[10px] font-black border border-sienna/30 uppercase tracking-wider">
@@ -1080,7 +1080,7 @@ export default function PowerSystemStudiesPage() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-sienna hover:bg-sienna/90 text-white font-bold text-xs px-6 py-3 rounded-xl transition-all shadow-md shrink-0"
             >
-              <span>Explore ADAMM Mockup Portal</span>
+              <span>Explore ADAMM Portal</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </div>
@@ -1310,7 +1310,7 @@ export default function PowerSystemStudiesPage() {
               Ready to Derisk Your Interconnection?
             </h2>
             <p className="text-base text-cerulean/90 font-medium leading-relaxed">
-              Streamline your power system studies, catch compliance issues early, and manage mockup model lifecycles seamlessly with ADAPTR & ADAMM.
+              Streamline your power system studies, catch compliance issues early, and manage model lifecycles seamlessly with ADAPTR & ADAMM.
             </p>
           </div>
 
@@ -1322,7 +1322,7 @@ export default function PowerSystemStudiesPage() {
               className="inline-flex items-center justify-center gap-2 bg-sienna hover:bg-sienna/90 text-white font-bold text-base px-8 py-3.5 rounded-xl transition-all shadow-lg shadow-sienna/20 hover:scale-[1.02] cursor-pointer"
             >
               <Laptop className="w-5 h-5 text-white" />
-              <span>Launch ADAMM Mockup Portal</span>
+              <span>Launch ADAMM Portal</span>
               <ExternalLink className="w-4 h-4 text-white/80" />
             </a>
             <button
