@@ -11,18 +11,19 @@ import {
   Plane, 
   Anchor, 
   ArrowRight, 
-  ChevronLeft,
-  ChevronRight,
+  ChevronLeft, 
+  ChevronRight, 
   CheckCircle2, 
   Globe, 
   ShieldCheck, 
-  Workflow,
-  FlaskConical,
-  Pickaxe,
-  Fuel,
-  Video,
-  X,
-  ExternalLink
+  Workflow, 
+  FlaskConical, 
+  Pickaxe, 
+  Fuel, 
+  Video, 
+  X, 
+  ExternalLink,
+  Play
 } from 'lucide-react';
 
 // ─── GOOGLE CALENDAR APPOINTMENT SCHEDULING MODAL ─────────────────────────
@@ -61,7 +62,7 @@ function ScheduleMeetingModal({ isOpen, onClose }: ScheduleMeetingModalProps) {
           </div>
           <button 
             onClick={onClose}
-            className="text-cerulean/70 hover:text-white p-1 rounded-lg hover:bg-cerulean/10 transition-colors"
+            className="text-cerulean/70 hover:text-white p-1 rounded-lg hover:bg-cerulean/10 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -157,7 +158,6 @@ export default function TechnologyPage() {
   const [isMeetingModalOpen, setIsMeetingModalOpen] = useState(false);
   const [activePillarIndex, setActivePillarIndex] = useState(0);
 
-  // Force page to load at the absolute top
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -201,11 +201,11 @@ export default function TechnologyPage() {
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row gap-4 pt-2">
                 <a
-                  href="#pillars"
+                  href="#video-overview"
                   className="inline-flex items-center justify-center gap-2 bg-sienna hover:bg-sienna/90 text-white font-bold text-base px-7 py-3 rounded-xl transition-all shadow-lg shadow-sienna/20 hover:scale-[1.02] cursor-pointer"
                 >
-                  <span>Explore Innovation Pillars</span>
-                  <ArrowRight className="w-5 h-5" />
+                  <Play className="w-4 h-4 fill-white" />
+                  <span>Watch Concept Overview</span>
                 </a>
                 <a
                   href="#patents"
@@ -307,9 +307,9 @@ export default function TechnologyPage() {
                         <button
                           key={item.id}
                           onClick={() => setActivePillarIndex(idx)}
-                          className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all ${
+                          className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
                             activePillarIndex === idx
-                              ? 'bg-sienna text-white dark:text-gunmetal shadow-md scale-105'
+                              ? 'bg-sienna text-white shadow-md scale-105'
                               : 'bg-lightcyan/60 dark:bg-bdazzled/30 text-bdazzled dark:text-cerulean hover:text-gunmetal dark:hover:text-lightcyan border border-cerulean/20 dark:border-transparent'
                           }`}
                         >
@@ -348,7 +348,7 @@ export default function TechnologyPage() {
                       <button
                         key={idx}
                         onClick={() => setActivePillarIndex(idx)}
-                        className={`h-2 rounded-full transition-all ${
+                        className={`h-2 rounded-full transition-all cursor-pointer ${
                           activePillarIndex === idx ? 'w-8 bg-sienna' : 'w-2 bg-cerulean/20 dark:bg-bdazzled/60'
                         }`}
                         aria-label={`Go to pillar ${idx + 1}`}
@@ -363,7 +363,7 @@ export default function TechnologyPage() {
                           (prev) => (prev - 1 + innovationPillarsData.length) % innovationPillarsData.length
                         )
                       }
-                      className="p-2 rounded-lg bg-lightcyan/60 dark:bg-bdazzled/30 hover:bg-cerulean/20 dark:hover:bg-bdazzled/60 text-bdazzled dark:text-cerulean hover:text-gunmetal dark:hover:text-lightcyan transition-colors border border-cerulean/20 dark:border-transparent"
+                      className="p-2 rounded-lg bg-lightcyan/60 dark:bg-bdazzled/30 hover:bg-cerulean/20 dark:hover:bg-bdazzled/60 text-bdazzled dark:text-cerulean hover:text-gunmetal dark:hover:text-lightcyan transition-colors border border-cerulean/20 dark:border-transparent cursor-pointer"
                       aria-label="Previous pillar"
                     >
                       <ChevronLeft className="w-4 h-4" />
@@ -372,7 +372,7 @@ export default function TechnologyPage() {
                       onClick={() =>
                         setActivePillarIndex((prev) => (prev + 1) % innovationPillarsData.length)
                       }
-                      className="p-2 rounded-lg bg-lightcyan/60 dark:bg-bdazzled/30 hover:bg-cerulean/20 dark:hover:bg-bdazzled/60 text-bdazzled dark:text-cerulean hover:text-gunmetal dark:hover:text-lightcyan transition-colors border border-cerulean/20 dark:border-transparent"
+                      className="p-2 rounded-lg bg-lightcyan/60 dark:bg-bdazzled/30 hover:bg-cerulean/20 dark:hover:bg-bdazzled/60 text-bdazzled dark:text-cerulean hover:text-gunmetal dark:hover:text-lightcyan transition-colors border border-cerulean/20 dark:border-transparent cursor-pointer"
                       aria-label="Next pillar"
                     >
                       <ChevronRight className="w-4 h-4" />
@@ -407,25 +407,56 @@ export default function TechnologyPage() {
       </section>
 
       {/* ==================================================================== */}
-      {/* SECTION 3: APPLICATION FRONTIERS                                     */}
+      {/* SECTION 3: APPLICATION FRONTIERS + VIDEO EMBED                       */}
       {/* ==================================================================== */}
-      <section className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30">
+      <section id="video-overview" className="py-20 px-6 sm:px-12 border-b border-cerulean/20 dark:border-bdazzled/30">
         <div className="max-w-7xl mx-auto space-y-12">
           
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 bg-lightcyan/30 dark:bg-bdazzled/40 border border-cerulean/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-sienna uppercase tracking-wider">
-              <span>Next-Generation Applications</span>
+              <Video className="w-3.5 h-3.5" />
+              <span>Architecture in Motion</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-4xl font-extrabold tracking-tight text-gunmetal dark:text-lightcyan">
-              Electricity Expansion Across Multiple Frontiers
+              Towards an Outage-Free Electric Grid
             </h2>
             <p className="text-base text-bdazzled dark:text-cerulean/90 font-medium leading-relaxed">
-              ADAPTR&apos;s Mobile Electric Grid technologies unlock access to power where deployment or modernization of traditional utility infrastructure is physically impractical or economically infeasible.
+              Watch how ADAPTR&apos;s Mobile Electric Grid pairs physical battery mobility with our patented Grid Adaptr power electronics to bypass transmission bottlenecks and eliminate power outages.
             </p>
           </div>
 
-          {/* Mobile Electric Grid Concept Diagram Banner */}
-          <div className="w-full bg-white/80 dark:bg-gunmetal/80 p-4 sm:p-6 rounded-2xl border border-cerulean/20 dark:border-bdazzled/40 shadow-xl dark:shadow-2xl space-y-4">
+          {/* Embedded YouTube Video Feature Container */}
+          <div className="w-full max-w-5xl mx-auto bg-gunmetal p-4 sm:p-6 rounded-3xl border border-cerulean/30 shadow-2xl space-y-4">
+            <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-black border border-cerulean/20 shadow-inner">
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/aDzyo5aO6N0?rel=0"
+                title="Towards Outage-free Electric Grid - ADAPTR Inc."
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="w-full h-full border-0"
+                loading="lazy"
+              />
+            </div>
+
+            <div className="p-3.5 bg-gunmetal/80 rounded-xl border border-cerulean/20 text-xs text-lightcyan flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+              <div>
+                <p className="font-bold text-sm text-white">Mobile Electric Grid (MEG) Architecture Video Brief</p>
+                <p className="text-xs text-cerulean/80 font-medium">Discover how air-gapped energy transport delivers grid-level reliability to remote and infrastructure-constrained sites.</p>
+              </div>
+              <a
+                href="https://www.youtube.com/watch?v=aDzyo5aO6N0"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-sienna hover:underline shrink-0"
+              >
+                <span>Watch on YouTube</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </div>
+
+          {/* Concept Diagram Banner */}
+          <div className="w-full bg-white/80 dark:bg-gunmetal/80 p-4 sm:p-6 rounded-2xl border border-cerulean/20 dark:border-bdazzled/40 shadow-xl dark:shadow-2xl space-y-4 mt-8">
             <div className="relative aspect-[16/9] sm:aspect-[21/9] w-full overflow-hidden rounded-xl bg-lightcyan/20 dark:bg-gunmetal flex items-center justify-center border border-cerulean/10 dark:border-bdazzled/30 shadow-inner p-2">
               <Image
                 src="/images/MEGA.jpg"
@@ -435,7 +466,6 @@ export default function TechnologyPage() {
                 className="object-contain hover:scale-[1.01] transition-transform duration-500"
                 priority
               />
-
             </div>
 
             <div className="p-3.5 bg-lightcyan/30 dark:bg-gunmetal rounded-lg border border-cerulean/20 dark:border-bdazzled/40 text-xs text-bdazzled dark:text-cerulean flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
@@ -449,7 +479,8 @@ export default function TechnologyPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* 6 Application Frontiers */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
             
             {/* Frontier 1 */}
             <div className="bg-white/80 dark:bg-gunmetal/80 border border-cerulean/20 dark:border-bdazzled/40 p-6 rounded-2xl space-y-4 shadow-sm flex flex-col justify-between">
