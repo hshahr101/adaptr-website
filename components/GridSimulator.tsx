@@ -840,7 +840,7 @@ export default function GridSimulator() {
             <div className="p-5 sm:p-6 rounded-2xl bg-lightcyan/20 dark:bg-bdazzled/20 border border-cerulean/20 dark:border-bdazzled/30 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-inner h-full">
               <div className="space-y-1 text-center sm:text-left">
                 <p className="text-xs text-bdazzled dark:text-cerulean/90 font-medium leading-snug">
-                  Generate a custom technical report based on your live simulation settings.
+                  Receive a free simulation and technical review based on your live simulation settings.
                 </p>
               </div>
               <button
