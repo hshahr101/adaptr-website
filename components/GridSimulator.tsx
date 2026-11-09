@@ -278,7 +278,7 @@ function RequestConfigModal({
         </div>
 
         <p className="text-xs text-cerulean/80 leading-relaxed mb-4">
-          Please enter your information below to receive the simulation report and free technical consultation timeslot to discuss Grid Adaptr™ PCS configuration to meet grid code compliance for your project.
+          Please enter your information below to request the simulation review and free technical consultation timeslot to discuss Grid Adaptr™ PCS configuration to meet grid code compliance for your project.
         </p>
 
         {/* Selected Simulation Parameters Card */}
@@ -393,7 +393,7 @@ function RequestConfigModal({
                 </>
               ) : (
                 <>
-                  <span>Request Report</span>
+                  <span>Request Review</span>
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}
@@ -743,7 +743,7 @@ export default function GridSimulator() {
                   {gridAdaptrActive ? (
                     <div className="text-left sm:text-right max-w-xs">
                       <p className="text-xs font-bold text-bdazzled dark:text-cerulean leading-snug">
-                        Request Simulation Report to explore viable Grid Adaptr Configuration.
+                        Request Simulation Review to explore viable Grid Adaptr Configuration.
                       </p>
                     </div>
                   ) : (
@@ -847,7 +847,7 @@ export default function GridSimulator() {
                 onClick={() => setIsModalOpen(true)}
                 className="inline-flex items-center justify-center gap-2 bg-sienna hover:bg-sienna/90 text-white font-extrabold text-xs sm:text-sm px-6 py-3.5 rounded-xl transition-all shadow-lg shadow-sienna/20 hover:scale-[1.02] cursor-pointer uppercase tracking-wider shrink-0 w-full sm:w-auto"
               >
-                <span>Request Simulation Report</span>
+                <span>Request Simulation Review</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
